@@ -1,0 +1,67 @@
+PODS:
+  - Down (0.5.2)
+  - iOSSnapshotTestCase (4.0.0):
+    - iOSSnapshotTestCase/SwiftSupport (= 4.0.0)
+  - iOSSnapshotTestCase/Core (4.0.0)
+  - iOSSnapshotTestCase/SwiftSupport (4.0.0):
+    - iOSSnapshotTestCase/Core
+  - KIF (3.7.4):
+    - KIF/Core (= 3.7.4)
+  - KIF-Quick (1.1.0):
+    - KIF (~> 3.0)
+    - Quick (~> 1.0)
+  - KIF/Core (3.7.4)
+  - Mockingjay (2.0.1):
+    - Mockingjay/Core (= 2.0.1)
+    - Mockingjay/XCTest (= 2.0.1)
+  - Mockingjay/Core (2.0.1):
+    - URITemplate (~> 2.0)
+  - Mockingjay/XCTest (2.0.1):
+    - Mockingjay/Core
+  - Nimble (7.3.1)
+  - Nimble-Snapshots (6.9.0):
+    - Nimble-Snapshots/Core (= 6.9.0)
+  - Nimble-Snapshots/Core (6.9.0):
+    - iOSSnapshotTestCase (~> 4.0)
+    - Nimble (~> 7.0)
+  - Quick (1.3.2)
+  - SwiftLint (0.27.0)
+  - URITemplate (2.0.3)
+
+DEPENDENCIES:
+  - Down
+  - KIF-Quick
+  - Mockingjay
+  - Nimble
+  - Nimble-Snapshots
+  - Quick
+  - SwiftLint
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Down
+    - iOSSnapshotTestCase
+    - KIF
+    - KIF-Quick
+    - Mockingjay
+    - Nimble
+    - Nimble-Snapshots
+    - Quick
+    - SwiftLint
+    - URITemplate
+
+SPEC CHECKSUMS:
+  Down: 587371ad58002b06023d9c602519216862c3acbc
+  iOSSnapshotTestCase: 711379b19f69a22c131527df862352c877c2773c
+  KIF: f3d01c109ee9d1cfe6b0f2bb2aa278e807e971e2
+  KIF-Quick: da968bbfad615fd96c0d5eb4d8fd484ecdc26814
+  Mockingjay: 11a621880d2887f1775bdcf824341eb68f218450
+  Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  Nimble-Snapshots: 79394f8d0aea3df54bd5ff78ee9dff05a523a09c
+  Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  URITemplate: ace0c4c46dcf8afe6e89b4060621852886b15c3b
+
+PODFILE CHECKSUM: 1ee5009c41c9bfba02b233d6f684ec6f2b53f7e9
+
+COCOAPODS: 1.5.3
