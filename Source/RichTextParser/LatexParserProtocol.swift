@@ -37,11 +37,7 @@ extension LatexParserProtocol {
     // MARK: - Helpers
 
     private func extractLatexStringInsideTags(from input: String) -> String {
-        return (input.range(of: "[math]")?.upperBound).flatMap { substringFrom in
-            (input.range(of: "[/math]", range: substringFrom..<input.endIndex)?.lowerBound).map { substringTo in
-                String(input[substringFrom..<substringTo])
-            }
-        } ?? input
+        return input.getSubstring(inBetween: "[math]", and: "[/math]") ?? input
     }
 
     private func image(from label: MTMathUILabel) -> UIImage? {
