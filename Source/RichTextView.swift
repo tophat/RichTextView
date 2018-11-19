@@ -29,7 +29,17 @@ public class RichTextView: UIView {
 
     // MARK: - Private Helpers
 
+    private func generateArrayOfLabelsAndWebviews() -> [UIView] {
+        return self.splitInputOnVideoPortions().compactMap { input -> UIView? in
+            return self.isStringAVideoTag(input) ? RichWebViewGenerator.getWebView(from: input) : RichLabelGenerator.getLabel(from: input)
+        }
+    }
+
     private func splitInputOnVideoPortions() -> [String] {
         return self.input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+    }
+
+    private func isStringAVideoTag(_ input: String) -> Bool {
+        return input.range(of: RichTextViewConstants.videoTagRegex, options: .regularExpression, range: nil, locale: nil) != nil
     }
 }

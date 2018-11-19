@@ -8,4 +8,14 @@
 
 class RichLabelGenerator {
 
+    // MARK: - Init
+
+    private init() {}
+
+    // MARK: - Utility Functions
+
+    static func getLabel(from input: String) -> UILabel {
+        // TODO: Issue #13
+        return UILabel()
+    }
 }
