@@ -1,5 +1,6 @@
 PODS:
   - Down (0.5.2)
+  - iosMath (1.0.1)
   - iOSSnapshotTestCase (4.0.0):
     - iOSSnapshotTestCase/SwiftSupport (= 4.0.0)
   - iOSSnapshotTestCase/Core (4.0.0)
@@ -30,6 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - Down
+  - iosMath (from `https://github.com/tophatmonocle/iosMath.git`)
   - KIF-Quick
   - Mockingjay
   - Nimble
@@ -50,8 +52,18 @@ SPEC REPOS:
     - SwiftLint
     - URITemplate
 
+EXTERNAL SOURCES:
+  iosMath:
+    :git: https://github.com/tophatmonocle/iosMath.git
+
+CHECKOUT OPTIONS:
+  iosMath:
+    :commit: 172f1feb5732c2f81d73f93fafd916c1b45169b9
+    :git: https://github.com/tophatmonocle/iosMath.git
+
 SPEC CHECKSUMS:
   Down: 587371ad58002b06023d9c602519216862c3acbc
+  iosMath: 2a769d30ea8b226faf2aa7da0a135fdf435de3d8
   iOSSnapshotTestCase: 711379b19f69a22c131527df862352c877c2773c
   KIF: f3d01c109ee9d1cfe6b0f2bb2aa278e807e971e2
   KIF-Quick: da968bbfad615fd96c0d5eb4d8fd484ecdc26814
@@ -62,6 +74,6 @@ SPEC CHECKSUMS:
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
   URITemplate: ace0c4c46dcf8afe6e89b4060621852886b15c3b
 
-PODFILE CHECKSUM: 0a012c4dc090e2d42f46b101f8fa70e157e3205a
+PODFILE CHECKSUM: 4f7059c51965f5a4daff2d33fe9830f436bd5ca6
 
 COCOAPODS: 1.5.3

@@ -8,4 +8,19 @@
 
 class RichTextParser {
 
+    // MARK: - Dependencies
+
+    let latexParser: LatexParserProtocol
+    
+    // MARK: - Init
+
+    init(latexParser: LatexParserProtocol = LatexParser.shared) {
+        self.latexParser = latexParser
+    }
+
+    // MARK: - Helpers
+
+    func extractLatex(from input: String) -> NSAttributedString {
+        return self.latexParser.extractLatex(from: input)
+    }
 }
