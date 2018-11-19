@@ -60,16 +60,6 @@ class RichTextParser {
         return text.contains("[math]")
     }
 
-    func isTextHTML(_ text: String) -> Bool {
-        do {
-            let regexPattern = "(?:</[^<]+>)|(?:<[^<]+/>)"
-            let regex = try NSRegularExpression(pattern: regexPattern, options: .caseInsensitive)
-            return regex.numberOfMatches(in: text, options: [], range: NSMakeRange(0, text.count)) != 0
-        } catch {
-            return false
-        }
-    }
-
     private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {
         return ranges.flatMap { range in
             return [range.lowerBound, range.upperBound]

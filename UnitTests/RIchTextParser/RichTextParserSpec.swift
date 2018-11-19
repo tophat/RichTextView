@@ -20,7 +20,7 @@ class RichTextParserSpec: QuickSpec {
         static let basicMarkdown = "**More Text**"
         static let complexMarkdown = "#text **something *more words* ~(testing brackets)~"
         static let basicLatex = "[math]x^n[/math]"
-        static let complexLatex = "[math]x =\\dfrac{\\dfrac{a}{b}}{c} = \\dfrac{\\frac{\\textstyle a}{\\textstyle b}}{c}[/math] **More Text** [math]\\dfrac{\\frac{a}{b}}{c} [/math]"
+        static let complexLatex = "[math]x^2[/math] **More Text** [math]x^n+5=2[/math]"
     }
 
     var richTextParser: RichTextParser!
@@ -29,24 +29,6 @@ class RichTextParserSpec: QuickSpec {
         describe("RichTextParser") {
             beforeEach {
                 self.richTextParser = RichTextParser()
-            }
-            context("HTML parsing") {
-                it("successfully identifies various HTML text") {
-                    expect(self.richTextParser.isTextHTML(MarkDownText.standardHTML)).to(beTrue())
-                    expect(self.richTextParser.isTextHTML(MarkDownText.complexHTML)).to(beTrue())
-                }
-                it("succssfully rejects non-markdown text") {
-                    expect(self.richTextParser.isTextHTML(MarkDownText.regularText)).to(beFalse())
-                    expect(self.richTextParser.isTextHTML(MarkDownText.regularTextWithFalseFlags)).to(beFalse())
-                }
-                it("successfully rejects markdown text") {
-                    expect(self.richTextParser.isTextHTML(MarkDownText.basicMarkdown)).to(beFalse())
-                    expect(self.richTextParser.isTextHTML(MarkDownText.complexMarkdown)).to(beFalse())
-                }
-                it("successfully rejects latex text") {
-                    expect(self.richTextParser.isTextHTML(MarkDownText.basicLatex)).to(beFalse())
-                    expect(self.richTextParser.isTextHTML(MarkDownText.complexLatex)).to(beFalse())
-                }
             }
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
@@ -59,9 +41,9 @@ class RichTextParserSpec: QuickSpec {
                     let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
 
                     expect(components.count).to(equal(3))
-                    expect(components[0]).to(equal("[math]x =\\dfrac{\\dfrac{a}{b}}{c} = \\dfrac{\\frac{\\textstyle a}{\\textstyle b}}{c}[/math]"))
+                    expect(components[0]).to(equal("[math]x^2[/math]"))
                     expect(components[1]).to(equal(" **More Text** "))
-                    expect(components[2]).to(equal("[math]\\dfrac{\\frac{a}{b}}{c} [/math]"))
+                    expect(components[2]).to(equal("[math]x^n+5=2[/math]"))
                 }
                 it("generates an attributed string array with the correct components") {
                     let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
@@ -70,7 +52,7 @@ class RichTextParserSpec: QuickSpec {
                     expect(attributedStrings.count).to(equal(3))
                     expect(attributedStrings[1].string).to(equal("More Text\n"))
                     self.testAttributedStringContainsImage(attributedStrings[0])
-                   // self.testAttributedStringContainsImage(attributedStrings[2])
+                    self.testAttributedStringContainsImage(attributedStrings[2])
                 }
             }
             context("Memory leaks") {
