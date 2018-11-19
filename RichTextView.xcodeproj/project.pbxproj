@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		291C250691FA3CA22C035D1E /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C3795FF118EB097691BF70 /* Pods_RichTextViewUITests.framework */; };
+		2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */; };
 		781488EE2194E6B600DED7A1 /* RichTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 781488EC2194E6B600DED7A1 /* RichTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488F42194E6D600DED7A1 /* RichTextView.swift */; };
-		781488FD2194E71C00DED7A1 /* RichTextViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */; };
 		781488FF2194E71C00DED7A1 /* RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781488E92194E6B600DED7A1 /* RichTextView.framework */; };
 		7814890C2194E72C00DED7A1 /* RichTextViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814890B2194E72C00DED7A1 /* RichTextViewUITests.swift */; };
 		78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814893F219536DF00DED7A1 /* RichTextParser.swift */; };
 		781489422195378B00DED7A1 /* RichLabelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781489412195378B00DED7A1 /* RichLabelGenerator.swift */; };
 		781489442195379800DED7A1 /* RichWebViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781489432195379800DED7A1 /* RichWebViewGenerator.swift */; };
+		7886C39F21A2EA4600C11817 /* RichTextParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C39D21A2E96000C11817 /* RichTextParserSpec.swift */; };
+		7886C3A421A2EB2600C11817 /* RichLabelGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A021A2EAF300C11817 /* RichLabelGeneratorSpec.swift */; };
+		7886C3A521A2EB2900C11817 /* RichWebViewGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A221A2EB2100C11817 /* RichWebViewGeneratorSpec.swift */; };
+		7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */; };
 		8733B18526846B92206E1477 /* Pods_RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A9A76BC3D29ECF1E9FC8382 /* Pods_RichTextView.framework */; };
 		B803F79E312921099F50B876 /* Pods_RichTextViewUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0967CBC35EAF02F7B369E017 /* Pods_RichTextViewUnitTests.framework */; };
 /* End PBXBuildFile section */
@@ -50,6 +54,10 @@
 		7814893F219536DF00DED7A1 /* RichTextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextParser.swift; sourceTree = "<group>"; };
 		781489412195378B00DED7A1 /* RichLabelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichLabelGenerator.swift; sourceTree = "<group>"; };
 		781489432195379800DED7A1 /* RichWebViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichWebViewGenerator.swift; sourceTree = "<group>"; };
+		7886C39D21A2E96000C11817 /* RichTextParserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RichTextParserSpec.swift; path = UnitTests/RIchTextParser/RichTextParserSpec.swift; sourceTree = SOURCE_ROOT; };
+		7886C3A021A2EAF300C11817 /* RichLabelGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichLabelGeneratorSpec.swift; sourceTree = "<group>"; };
+		7886C3A221A2EB2100C11817 /* RichWebViewGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichWebViewGeneratorSpec.swift; sourceTree = "<group>"; };
+		7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexParserProtocol.swift; sourceTree = "<group>"; };
 		7C483FFA3DD4DC0AFE757FE7 /* Pods-RichTextViewUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUnitTests/Pods-RichTextViewUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CB2D9F72DEC7CA00B03B77E4 /* Pods-RichTextViewUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUITests/Pods-RichTextViewUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E88BE53AD5654E10F2522A6D /* Pods-RichTextViewUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUITests/Pods-RichTextViewUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,12 +140,12 @@
 		781488EB2194E6B600DED7A1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				7814893E219536D000DED7A1 /* RichWebViewGenerator */,
+				781488ED2194E6B600DED7A1 /* Info.plist */,
 				7814893D219536C800DED7A1 /* RichLabelGenerator */,
 				7814893C2195369D00DED7A1 /* RichTextParser */,
 				781488EC2194E6B600DED7A1 /* RichTextView.h */,
-				781488ED2194E6B600DED7A1 /* Info.plist */,
 				781488F42194E6D600DED7A1 /* RichTextView.swift */,
+				7814893E219536D000DED7A1 /* RichWebViewGenerator */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -145,8 +153,11 @@
 		781488FB2194E71C00DED7A1 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */,
 				781488FE2194E71C00DED7A1 /* Info.plist */,
+				7886C39B21A2E92800C11817 /* RichLabelGenerator */,
+				7886C39C21A2E92F00C11817 /* RIchTextParser */,
+				781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */,
+				7886C39A21A2E91D00C11817 /* RichWebViewGenerator */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -163,6 +174,7 @@
 		7814893C2195369D00DED7A1 /* RichTextParser */ = {
 			isa = PBXGroup;
 			children = (
+				7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */,
 				7814893F219536DF00DED7A1 /* RichTextParser.swift */,
 			);
 			path = RichTextParser;
@@ -182,6 +194,30 @@
 				781489432195379800DED7A1 /* RichWebViewGenerator.swift */,
 			);
 			path = RichWebViewGenerator;
+			sourceTree = "<group>";
+		};
+		7886C39A21A2E91D00C11817 /* RichWebViewGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				7886C3A221A2EB2100C11817 /* RichWebViewGeneratorSpec.swift */,
+			);
+			path = RichWebViewGenerator;
+			sourceTree = "<group>";
+		};
+		7886C39B21A2E92800C11817 /* RichLabelGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				7886C3A021A2EAF300C11817 /* RichLabelGeneratorSpec.swift */,
+			);
+			path = RichLabelGenerator;
+			sourceTree = "<group>";
+		};
+		7886C39C21A2E92F00C11817 /* RIchTextParser */ = {
+			isa = PBXGroup;
+			children = (
+				7886C39D21A2E96000C11817 /* RichTextParserSpec.swift */,
+			);
+			path = RIchTextParser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,6 +476,7 @@
 				781489422195378B00DED7A1 /* RichLabelGenerator.swift in Sources */,
 				781489442195379800DED7A1 /* RichWebViewGenerator.swift in Sources */,
 				781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */,
+				7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */,
 				78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,7 +485,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				781488FD2194E71C00DED7A1 /* RichTextViewUnitTests.swift in Sources */,
+				7886C39F21A2EA4600C11817 /* RichTextParserSpec.swift in Sources */,
+				7886C3A421A2EB2600C11817 /* RichLabelGeneratorSpec.swift in Sources */,
+				7886C3A521A2EB2900C11817 /* RichWebViewGeneratorSpec.swift in Sources */,
+				2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +691,8 @@
 			baseConfigurationReference = 7C483FFA3DD4DC0AFE757FE7 /* Pods-RichTextViewUnitTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RichTextViewUnitTests/Info.plist;
+				DEVELOPMENT_TEAM = 8N4V63T666;
+				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -669,7 +710,8 @@
 			baseConfigurationReference = 66ABA700C4C5FE1A566929A0 /* Pods-RichTextViewUnitTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RichTextViewUnitTests/Info.plist;
+				DEVELOPMENT_TEAM = 8N4V63T666;
+				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -687,7 +729,8 @@
 			baseConfigurationReference = CB2D9F72DEC7CA00B03B77E4 /* Pods-RichTextViewUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RichTextViewUITests/Info.plist;
+				DEVELOPMENT_TEAM = 8N4V63T666;
+				INFOPLIST_FILE = UITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -705,7 +748,8 @@
 			baseConfigurationReference = E88BE53AD5654E10F2522A6D /* Pods-RichTextViewUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RichTextViewUITests/Info.plist;
+				DEVELOPMENT_TEAM = 8N4V63T666;
+				INFOPLIST_FILE = UITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
