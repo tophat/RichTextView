@@ -16,7 +16,7 @@ class RichTextParserSpec: QuickSpec {
         static let regularText = "Some Text"
         static let regularTextWithFalseFlags = "Some \"Text\" with random >p and some <no closing tag>"
         static let standardHTML = "<p>some text</p>"
-        static let complexHTML = "<p><div><randomtext>M</randomtext></div></p>"
+        static let complexHTML = "<p><div><randomtext>Message</randomtext></div></p>"
         static let basicMarkdown = "**More Text**"
         static let complexMarkdown = "#text **something *more words* ~(testing brackets)~"
         static let basicLatex = "[math]x^n[/math]"
@@ -45,7 +45,7 @@ class RichTextParserSpec: QuickSpec {
                     expect(components[1]).to(equal(" **More Text** "))
                     expect(components[2]).to(equal("[math]x^n+5=2[/math]"))
                 }
-                it("generates an attributed string array with the correct components") {
+                it("generates an attributed string array with the correct components for latex and markdown") {
                     let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
                     let attributedStrings = self.richTextParser.generateAttributedStringArray(from: components)
 
@@ -53,6 +53,13 @@ class RichTextParserSpec: QuickSpec {
                     expect(attributedStrings[1].string).to(equal("More Text\n"))
                     self.testAttributedStringContainsImage(attributedStrings[0])
                     self.testAttributedStringContainsImage(attributedStrings[2])
+                }
+                it("generates an attributed string array with the correct components for html") {
+                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexHTML)
+                    let attributedStrings = self.richTextParser.generateAttributedStringArray(from: components)
+
+                    expect(attributedStrings.count).to(equal(1))
+                    expect(attributedStrings[0].string).to(equal("\nMessage\n\n"))
                 }
             }
             context("Memory leaks") {

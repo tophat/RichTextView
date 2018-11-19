@@ -47,6 +47,9 @@ class RichTextParser {
 
     func seperateComponents(from input: String) -> [String] {
         let splitPositions = self.extractPositions(fromRanges: input.ranges(of: ParserConstants.latexRegex, options: .regularExpression))
+        if splitPositions.count == 0 {
+            return [input]
+        }
         return input.split(
             atPositions: splitPositions
         )
@@ -57,9 +60,9 @@ class RichTextParser {
     }
 
     func isTextLatex(_ text: String) -> Bool {
-        return text.contains("[math]")
+        return text.ranges(of: ParserConstants.latexRegex, options: .regularExpression).count != 0
     }
-
+    
     private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {
         return ranges.flatMap { range in
             return [range.lowerBound, range.upperBound]
