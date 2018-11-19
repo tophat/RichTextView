@@ -14,7 +14,7 @@ class RichTextParser {
 
     // MARK: - Init
 
-    init(latexParser: LatexParserProtocol = LatexParser.shared) {
+    init(latexParser: LatexParserProtocol = LatexParser()) {
         self.latexParser = latexParser
     }
 

@@ -60,11 +60,4 @@ extension LatexParserProtocol {
     }
 }
 
-class LatexParser: LatexParserProtocol {
-
-    // MARK: - Singleton
-
-    static let shared = LatexParser()
-
-    private init() {}
-}
+class LatexParser: LatexParserProtocol {}
