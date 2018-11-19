@@ -8,7 +8,7 @@ jobs:
 
     # Specify the Xcode version to use
     macos:
-      xcode: "8.3.3"
+      xcode: "10.0"
 
     steps:
       - checkout
@@ -18,13 +18,21 @@ jobs:
           name: Install CocoaPods
           command: pod install
 
-      # Build the app and run tests
+      # Build the app and run RichTextViewUnitTests
       - run:
-          name: Build and run tests
+          name: Build and run RichTextViewUnitTests
           command: fastlane scan
           environment:
             SCAN_DEVICE: iPhone 6
-            SCAN_SCHEME: WebTests
+            SCAN_SCHEME: RichTextViewUnitTests
+
+      # Build the app and run RichTextViewUITests
+      - run:
+          name: Build and run RichTextViewUITests
+          command: fastlane scan
+          environment:
+            SCAN_DEVICE: iPhone 6
+            SCAN_SCHEME: RichTextViewUITests
 
       # Collect XML test results data to show in the UI,
       # and save the same XML files under test-results folder
