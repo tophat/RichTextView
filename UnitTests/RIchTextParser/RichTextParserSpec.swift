@@ -16,7 +16,11 @@ class RichTextParserSpec: QuickSpec {
         static let regularText = "Some Text"
         static let regularTextWithFalseFlags = "Some \"Text\" with random >p and some <no closing tag>"
         static let standardHTML = "<p>some text</p>"
+        static let complexHTML = "<p><div><randomtext>M</randomtext></div></p>"
         static let basicMarkdown = "**More Text**"
+        static let complextMarkdown = "#text **something *more words* ~(testing brackets)~"
+        static let basicLatex = "[math]x^n[/math]"
+        static let complextLatext = "[math]x =\\dfrac{\\dfrac{a}{b}}{c} = \\dfrac{\\frac{\\textstyle a}{\\textstyle b}}{c} = \\dfrac{\\frac{a}{b}}{c} [/math]"
     }
 
     var richTextParser: RichTextParser!
@@ -28,10 +32,20 @@ class RichTextParserSpec: QuickSpec {
                     self.richTextParser = RichTextParser()
                 }
                 it("successfully identifies various HTML text") {
-                    expect(self.richTextParser.isTextHTML(MarkDownText.regularText)).to(beFalse())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.standardHTML)).to(beTrue())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.complexHTML)).to(beTrue())
                 }
-                it("succssfully rejects non-HTML text") {
-
+                it("succssfully rejects non-markdown text") {
+                    expect(self.richTextParser.isTextHTML(MarkDownText.regularText)).to(beFalse())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.regularTextWithFalseFlags)).to(beFalse())
+                }
+                it("successfully rejects markdown text") {
+                    expect(self.richTextParser.isTextHTML(MarkDownText.basicMarkdown)).to(beFalse())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.complextMarkdown)).to(beFalse())
+                }
+                it("successfully rejects latex text") {
+                    expect(self.richTextParser.isTextHTML(MarkDownText.basicLatex)).to(beFalse())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.complextLatext)).to(beFalse())
                 }
             }
             context("Memory leaks") {
