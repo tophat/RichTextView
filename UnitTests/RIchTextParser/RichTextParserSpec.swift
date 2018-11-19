@@ -18,9 +18,9 @@ class RichTextParserSpec: QuickSpec {
         static let standardHTML = "<p>some text</p>"
         static let complexHTML = "<p><div><randomtext>M</randomtext></div></p>"
         static let basicMarkdown = "**More Text**"
-        static let complextMarkdown = "#text **something *more words* ~(testing brackets)~"
+        static let complexMarkdown = "#text **something *more words* ~(testing brackets)~"
         static let basicLatex = "[math]x^n[/math]"
-        static let complextLatext = "[math]x =\\dfrac{\\dfrac{a}{b}}{c} = \\dfrac{\\frac{\\textstyle a}{\\textstyle b}}{c} = \\dfrac{\\frac{a}{b}}{c} [/math]"
+        static let complexLatex = "[math]x =\\dfrac{\\dfrac{a}{b}}{c} = \\dfrac{\\frac{\\textstyle a}{\\textstyle b}}{c}[/math] **More Text** [math]\\dfrac{\\frac{a}{b}}{c} [/math]"
     }
 
     var richTextParser: RichTextParser!
@@ -41,27 +41,36 @@ class RichTextParserSpec: QuickSpec {
                 }
                 it("successfully rejects markdown text") {
                     expect(self.richTextParser.isTextHTML(MarkDownText.basicMarkdown)).to(beFalse())
-                    expect(self.richTextParser.isTextHTML(MarkDownText.complextMarkdown)).to(beFalse())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.complexMarkdown)).to(beFalse())
                 }
                 it("successfully rejects latex text") {
                     expect(self.richTextParser.isTextHTML(MarkDownText.basicLatex)).to(beFalse())
-                    expect(self.richTextParser.isTextHTML(MarkDownText.complextLatext)).to(beFalse())
+                    expect(self.richTextParser.isTextHTML(MarkDownText.complexLatex)).to(beFalse())
                 }
             }
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
                     let output = self.richTextParser.extractLatex(from: MarkDownText.basicLatex)
-                    expect(output).to(beAKindOf(NSAttributedString.self))
-                    var hasImage = false
-                    let fullRange = NSRange(location: 0, length: output.length)
-                    output.enumerateAttribute(.attachment, in: fullRange, options: []) { (value, _, _) in
-                        guard let attachment = value as? NSTextAttachment else { return }
+                    self.testAttributedStringContainsImage(output)
+                }
+            }
+            context("Breaking up text into componenets") {
+                it("seperates latex from html/markdown and maintains the order") {
+                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
 
-                        if let _ = attachment.image {
-                            hasImage = true
-                        }
-                    }
-                    expect(hasImage).to(beTrue())
+                    expect(components.count).to(equal(3))
+                    expect(components[0]).to(equal("[math]x =\\dfrac{\\dfrac{a}{b}}{c} = \\dfrac{\\frac{\\textstyle a}{\\textstyle b}}{c}[/math]"))
+                    expect(components[1]).to(equal(" **More Text** "))
+                    expect(components[2]).to(equal("[math]\\dfrac{\\frac{a}{b}}{c} [/math]"))
+                }
+                it("generates an attributed string array with the correct components") {
+                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
+                    let attributedStrings = self.richTextParser.generateAttributedStringArray(from: components)
+
+                    expect(attributedStrings.count).to(equal(3))
+                    expect(attributedStrings[1].string).to(equal("More Text\n"))
+                    self.testAttributedStringContainsImage(attributedStrings[0])
+                   // self.testAttributedStringContainsImage(attributedStrings[2])
                 }
             }
             context("Memory leaks") {
@@ -86,5 +95,19 @@ class RichTextParserSpec: QuickSpec {
                 }
             }
         }
+    }
+
+    private func testAttributedStringContainsImage(_ input: NSAttributedString) {
+        expect(input).to(beAKindOf(NSAttributedString.self))
+        var hasImage = false
+        let fullRange = NSRange(location: 0, length: input.length)
+        input.enumerateAttribute(.attachment, in: fullRange, options: []) { (value, _, _) in
+            guard let attachment = value as? NSTextAttachment else { return }
+
+            if let _ = attachment.image {
+                hasImage = true
+            }
+        }
+        expect(hasImage).to(beTrue())
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		291C250691FA3CA22C035D1E /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C3795FF118EB097691BF70 /* Pods_RichTextViewUITests.framework */; };
+		2AC4D4F121A34B1800E93002 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4D4F021A34B1800E93002 /* StringExtension.swift */; };
 		2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */; };
 		781488EE2194E6B600DED7A1 /* RichTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 781488EC2194E6B600DED7A1 /* RichTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488F42194E6D600DED7A1 /* RichTextView.swift */; };
@@ -38,6 +39,7 @@
 		07C3795FF118EB097691BF70 /* Pods_RichTextViewUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextViewUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0967CBC35EAF02F7B369E017 /* Pods_RichTextViewUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextViewUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EA28C1181DA031CD9DB5522 /* Pods-RichTextView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView/Pods-RichTextView.debug.xcconfig"; sourceTree = "<group>"; };
+		2AC4D4F021A34B1800E93002 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		66ABA700C4C5FE1A566929A0 /* Pods-RichTextViewUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUnitTests/Pods-RichTextViewUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		6A9A76BC3D29ECF1E9FC8382 /* Pods_RichTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CA7F09EAEFEE98543DC155A /* Pods-RichTextView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView/Pods-RichTextView.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		2AC4D4EF21A34B0400E93002 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2AC4D4F021A34B1800E93002 /* StringExtension.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		3A0C012F947CEED9DDD5EA01 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 		781488EB2194E6B600DED7A1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2AC4D4EF21A34B0400E93002 /* Utilities */,
 				781488ED2194E6B600DED7A1 /* Info.plist */,
 				7814893D219536C800DED7A1 /* RichLabelGenerator */,
 				7814893C2195369D00DED7A1 /* RichTextParser */,
@@ -386,12 +397,14 @@
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 				"${BUILT_PRODUCTS_DIR}/Down/Down.framework",
+				"${BUILT_PRODUCTS_DIR}/iosMath/iosMath.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iosMath.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -475,6 +488,7 @@
 			files = (
 				781489422195378B00DED7A1 /* RichLabelGenerator.swift in Sources */,
 				781489442195379800DED7A1 /* RichWebViewGenerator.swift in Sources */,
+				2AC4D4F121A34B1800E93002 /* StringExtension.swift in Sources */,
 				781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */,
 				7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */,
 				78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */,
