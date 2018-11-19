@@ -7,5 +7,31 @@
 //
 
 class RichTextParser {
-
+    func isTextHTML(_ text: String) -> Bool {
+        do {
+//            let thing = "(?:</[^<]+>)|(?:<[^<]+/>)"
+//            let thing2 = "<([^>]+)>)"
+            let regexPattern = "<([^>]+)>)"
+            let regex = try NSRegularExpression(pattern: regexPattern, options: .caseInsensitive)
+            return regex.numberOfMatches(in: text, options: [], range: NSMakeRange(0, text.count)) == 0
+        } catch {
+            return false
+        }
+    }
+//
+//    - (BOOL)isHTMLString:(NSString *)string
+//    {
+//    NSString * htmlTagPatten = @"<(p|div|blockquote|ul)";
+//    NSError * error = NULL;
+//    NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:htmlTagPatten
+//    options:NSRegularExpressionCaseInsensitive
+//    error:&error];
+//
+//    if (0 == [regex numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])]) {
+//    return NO;
+//    }
+//    else {
+//    return YES;
+//    }
+//    }
 }

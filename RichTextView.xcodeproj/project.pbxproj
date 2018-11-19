@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		291C250691FA3CA22C035D1E /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C3795FF118EB097691BF70 /* Pods_RichTextViewUITests.framework */; };
+		2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */; };
 		781488EE2194E6B600DED7A1 /* RichTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 781488EC2194E6B600DED7A1 /* RichTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488F42194E6D600DED7A1 /* RichTextView.swift */; };
-		781488FD2194E71C00DED7A1 /* RichTextViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */; };
 		781488FF2194E71C00DED7A1 /* RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781488E92194E6B600DED7A1 /* RichTextView.framework */; };
 		7814890C2194E72C00DED7A1 /* RichTextViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814890B2194E72C00DED7A1 /* RichTextViewUITests.swift */; };
 		78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814893F219536DF00DED7A1 /* RichTextParser.swift */; };
@@ -484,7 +484,7 @@
 				7886C39F21A2EA4600C11817 /* RichTextParserSpec.swift in Sources */,
 				7886C3A421A2EB2600C11817 /* RichLabelGeneratorSpec.swift in Sources */,
 				7886C3A521A2EB2900C11817 /* RichWebViewGeneratorSpec.swift in Sources */,
-				781488FD2194E71C00DED7A1 /* RichTextViewUnitTests.swift in Sources */,
+				2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
