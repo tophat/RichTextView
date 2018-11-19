@@ -27,10 +27,10 @@ class RichTextParserSpec: QuickSpec {
 
     override func spec() {
         describe("RichTextParser") {
+            beforeEach {
+                self.richTextParser = RichTextParser()
+            }
             context("HTML parsing") {
-                beforeEach {
-                    self.richTextParser = RichTextParser()
-                }
                 it("successfully identifies various HTML text") {
                     expect(self.richTextParser.isTextHTML(MarkDownText.standardHTML)).to(beTrue())
                     expect(self.richTextParser.isTextHTML(MarkDownText.complexHTML)).to(beTrue())
@@ -46,6 +46,22 @@ class RichTextParserSpec: QuickSpec {
                 it("successfully rejects latex text") {
                     expect(self.richTextParser.isTextHTML(MarkDownText.basicLatex)).to(beFalse())
                     expect(self.richTextParser.isTextHTML(MarkDownText.complextLatext)).to(beFalse())
+                }
+            }
+            context("Latex Parsing") {
+                it("succesfully returns an NSAttributedString with an image") {
+                    let output = self.richTextParser.extractLatex(from: MarkDownText.basicLatex)
+                    expect(output).to(beAKindOf(NSAttributedString.self))
+                    var hasImage = false
+                    let fullRange = NSRange(location: 0, length: output.length)
+                    output.enumerateAttribute(.attachment, in: fullRange, options: []) { (value, _, _) in
+                        guard let attachment = value as? NSTextAttachment else { return }
+
+                        if let _ = attachment.image {
+                            hasImage = true
+                        }
+                    }
+                    expect(hasImage).to(beTrue())
                 }
             }
             context("Memory leaks") {
