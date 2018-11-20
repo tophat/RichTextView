@@ -62,7 +62,7 @@ class RichTextParser {
         if isTextLatex(input) {
             return self.extractLatex(from: input)
         }
-        return try? Down(markdownString: input).toAttributedString()
+        return try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString()
     }
 
     func seperateComponents(from input: String) -> [String] {
@@ -95,5 +95,9 @@ class RichTextParser {
     
     private func isStringAVideoTag(_ input: String) -> Bool {
         return input.range(of: RichTextViewConstants.videoTagRegex, options: .regularExpression, range: nil, locale: nil) != nil
+    }
+
+    private func stripCodeTagsIfNecessary(from input: String) -> String {
+        return input.replacingOccurrences(of: "[code]", with: "`").replacingOccurrences(of: "[/code]", with: "`")
     }
 }
