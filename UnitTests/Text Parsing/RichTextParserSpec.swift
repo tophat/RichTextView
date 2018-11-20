@@ -21,6 +21,7 @@ class RichTextParserSpec: QuickSpec {
         static let complexMarkdown = "#text **something *more words* ~(testing brackets)~"
         static let basicLatex = "[math]x^n[/math]"
         static let complexLatex = "[math]x^2[/math] **More Text** [math]x^n+5=2[/math]"
+        static let codeText = "[code]print('Hello World')[/code]"
     }
 
     var richTextParser: RichTextParser!
@@ -92,6 +93,12 @@ class RichTextParserSpec: QuickSpec {
                     expect(output[0]).to(equal(RichDataType.video(tag: "youtube[12345]")))
                 }
 
+            }
+            context("Strip Code Tags") {
+                it("Successfully strips code tags from input") {
+                    let output = self.richTextParser.richTextToAttributedString(from: MarkDownText.codeText)
+                    expect(output.string).to(equal("print('Hello World')\n"))
+                }
             }
             context("Memory leaks") {
                 it("successfully deallocates without any retain cycles") {
