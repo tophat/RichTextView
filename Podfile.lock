@@ -6,19 +6,6 @@ PODS:
   - iOSSnapshotTestCase/Core (4.0.0)
   - iOSSnapshotTestCase/SwiftSupport (4.0.0):
     - iOSSnapshotTestCase/Core
-  - KIF (3.7.4):
-    - KIF/Core (= 3.7.4)
-  - KIF-Quick (1.1.0):
-    - KIF (~> 3.0)
-    - Quick (~> 1.0)
-  - KIF/Core (3.7.4)
-  - Mockingjay (2.0.1):
-    - Mockingjay/Core (= 2.0.1)
-    - Mockingjay/XCTest (= 2.0.1)
-  - Mockingjay/Core (2.0.1):
-    - URITemplate (~> 2.0)
-  - Mockingjay/XCTest (2.0.1):
-    - Mockingjay/Core
   - Nimble (7.3.1)
   - Nimble-Snapshots (6.9.0):
     - Nimble-Snapshots/Core (= 6.9.0)
@@ -26,31 +13,27 @@ PODS:
     - iOSSnapshotTestCase (~> 4.0)
     - Nimble (~> 7.0)
   - Quick (1.3.2)
+  - SnapKit (4.2.0)
   - SwiftLint (0.27.0)
-  - URITemplate (2.0.3)
 
 DEPENDENCIES:
   - Down
   - iosMath (from `https://github.com/tophatmonocle/iosMath.git`)
-  - KIF-Quick
-  - Mockingjay
   - Nimble
   - Nimble-Snapshots
   - Quick
+  - SnapKit
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Down
     - iOSSnapshotTestCase
-    - KIF
-    - KIF-Quick
-    - Mockingjay
     - Nimble
     - Nimble-Snapshots
     - Quick
+    - SnapKit
     - SwiftLint
-    - URITemplate
 
 EXTERNAL SOURCES:
   iosMath:
@@ -65,15 +48,12 @@ SPEC CHECKSUMS:
   Down: 587371ad58002b06023d9c602519216862c3acbc
   iosMath: 2a769d30ea8b226faf2aa7da0a135fdf435de3d8
   iOSSnapshotTestCase: 711379b19f69a22c131527df862352c877c2773c
-  KIF: f3d01c109ee9d1cfe6b0f2bb2aa278e807e971e2
-  KIF-Quick: da968bbfad615fd96c0d5eb4d8fd484ecdc26814
-  Mockingjay: 11a621880d2887f1775bdcf824341eb68f218450
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   Nimble-Snapshots: 79394f8d0aea3df54bd5ff78ee9dff05a523a09c
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
-  URITemplate: ace0c4c46dcf8afe6e89b4060621852886b15c3b
 
-PODFILE CHECKSUM: 4f7059c51965f5a4daff2d33fe9830f436bd5ca6
+PODFILE CHECKSUM: c9a38d7da55ae3f2ecd817e296c11894959a3f3e
 
 COCOAPODS: 1.5.3
