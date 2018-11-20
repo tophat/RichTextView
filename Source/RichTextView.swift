@@ -29,7 +29,7 @@ public class RichTextView: UIView {
 
     // MARK: - Helpers
 
-    func generateArrayOfLabelsAndWebviews(from input: String) -> [UIView] {
+    func generateViews(from input: String) -> [UIView] {
         return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
             switch richDataType {
             case .video(let tag):
