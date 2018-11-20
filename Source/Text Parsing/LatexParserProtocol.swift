@@ -9,12 +9,12 @@
 import Down
 import iosMath
 
-protocol LatexParserProtocol: class {
+public protocol LatexParserProtocol: class {
     func extractLatex(from input: String) -> NSAttributedString
 }
 
 extension LatexParserProtocol {
-    func extractLatex(from input: String) -> NSAttributedString {
+    public func extractLatex(from input: String) -> NSAttributedString {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
 
@@ -56,4 +56,6 @@ extension LatexParserProtocol {
     }
 }
 
-class LatexParser: LatexParserProtocol {}
+public class LatexParser: LatexParserProtocol {
+    public init() {}
+}
