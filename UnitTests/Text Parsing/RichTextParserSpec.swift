@@ -74,6 +74,25 @@ class RichTextParserSpec: QuickSpec {
                     expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                 }
             }
+            context("Input String to Rich Data Type") {
+                it("properly generates the correct views with a mix of video and non-video strings") {
+                    let output = self.richTextParser.getRichDataTypes(from: "Look at this video: youtube[12345]")
+                    expect(output.count).to(equal(2))
+                    expect(output[0]).to(equal(RichDataType.text(richText: self.richTextParser.richTextToAttributedString(from: "Look at this video: "))))
+                    expect(output[1]).to(equal(RichDataType.video(tag: "youtube[12345]")))
+                }
+                it("properly generates the correct views with only non-video strings") {
+                    let output = self.richTextParser.getRichDataTypes(from: "Look at this!")
+                    expect(output.count).to(equal(1))
+                    expect(output[0]).to(equal(RichDataType.text(richText: self.richTextParser.richTextToAttributedString(from: "Look at this!"))))
+                }
+                it("properly generates the correct views with only video strings") {
+                    let output = self.richTextParser.getRichDataTypes(from: "youtube[12345]")
+                    expect(output.count).to(equal(1))
+                    expect(output[0]).to(equal(RichDataType.video(tag: "youtube[12345]")))
+                }
+
+            }
             context("Memory leaks") {
                 it("successfully deallocates without any retain cycles") {
                     class RichTextParserWithMemoryLeakChecking: RichTextParser {
@@ -112,3 +131,17 @@ class RichTextParserSpec: QuickSpec {
         expect(hasImage).to(beTrue())
     }
 }
+
+extension RichDataType: Equatable {
+    public static func == (lhs: RichDataType, rhs: RichDataType) -> Bool {
+        switch (lhs, rhs) {
+        case let (.text(a), .text(b)):
+            return a == b
+        case let (.video(a), .video(b)):
+            return a == b
+        default:
+            return false
+        }
+    }
+}
+
