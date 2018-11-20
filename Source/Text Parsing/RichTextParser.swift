@@ -16,11 +16,13 @@ class RichTextParser {
     // MARK: - Dependencies
 
     let latexParser: LatexParserProtocol
+    let font: UIFont
 
     // MARK: - Init
 
-    init(latexParser: LatexParserProtocol = LatexParser()) {
+    init(latexParser: LatexParserProtocol = LatexParser(), font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)) {
         self.latexParser = latexParser
+        self.font = font
     }
 
     // MARK: - Utility Functions
@@ -30,7 +32,7 @@ class RichTextParser {
             if self.isStringAVideoTag(input) {
                 return RichDataType.video(tag: input)
             }
-            return RichDataType.text(richText: self.richTextToAttributedString(from: input))
+            return RichDataType.text(richText: self.richTextToAttributedString(from: input), font: self.font)
         }
     }
 
@@ -62,7 +64,12 @@ class RichTextParser {
         if isTextLatex(input) {
             return self.extractLatex(from: input)
         }
-        return try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString()
+        guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
+            return nil
+        }
+        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
+        mutableAttributedInput.replaceFont(with: self.font)
+        return mutableAttributedInput
     }
 
     func seperateComponents(from input: String) -> [String] {

@@ -8,5 +8,5 @@
 
 enum RichDataType {
     case video(tag: String)
-    case text(richText: NSAttributedString)
+    case text(richText: NSAttributedString, font: UIFont)
 }

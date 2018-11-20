@@ -17,9 +17,12 @@ class RichLabelGeneratorSpec: QuickSpec {
             context("Creation") {
                 it("creates a label using an NSAttributedString") {
                     let attributedString = NSAttributedString(string: "some text")
-                    let label = RichLabelGenerator.getLabel(from: attributedString)
+                    let label = RichLabelGenerator.getLabel(from: attributedString, font: UIFont.systemFont(ofSize: UIFont.systemFontSize))
                     expect(label.attributedText?.string).to(equal("some text"))
                     expect(label.accessibilityValue).to(equal("some text"))
+                    expect(label.isAccessibilityElement).to(beTrue())
+                    expect(label.adjustsFontForContentSizeCategory).to(beTrue())
+                    expect(label.font).to(equal(UIFont.systemFont(ofSize: UIFont.systemFontSize)))
                 }
             }
         }
