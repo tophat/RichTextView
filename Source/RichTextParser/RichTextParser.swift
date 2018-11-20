@@ -23,6 +23,16 @@ class RichTextParser {
         self.latexParser = latexParser
     }
 
+    func richTextToAttributedString(from input: String) -> NSAttributedString {
+        let components = self.seperateComponents(from: input)
+        let attributedArray = self.generateAttributedStringArray(from: components)
+        let mutableAttributedString = NSMutableAttributedString()
+        for attributedString in attributedArray {
+            mutableAttributedString.append(attributedString)
+        }
+        return mutableAttributedString
+    }
+
     // MARK: - Helpers
 
     func generateAttributedStringArray(from input: [String]) -> [NSAttributedString] {
@@ -31,7 +41,7 @@ class RichTextParser {
             if let attributedString = self.getAttributedText(from: element) {
                 output.append(attributedString)
             } else {
-                // TODO: Add error handling
+                // TODO: #34 Add error handling
             }
         }
         return output
@@ -41,7 +51,6 @@ class RichTextParser {
         if isTextLatex(input) {
             return self.extractLatex(from: input)
         }
-
         return try? Down(markdownString: input).toAttributedString()
     }
 

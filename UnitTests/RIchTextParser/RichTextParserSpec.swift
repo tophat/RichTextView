@@ -62,6 +62,18 @@ class RichTextParserSpec: QuickSpec {
                     expect(attributedStrings[0].string).to(equal("\nMessage\n\n"))
                 }
             }
+            context("Rich text to attributed string") {
+                it("generates a single attributed string with multiple rich text types") {
+                    let regularText = self.richTextParser.richTextToAttributedString(from: MarkDownText.regularText)
+                    expect(regularText.string.range(of: "Some Text")).toNot(beNil())
+
+                    let complexHTML = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexHTML)
+                    expect(complexHTML.string.range(of: "Message")).toNot(beNil())
+
+                    let complexLatex = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexLatex)
+                    expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
+                }
+            }
             context("Memory leaks") {
                 it("successfully deallocates without any retain cycles") {
                     class RichTextParserWithMemoryLeakChecking: RichTextParser {
