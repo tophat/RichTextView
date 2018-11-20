@@ -79,13 +79,19 @@ class RichTextParserSpec: QuickSpec {
                 it("properly generates the correct views with a mix of video and non-video strings") {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this video: youtube[12345]")
                     expect(output.count).to(equal(2))
-                    expect(output[0]).to(equal(RichDataType.text(richText: self.richTextParser.richTextToAttributedString(from: "Look at this video: "))))
+                    expect(output[0]).to(equal(RichDataType.text(
+                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this video: "),
+                        font: self.richTextParser.font
+                    )))
                     expect(output[1]).to(equal(RichDataType.video(tag: "youtube[12345]")))
                 }
                 it("properly generates the correct views with only non-video strings") {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this!")
                     expect(output.count).to(equal(1))
-                    expect(output[0]).to(equal(RichDataType.text(richText: self.richTextParser.richTextToAttributedString(from: "Look at this!"))))
+                    expect(output[0]).to(equal(RichDataType.text(
+                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this!"),
+                        font: self.richTextParser.font
+                    )))
                 }
                 it("properly generates the correct views with only video strings") {
                     let output = self.richTextParser.getRichDataTypes(from: "youtube[12345]")

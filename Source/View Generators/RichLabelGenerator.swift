@@ -14,10 +14,13 @@ class RichLabelGenerator {
 
     // MARK: - Utility Functions
 
-    static func getLabel(from input: NSAttributedString) -> UILabel {
+    static func getLabel(from input: NSAttributedString, font: UIFont) -> UILabel {
         let label = UILabel()
         label.attributedText = input
         label.accessibilityValue = input.string
+        label.isAccessibilityElement = true
+        label.adjustsFontForContentSizeCategory = true
+        label.font = font
         return label
     }
 }

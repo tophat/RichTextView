@@ -15,9 +15,12 @@ public class RichTextView: UIView {
 
     // MARK: - Init
 
-    public init(input: String = "", latexParser: LatexParserProtocol = LatexParser(), frame: CGRect) {
+    public init(input: String = "",
+                latexParser: LatexParserProtocol = LatexParser(),
+                font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
+                frame: CGRect) {
         self.input = input
-        self.richTextParser = RichTextParser(latexParser: latexParser)
+        self.richTextParser = RichTextParser(latexParser: latexParser, font: font)
         super.init(frame: frame)
     }
 
@@ -34,8 +37,8 @@ public class RichTextView: UIView {
             switch richDataType {
             case .video(let tag):
                 return RichWebViewGenerator.getWebView(from: tag)
-            case .text(let richText):
-                return RichLabelGenerator.getLabel(from: richText)
+            case .text(let richText, let font):
+                return RichLabelGenerator.getLabel(from: richText, font: font)
             }
         }
     }
