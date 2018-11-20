@@ -14,25 +14,20 @@ import Nimble
 class RichWebViewGeneratorSpec: QuickSpec {
     override func spec() {
         describe("RichWebViewGenerator") {
-            context("Memory leaks") {
-                it("successfully deallocates without any retain cycles") {
-                    class RichWebViewGeneratorWithMemoryLeakChecking: RichWebViewGenerator {
-                        var deinitCalled: (() -> Void)?
-                        deinit {
-                            deinitCalled?()
-                        }
-                    }
-                    var deinitCalled = false
-                    
-                    var instance: RichWebViewGeneratorWithMemoryLeakChecking? = RichWebViewGeneratorWithMemoryLeakChecking()
-                    instance?.deinitCalled = {
-                        deinitCalled = true
-                    }
-                    DispatchQueue.global(qos: .background).async {
-                        instance = nil
-                    }
-                    
-                    expect(deinitCalled).toEventually(beTrue(), timeout: 5)
+            context("Generate Webviews") {
+                it("properly generates a YouTube WebView") {
+                    let webview = RichWebViewGenerator.getWebView(from: "youtube[1234]")
+                    expect(webview?.configuration.allowsInlineMediaPlayback).to(beTrue())
+                    expect(webview?.url?.absoluteString).to(equal("https://www.youtube.com/embed/1234?playsinline=1"))
+                }
+                it("properly generates a Vimeo WebView") {
+                    let webview = RichWebViewGenerator.getWebView(from: "vimeo[1234]")
+                    expect(webview?.configuration.allowsInlineMediaPlayback).to(beTrue())
+                    expect(webview?.url?.absoluteString).to(equal("https://player.vimeo.com/video/1234?title=0&byline=0&portrait=0"))
+                }
+                it("returns nil if it is neither a YouTube or Vimeo video") {
+                    let webview = RichWebViewGenerator.getWebView(from: "123")
+                    expect(webview).to(beNil())
                 }
             }
         }
