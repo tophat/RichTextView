@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		291C250691FA3CA22C035D1E /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C3795FF118EB097691BF70 /* Pods_RichTextViewUITests.framework */; };
-		2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */; };
+		2AD49AFD21A31A7400173AE1 /* RichTextViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewSpec.swift */; };
 		781488EE2194E6B600DED7A1 /* RichTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 781488EC2194E6B600DED7A1 /* RichTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488F42194E6D600DED7A1 /* RichTextView.swift */; };
 		781488FF2194E71C00DED7A1 /* RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781488E92194E6B600DED7A1 /* RichTextView.framework */; };
@@ -50,7 +50,7 @@
 		781488ED2194E6B600DED7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		781488F42194E6D600DED7A1 /* RichTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextView.swift; sourceTree = "<group>"; };
 		781488FA2194E71C00DED7A1 /* RichTextViewUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RichTextViewUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextViewUnitTests.swift; sourceTree = "<group>"; };
+		781488FC2194E71C00DED7A1 /* RichTextViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextViewSpec.swift; sourceTree = "<group>"; };
 		781488FE2194E71C00DED7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		781489092194E72C00DED7A1 /* RichTextViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RichTextViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7814890B2194E72C00DED7A1 /* RichTextViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextViewUITests.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 			children = (
 				7886C3B021A33F5F00C11817 /* Extensions */,
 				781488FE2194E71C00DED7A1 /* Info.plist */,
-				781488FC2194E71C00DED7A1 /* RichTextViewUnitTests.swift */,
+				781488FC2194E71C00DED7A1 /* RichTextViewSpec.swift */,
 				7886C39C21A2E92F00C11817 /* Text Parsing */,
 				789E3C2221A46F070089FD2F /* View Generators */,
 			);
@@ -513,7 +513,7 @@
 				7886C3A421A2EB2600C11817 /* RichLabelGeneratorSpec.swift in Sources */,
 				7886C3A521A2EB2900C11817 /* RichWebViewGeneratorSpec.swift in Sources */,
 				7886C3B421A3421A00C11817 /* StringExtensionSpec.swift in Sources */,
-				2AD49AFD21A31A7400173AE1 /* RichTextViewUnitTests.swift in Sources */,
+				2AD49AFD21A31A7400173AE1 /* RichTextViewSpec.swift in Sources */,
 				789E3C2921A470250089FD2F /* RichTextParserSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
