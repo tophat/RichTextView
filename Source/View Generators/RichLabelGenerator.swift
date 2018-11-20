@@ -17,6 +17,7 @@ class RichLabelGenerator {
     static func getLabel(from input: NSAttributedString) -> UILabel {
         let label = UILabel()
         label.attributedText = input
+        label.accessibilityValue = input.string
         return label
     }
 }

@@ -19,6 +19,7 @@ class RichLabelGeneratorSpec: QuickSpec {
                     let attributedString = NSAttributedString(string: "some text")
                     let label = RichLabelGenerator.getLabel(from: attributedString)
                     expect(label.attributedText?.string).to(equal("some text"))
+                    expect(label.accessibilityValue).to(equal("some text"))
                 }
             }
         }
