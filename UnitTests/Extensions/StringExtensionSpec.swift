@@ -36,6 +36,28 @@ class StringExtensionSpec: QuickSpec {
                     expect(output).to(beNil())
                 }
             }
+            context("Get Components Separated by Regex") {
+                it("returns components correctly split if regex is in middle of string") {
+                    let input = "Test youtube[123] wow"
+                    let output = input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+                    expect(output).to(equal(["Test ", "youtube[123]", " wow"]))
+                }
+                it("returns components correctly split if regex is in beginning of string") {
+                    let input = "youtube[123] wow"
+                    let output = input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+                    expect(output).to(equal(["youtube[123]", " wow"]))
+                }
+                it("returns components correctly split if regex is in end of string") {
+                    let input = "Test youtube[123]"
+                    let output = input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+                    expect(output).to(equal(["Test ", "youtube[123]"]))
+                }
+                it("returns entire string in array if regex to split does not exist") {
+                    let input = "Test wow"
+                    let output = input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+                    expect(output).to(equal(["Test wow"]))
+                }
+            }
             context("Split") {
                 it ("splits a string at the correct position") {
                     let initialString = "Text to be split"
