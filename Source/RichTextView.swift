@@ -11,19 +11,32 @@ public class RichTextView: UIView {
     // MARK: - Properties
 
     private let input: String
-    private let latexParser: LatexParserProtocol
+    private let richTextParser: RichTextParser
 
     // MARK: - Init
 
     public init(input: String = "", latexParser: LatexParserProtocol = LatexParser(), frame: CGRect) {
         self.input = input
-        self.latexParser = latexParser
+        self.richTextParser = RichTextParser(latexParser: latexParser)
         super.init(frame: frame)
     }
 
     required init?(coder aDecoder: NSCoder) {
         self.input = ""
-        self.latexParser = LatexParser()
+        self.richTextParser = RichTextParser(latexParser: LatexParser())
         super.init(coder: aDecoder)
+    }
+
+    // MARK: - Helpers
+
+    func generateArrayOfLabelsAndWebviews(from input: String) -> [UIView] {
+        return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
+            switch richDataType {
+            case .video(let tag):
+                return RichWebViewGenerator.getWebView(from: tag)
+            case .text(let richText):
+                return RichLabelGenerator.getLabel(from: richText)
+            }
+        }
     }
 }

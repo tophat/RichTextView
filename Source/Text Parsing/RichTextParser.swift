@@ -23,6 +23,19 @@ class RichTextParser {
         self.latexParser = latexParser
     }
 
+    // MARK: - Utility Functions
+
+    func getRichDataTypes(from input: String) -> [RichDataType] {
+        return self.splitInputOnVideoPortions(input).compactMap { input -> RichDataType in
+            if self.isStringAVideoTag(input) {
+                return RichDataType.video(tag: input)
+            }
+            return RichDataType.text(richText: self.richTextToAttributedString(from: input))
+        }
+    }
+
+    // MARK: - Helpers
+
     func richTextToAttributedString(from input: String) -> NSAttributedString {
         let components = self.seperateComponents(from: input)
         let attributedArray = self.generateAttributedStringArray(from: components)
@@ -32,8 +45,6 @@ class RichTextParser {
         }
         return mutableAttributedString
     }
-
-    // MARK: - Helpers
 
     func generateAttributedStringArray(from input: [String]) -> [NSAttributedString] {
         var output = [NSAttributedString]()
@@ -76,5 +87,13 @@ class RichTextParser {
         return ranges.flatMap { range in
             return [range.lowerBound, range.upperBound]
         }.sorted()
+    }
+
+    private func splitInputOnVideoPortions(_ input: String) -> [String] {
+        return input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+    }
+    
+    private func isStringAVideoTag(_ input: String) -> Bool {
+        return input.range(of: RichTextViewConstants.videoTagRegex, options: .regularExpression, range: nil, locale: nil) != nil
     }
 }
