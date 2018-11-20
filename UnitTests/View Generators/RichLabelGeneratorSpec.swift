@@ -14,7 +14,13 @@ import Nimble
 class RichLabelGeneratorSpec: QuickSpec {
     override func spec() {
         describe("RichLabelGenerator") {
-
+            context("Creation") {
+                it("creates a label using an NSAttributedString") {
+                    let attributedString = NSAttributedString(string: "some text")
+                    let label = RichLabelGenerator.getLabel(from: attributedString)
+                    expect(label.attributedText?.string).to(equal("some text"))
+                }
+            }
         }
     }
 }

@@ -15,7 +15,8 @@ class RichLabelGenerator {
     // MARK: - Utility Functions
 
     static func getLabel(from input: NSAttributedString) -> UILabel {
-        // TODO: Issue #13
-        return UILabel()
+        let label = UILabel()
+        label.attributedText = input
+        return label
     }
 }
