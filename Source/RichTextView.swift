@@ -12,7 +12,7 @@ public class RichTextView: UIView {
 
     // MARK: - Properties
 
-    private let input: String
+    private var input: String
     private let richTextParser: RichTextParser
     private let textColor: UIColor
 
@@ -39,6 +39,12 @@ public class RichTextView: UIView {
     }
 
     // MARK: - Helpers
+
+    public func updateInput(_ input: String) {
+        self.input = input
+        self.subviews.forEach { $0.removeFromSuperview() }
+        self.setupSubviews()
+    }
 
     private func setupSubviews() {
         let subviews = self.generateViews(from: self.input)
