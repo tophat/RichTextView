@@ -16,18 +16,22 @@ public class RichTextView: UIView {
     private let richTextParser: RichTextParser
     private let textColor: UIColor
 
+    public var errors = [ParsingError]()
+
     // MARK: - Init
 
     public init(input: String = "",
                 latexParser: LatexParserProtocol = LatexParser(),
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
-                frame: CGRect) {
+                frame: CGRect,
+                completion: ([ParsingError]) -> ()) {
         self.input = input
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
+        completion(errors)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,9 +66,13 @@ public class RichTextView: UIView {
     func generateViews(from input: String) -> [UIView] {
         return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
             switch richDataType {
-            case .video(let tag):
+            case .video(let tag, let error):
+                if let error = error {
+                    self.errors.append(error)
+                }
                 return RichWebViewGenerator.getWebView(from: tag)
-            case .text(let richText, let font):
+            case .text(let richText, let font, let errors):
+                self.errors.append(contentsOf: errors)
                 return RichLabelGenerator.getLabel(from: richText, font: font, textColor: textColor)
             }
         }

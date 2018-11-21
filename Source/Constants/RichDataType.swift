@@ -7,6 +7,6 @@
 //
 
 enum RichDataType {
-    case video(tag: String)
-    case text(richText: NSAttributedString, font: UIFont)
+    case video(tag: String, error: ParsingError?)
+    case text(richText: NSAttributedString, font: UIFont, errors: [ParsingError])
 }
