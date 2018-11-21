@@ -1,8 +1,27 @@
-# iOS CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
-#
-version: 2
+version: 2.1
+
+website_docker_defaults: &website_docker_defaults
+  docker:
+    - image: circleci/node:8.11.3
+
+commands:
+  prep_website_env:
+    description: Prepapres environment with cache
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          name: Restore node_modules cache
+          key: website-{{ .Branch }}-{{ checksum "yarn.lock" }}
+  save_website_cache:
+    description: Saves environment cache
+    steps:
+      - save_cache:
+          name: Save node_modules cache
+          key: website-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+
 jobs:
   build:
 
@@ -45,3 +64,45 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
+  website:
+    <<: *website_docker_defaults
+    working_directory: ~/repo/website
+    steps:
+      - prep_website_env
+      - run: yarn install
+      - save_website_cache
+      - run: yarn build
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - build/
+  deploy_website:
+    <<: *website_docker_defaults
+    working_directory: ~/repo/website
+    steps:
+      - prep_website_env
+      - attach_workspace:
+          at: ./
+      - add_ssh_keys:
+          fingerprints:
+            - "eb:6f:ae:b3:57:5b:6f:58:09:78:a6:5e:d3:d1:66:e5"
+      - run:
+          name: Setup git user and deploy website
+          command: |
+            git config --global user.email "circleci-richtextview@users.noreply.github.com"
+            git config --global user.name "CircleCI RichTextView"
+            USE_SSH=true yarn publish-gh-pages
+
+workflows:
+  version: 2
+  richtextview_and_website:
+    jobs:
+      - build
+      - website
+      - deploy_website:
+          requires:
+            - website
+          filters:
+            branches:
+              only:
+                - master
