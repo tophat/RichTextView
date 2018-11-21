@@ -10,11 +10,11 @@ import Down
 import iosMath
 
 public protocol LatexParserProtocol: class {
-    func extractLatex(from input: String, textColor: UIColor) -> NSAttributedString
+    func extractLatex(from input: String, textColor: UIColor) -> NSAttributedString?
 }
 
 extension LatexParserProtocol {
-    public func extractLatex(from input: String, textColor: UIColor) -> NSAttributedString {
+    public func extractLatex(from input: String, textColor: UIColor) -> NSAttributedString? {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
 
@@ -26,8 +26,8 @@ extension LatexParserProtocol {
         newFrame.size = label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
         label.frame = newFrame
 
-        guard let image = self.image(from: label) else {
-            return NSAttributedString(string: latexInput)
+        guard let image = self.getImage(from: label) else {
+            return nil
         }
 
         let textAttachment = NSTextAttachment()
@@ -41,7 +41,7 @@ extension LatexParserProtocol {
         return input.getSubstring(inBetween: "[math]", and: "[/math]") ?? input
     }
 
-    private func image(from label: MTMathUILabel) -> UIImage? {
+    private func getImage(from label: MTMathUILabel) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil

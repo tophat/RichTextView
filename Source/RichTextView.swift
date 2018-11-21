@@ -16,18 +16,22 @@ public class RichTextView: UIView {
     private(set) var richTextParser: RichTextParser
     private(set) var textColor: UIColor
 
+    public var errors: [ParsingError]?
+
     // MARK: - Init
 
     public init(input: String = "",
                 latexParser: LatexParserProtocol = LatexParser(),
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
-                frame: CGRect) {
+                frame: CGRect,
+                completion: (([ParsingError]?) -> ())? = nil) {
         self.input = input
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
+        completion?(self.errors)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +44,11 @@ public class RichTextView: UIView {
 
     // MARK: - Helpers
 
-    public func update(input: String? = nil, latexParser: LatexParserProtocol? = nil, font: UIFont? = nil, textColor: UIColor? = nil) {
+    public func update(input: String? = nil,
+                       latexParser: LatexParserProtocol? = nil,
+                       font: UIFont? = nil,
+                       textColor: UIColor? = nil,
+                       completion: (([ParsingError]?) -> ())? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
             latexParser: latexParser ?? self.richTextParser.latexParser,
@@ -50,6 +58,7 @@ public class RichTextView: UIView {
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }
         self.setupSubviews()
+        completion?(self.errors)
     }
 
     private func setupSubviews() {
@@ -74,11 +83,35 @@ public class RichTextView: UIView {
     func generateViews(from input: String) -> [UIView] {
         return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
             switch richDataType {
-            case .video(let tag):
-                return RichWebViewGenerator.getWebView(from: tag)
-            case .text(let richText, let font):
+            case .video(let tag, let error):
+                self.appendError(error)
+                let webView = RichWebViewGenerator.getWebView(from: tag)
+                if webView == nil {
+                    self.appendError(ParsingError.webViewGeneration(link: tag))
+                }
+                return webView
+            case .text(let richText, let font, let errors):
+                self.appendErrors(errors)
                 return RichLabelGenerator.getLabel(from: richText, font: font, textColor: textColor)
             }
+        }
+    }
+
+    private func appendErrors(_ errors: [ParsingError]?) {
+        if let errors = errors {
+            if self.errors == nil {
+                self.errors = [ParsingError]()
+            }
+            self.errors?.append(contentsOf: errors)
+        }
+    }
+
+    private func appendError(_ error: ParsingError?) {
+        if let error = error {
+            if self.errors == nil {
+                self.errors = [ParsingError]()
+            }
+            self.errors?.append(error)
         }
     }
 }
