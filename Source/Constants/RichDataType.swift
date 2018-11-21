@@ -8,5 +8,5 @@
 
 enum RichDataType {
     case video(tag: String, error: ParsingError?)
-    case text(richText: NSAttributedString, font: UIFont, errors: [ParsingError])
+    case text(richText: NSAttributedString, font: UIFont, errors: [ParsingError]?)
 }

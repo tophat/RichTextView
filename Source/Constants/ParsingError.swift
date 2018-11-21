@@ -6,11 +6,13 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
-public enum ParsingErrorCodes {
-    case attributedTextGeneration
-}
+public enum ParsingError: LocalizedError {
+    case attributedTextGeneration(title: String)
 
-public struct ParsingError: LocalizedError {
-    var title: String?
-    var code: ParsingErrorCodes
+    public var errorDescription: String? {
+        switch self {
+        case let .attributedTextGeneration(title):
+            return "Error Generating Attributed Text: " + title
+        }
+    }
 }

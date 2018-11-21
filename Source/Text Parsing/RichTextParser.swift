@@ -29,20 +29,24 @@ class RichTextParser {
     // MARK: - Utility Functions
 
     func getRichDataTypes(from input: String) -> [RichDataType] {
-        var errors = [ParsingError]()
+        var errors: [ParsingError]?
         return self.splitInputOnVideoPortions(input).compactMap { input -> RichDataType in
             if self.isStringAVideoTag(input) {
                 return RichDataType.video(tag: input, error: nil)
             }
             let results = self.richTextToAttributedString(from: input)
-            errors.append(contentsOf: results.errors)
+            if errors == nil {
+                errors = results.errors
+            } else if let resultErrors = results.errors {
+                errors?.append(contentsOf: resultErrors)
+            }
             return RichDataType.text(richText: results.output, font: self.font, errors: errors)
         }
     }
 
     // MARK: - Helpers
 
-    func richTextToAttributedString(from input: String) -> (output: NSAttributedString, errors: [ParsingError]) {
+    func richTextToAttributedString(from input: String) -> (output: NSAttributedString, errors: [ParsingError]?) {
         let components = self.seperateComponents(from: input)
         let results = self.generateAttributedStringArray(from: components)
         let attributedArray = results.output
@@ -53,14 +57,20 @@ class RichTextParser {
         return (mutableAttributedString, results.errors)
     }
 
-    func generateAttributedStringArray(from input: [String]) -> (output: [NSAttributedString], errors: [ParsingError]) {
+    func generateAttributedStringArray(from input: [String]) -> (output: [NSAttributedString], errors: [ParsingError]?) {
         var output = [NSAttributedString]()
-        var errors = [ParsingError]()
+        var errors: [ParsingError]?
         for element in input {
             if let attributedString = self.getAttributedText(from: element) {
                 output.append(attributedString)
             } else {
-                errors.append(ParsingError(title: element, code: .attributedTextGeneration))
+                if var errors = errors {
+                    errors.append(ParsingError.attributedTextGeneration(title: element))
+                } else {
+                    var tempErrors = [ParsingError]()
+                    tempErrors.append(ParsingError.attributedTextGeneration(title: element))
+                    errors = tempErrors
+                }
             }
         }
         return (output, errors)
