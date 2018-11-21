@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'RichTextView'
+  s.name             = 'THRichTextView'
   s.version          = '1.0.0'
   s.summary          = 'iOS Text View that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links.'
   s.description      = <<-DESC
