@@ -10,15 +10,16 @@ import Down
 import iosMath
 
 public protocol LatexParserProtocol: class {
-    func extractLatex(from input: String) -> NSAttributedString
+    func extractLatex(from input: String, textColor: UIColor) -> NSAttributedString
 }
 
 extension LatexParserProtocol {
-    public func extractLatex(from input: String) -> NSAttributedString {
+    public func extractLatex(from input: String, textColor: UIColor) -> NSAttributedString {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
 
         let label = MTMathUILabel()
+        label.textColor = textColor
         label.latex = latexInput
 
         var newFrame = label.frame

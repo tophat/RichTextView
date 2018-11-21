@@ -12,9 +12,9 @@ public class RichTextView: UIView {
 
     // MARK: - Properties
 
-    private var input: String
-    private let richTextParser: RichTextParser
-    private let textColor: UIColor
+    private(set) var input: String
+    private(set) var richTextParser: RichTextParser
+    private(set) var textColor: UIColor
 
     // MARK: - Init
 
@@ -24,7 +24,7 @@ public class RichTextView: UIView {
                 textColor: UIColor = UIColor.black,
                 frame: CGRect) {
         self.input = input
-        self.richTextParser = RichTextParser(latexParser: latexParser, font: font)
+        self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
@@ -32,7 +32,7 @@ public class RichTextView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         self.input = ""
-        self.richTextParser = RichTextParser(latexParser: LatexParser())
+        self.richTextParser = RichTextParser()
         self.textColor = UIColor.black
         super.init(coder: aDecoder)
         self.setupSubviews()
@@ -40,8 +40,14 @@ public class RichTextView: UIView {
 
     // MARK: - Helpers
 
-    public func updateInput(_ input: String) {
-        self.input = input
+    public func update(input: String? = nil, latexParser: LatexParserProtocol? = nil, font: UIFont? = nil, textColor: UIColor? = nil) {
+        self.input = input ?? self.input
+        self.richTextParser = RichTextParser(
+            latexParser: latexParser ?? self.richTextParser.latexParser,
+            font: font ?? self.richTextParser.font,
+            textColor: textColor ?? self.textColor
+        )
+        self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }
         self.setupSubviews()
     }

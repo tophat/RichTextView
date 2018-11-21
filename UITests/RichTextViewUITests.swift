@@ -87,11 +87,41 @@ class RichTextViewUITests: QuickSpec {
                     }
                 }
             }
-            context("Update Input") {
+            context("Update") {
                 it("Updates Input Properly") {
-                    let richTextView = RichTextView(input: "<html>Test</html>", frame: CGRect(origin: .zero, size: Defaults.size))
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
                     richTextView.backgroundColor = UIColor.white
-                    richTextView.updateInput("* Heading")
+                    richTextView.update(input: "* Heading")
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
+                it("Updates Font Properly") {
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
+                    richTextView.backgroundColor = UIColor.white
+                    richTextView.update(input: "* Heading", font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize))
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
+                it("Updates Text Color Properly") {
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
+                    richTextView.backgroundColor = UIColor.white
+                    richTextView.update(input: "* Heading", textColor: UIColor.red)
                     self.richTextView = richTextView
                     self.viewController = UIViewController()
                     self.viewController?.view.addSubview(richTextView)

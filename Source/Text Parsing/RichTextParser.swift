@@ -17,12 +17,16 @@ class RichTextParser {
 
     let latexParser: LatexParserProtocol
     let font: UIFont
+    let textColor: UIColor
 
     // MARK: - Init
 
-    init(latexParser: LatexParserProtocol = LatexParser(), font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)) {
+    init(latexParser: LatexParserProtocol = LatexParser(),
+         font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
+         textColor: UIColor = UIColor.black) {
         self.latexParser = latexParser
         self.font = font
+        self.textColor = textColor
     }
 
     // MARK: - Utility Functions
@@ -83,7 +87,7 @@ class RichTextParser {
     }
 
     func extractLatex(from input: String) -> NSAttributedString {
-        return self.latexParser.extractLatex(from: input)
+        return self.latexParser.extractLatex(from: input, textColor: self.textColor)
     }
 
     func isTextLatex(_ text: String) -> Bool {
