@@ -5,6 +5,18 @@ website_docker_defaults: &website_docker_defaults
     - image: circleci/node:8.11.3
 
 commands:
+  restore_cocoapods_cache:
+    steps:
+      - restore_cache:
+          name: Restores cocoapods Cache
+          key: richtextview-{{ .Branch }}-{{ checksum "Podfile.lock" }}
+  save_cocoapods_cache:
+    steps:
+      - save_cache:
+          name: Saves cocoapods cache
+          key: richtextview-{{ .Branch }}-{{ checksum "Podfile.lock" }}
+          paths:
+            - Pods/
   prep_website_env:
     description: Prepapres environment with cache
     steps:
@@ -24,38 +36,27 @@ commands:
 
 jobs:
   build:
-
-    # Specify the Xcode version to use
     macos:
       xcode: "10.0.0"
-
     steps:
+      - restore_cocoapods_cache
       - checkout
-
-      # Install CocoaPods
       - run:
           name: Install CocoaPods
           command: pod install
-
-      # Build the app and run RichTextViewUnitTests
+      - save_cocoapods_cache
       - run:
           name: Build and run RichTextViewUnitTests
           command: fastlane scan
           environment:
             SCAN_DEVICE: iPhone 6
             SCAN_SCHEME: RichTextViewUnitTests
-
-      # Build the app and run RichTextViewUITests
       - run:
           name: Build and run RichTextViewUITests
           command: fastlane scan
           environment:
             SCAN_DEVICE: iPhone 6
             SCAN_SCHEME: RichTextViewUITests
-
-      # Collect XML test results data to show in the UI,
-      # and save the same XML files under test-results folder
-      # in the Artifacts tab
       - store_test_results:
           path: test_output/report.xml
       - store_artifacts:
@@ -64,6 +65,16 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
+  deploy:
+    macos:
+      xcode: "10.0.0"
+    steps:
+      - checkout
+      - restore_cocoapods_cache
+      - run:
+          name: Deploy
+          command: pod trunk push THRichTextView.podspec --allow-warnings
+
   website:
     <<: *website_docker_defaults
     working_directory: ~/repo/website
@@ -97,7 +108,18 @@ workflows:
   version: 2
   richtextview_and_website:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - website
       - deploy_website:
           requires:
