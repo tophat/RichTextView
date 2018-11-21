@@ -11,18 +11,16 @@ target 'RichTextView' do
   pod 'Down'
   pod 'iosMath', :git => 'https://github.com/tophatmonocle/iosMath.git'
   pod 'SwiftLint'
+  pod 'SnapKit'
 
   target 'RichTextViewUITests' do
     inherit! :search_paths
-    # Pods for testing
-    pod 'KIF-Quick'
-    pod 'Mockingjay'
     pod 'Nimble-Snapshots'
+    pod 'Quick'
   end
 
   target 'RichTextViewUnitTests' do
     inherit! :search_paths
-    # Pods for testing
     pod 'Nimble'
     pod 'Quick'
   end

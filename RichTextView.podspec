@@ -40,4 +40,5 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Down'
   s.dependency 'iosMath', :git => 'https://github.com/tophatmonocle/iosMath.git'
+  s.dependency 'SnapKit'
 end
