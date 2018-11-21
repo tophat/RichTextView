@@ -61,6 +61,21 @@ class RichTextViewSpec: QuickSpec {
                 }
 
             }
+            context("Update") {
+                it("properly updates the input") {
+                    richTextView?.update(input: "Test")
+                    expect(richTextView?.input).to(equal("Test"))
+                }
+                it("properly updates the font") {
+                    richTextView?.update(font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize))
+                    expect(richTextView?.richTextParser.font).to(equal(UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)))
+                }
+                it("properly updates the text color") {
+                    richTextView?.update(textColor: UIColor.red)
+                    expect(richTextView?.textColor).to(equal(UIColor.red))
+                    expect(richTextView?.richTextParser.textColor).to(equal(UIColor.red))
+                }
+            }
         }
     }
 }

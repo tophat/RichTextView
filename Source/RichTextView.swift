@@ -12,9 +12,9 @@ public class RichTextView: UIView {
 
     // MARK: - Properties
 
-    private let input: String
-    private let richTextParser: RichTextParser
-    private let textColor: UIColor
+    private(set) var input: String
+    private(set) var richTextParser: RichTextParser
+    private(set) var textColor: UIColor
 
     public var errors: [ParsingError]?
 
@@ -27,22 +27,39 @@ public class RichTextView: UIView {
                 frame: CGRect,
                 completion: (([ParsingError]?) -> ())? = nil) {
         self.input = input
-        self.richTextParser = RichTextParser(latexParser: latexParser, font: font)
+        self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
-        completion?(errors)
+        completion?(self.errors)
     }
 
     required init?(coder aDecoder: NSCoder) {
         self.input = ""
-        self.richTextParser = RichTextParser(latexParser: LatexParser())
+        self.richTextParser = RichTextParser()
         self.textColor = UIColor.black
         super.init(coder: aDecoder)
         self.setupSubviews()
     }
 
     // MARK: - Helpers
+
+    public func update(input: String? = nil,
+                       latexParser: LatexParserProtocol? = nil,
+                       font: UIFont? = nil,
+                       textColor: UIColor? = nil,
+                       completion: (([ParsingError]?) -> ())? = nil) {
+        self.input = input ?? self.input
+        self.richTextParser = RichTextParser(
+            latexParser: latexParser ?? self.richTextParser.latexParser,
+            font: font ?? self.richTextParser.font,
+            textColor: textColor ?? self.textColor
+        )
+        self.textColor = textColor ?? self.textColor
+        self.subviews.forEach { $0.removeFromSuperview() }
+        self.setupSubviews()
+        completion?(self.errors)
+    }
 
     private func setupSubviews() {
         let subviews = self.generateViews(from: self.input)

@@ -25,11 +25,11 @@ class RichTextViewUITests: QuickSpec {
 
     override func spec() {
         describe("RichTextView UI") {
+            beforeEach {
+                self.window = UIWindow(frame: CGRect(origin: .zero, size: Defaults.size))
+                self.window?.makeKeyAndVisible()
+            }
             context("Rendering Various Strings of Rich Text") {
-                beforeEach {
-                    self.window = UIWindow(frame: CGRect(origin: .zero, size: Defaults.size))
-                    self.window?.makeKeyAndVisible()
-                }
                 it("Renders a regular string with no rich text formatting") {
                     let richTextView = RichTextView(input: "Test", frame: CGRect(origin: .zero, size: Defaults.size))
                     richTextView.backgroundColor = UIColor.white
@@ -86,11 +86,58 @@ class RichTextViewUITests: QuickSpec {
                         })
                     }
                 }
-                afterEach {
-                    UIView.setAnimationsEnabled(false)
-                    self.window?.isHidden = true
-                    self.window = nil
+            }
+            context("Update") {
+                it("Updates Input Properly") {
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
+                    richTextView.backgroundColor = UIColor.white
+                    richTextView.update(input: "* Heading")
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
                 }
+                it("Updates Font Properly") {
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
+                    richTextView.backgroundColor = UIColor.white
+                    richTextView.update(input: "* Heading", font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize))
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
+                it("Updates Text Color Properly") {
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
+                    richTextView.backgroundColor = UIColor.white
+                    richTextView.update(input: "* Heading", textColor: UIColor.red)
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
+            }
+            afterEach {
+                UIView.setAnimationsEnabled(false)
+                self.window?.isHidden = true
+                self.window = nil
             }
         }
     }
