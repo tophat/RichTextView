@@ -74,7 +74,7 @@ jobs:
       - run:
           name: Set Podspec Version
           command: |
-#            git fetch --tags
+            git fetch --tags
             git describe
             sed -i 's/1.0.0/2.0.0/g' THRichTextView.podspec
       - run:
@@ -118,14 +118,14 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-      - deploy:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
       - website
       - deploy_website:
           requires:
