@@ -10,11 +10,11 @@ import Down
 import iosMath
 
 public protocol LatexParserProtocol: class {
-    func extractLatex(from input: String) -> NSAttributedString
+    func extractLatex(from input: String) -> NSAttributedString?
 }
 
 extension LatexParserProtocol {
-    public func extractLatex(from input: String) -> NSAttributedString {
+    public func extractLatex(from input: String) -> NSAttributedString? {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
 
@@ -26,7 +26,7 @@ extension LatexParserProtocol {
         label.frame = newFrame
 
         guard let image = self.image(from: label) else {
-            return NSAttributedString(string: latexInput)
+            return nil
         }
 
         let textAttachment = NSTextAttachment()

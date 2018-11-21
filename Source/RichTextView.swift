@@ -16,18 +16,22 @@ public class RichTextView: UIView {
     private let richTextParser: RichTextParser
     private let textColor: UIColor
 
+    public var errors: [ParsingError]?
+
     // MARK: - Init
 
     public init(input: String = "",
                 latexParser: LatexParserProtocol = LatexParser(),
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
-                frame: CGRect) {
+                frame: CGRect,
+                completion: (([ParsingError]?) -> ())? = nil) {
         self.input = input
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
+        completion?(errors)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,11 +66,35 @@ public class RichTextView: UIView {
     func generateViews(from input: String) -> [UIView] {
         return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
             switch richDataType {
-            case .video(let tag):
-                return RichWebViewGenerator.getWebView(from: tag)
-            case .text(let richText, let font):
+            case .video(let tag, let error):
+                self.appendError(error)
+                let webView = RichWebViewGenerator.getWebView(from: tag)
+                if webView == nil {
+                    self.appendError(ParsingError.webViewGeneration(link: tag))
+                }
+                return webView
+            case .text(let richText, let font, let errors):
+                self.appendErrors(errors)
                 return RichLabelGenerator.getLabel(from: richText, font: font, textColor: textColor)
             }
+        }
+    }
+
+    private func appendErrors(_ errors: [ParsingError]?) {
+        if let errors = errors {
+            if self.errors == nil {
+                self.errors = [ParsingError]()
+            }
+            self.errors?.append(contentsOf: errors)
+        }
+    }
+
+    private func appendError(_ error: ParsingError?) {
+        if let error = error {
+            if self.errors == nil {
+                self.errors = [ParsingError]()
+            }
+            self.errors?.append(error)
         }
     }
 }

@@ -13,6 +13,7 @@ class RichTextParser {
     private enum ParserConstants {
         static let latexRegex = "\\[math\\](.*?)\\[\\/math\\]"
     }
+
     // MARK: - Dependencies
 
     let latexParser: LatexParserProtocol
@@ -28,48 +29,70 @@ class RichTextParser {
     // MARK: - Utility Functions
 
     func getRichDataTypes(from input: String) -> [RichDataType] {
+        var errors: [ParsingError]?
         return self.splitInputOnVideoPortions(input).compactMap { input -> RichDataType in
             if self.isStringAVideoTag(input) {
-                return RichDataType.video(tag: input)
+                return RichDataType.video(tag: input, error: nil)
             }
-            return RichDataType.text(richText: self.richTextToAttributedString(from: input), font: self.font)
+            let results = self.richTextToAttributedString(from: input)
+            if errors == nil {
+                errors = results.errors
+            } else if let resultErrors = results.errors {
+                errors?.append(contentsOf: resultErrors)
+            }
+            return RichDataType.text(richText: results.output, font: self.font, errors: errors)
         }
     }
 
     // MARK: - Helpers
 
-    func richTextToAttributedString(from input: String) -> NSAttributedString {
+    func richTextToAttributedString(from input: String) -> (output: NSAttributedString, errors: [ParsingError]?) {
         let components = self.seperateComponents(from: input)
-        let attributedArray = self.generateAttributedStringArray(from: components)
+        let results = self.generateAttributedStringArray(from: components)
+        let attributedArray = results.output
         let mutableAttributedString = NSMutableAttributedString()
         for attributedString in attributedArray {
             mutableAttributedString.append(attributedString)
         }
-        return mutableAttributedString
+        return (mutableAttributedString, results.errors)
     }
 
-    func generateAttributedStringArray(from input: [String]) -> [NSAttributedString] {
+    func generateAttributedStringArray(from input: [String]) -> (output: [NSAttributedString], errors: [ParsingError]?) {
         var output = [NSAttributedString]()
+        var errors: [ParsingError]?
         for element in input {
-            if let attributedString = self.getAttributedText(from: element) {
+            let result = self.getAttributedText(from: element)
+            if let attributedString = result.output {
                 output.append(attributedString)
             } else {
-                // TODO: #34 Add error handling
+                var tempErrors = [ParsingError]()
+                if let error = result.error {
+                    tempErrors.append(error)
+                }
+                if errors == nil {
+                    errors = tempErrors
+                } else {
+                    errors?.append(contentsOf: tempErrors)
+                }
             }
         }
-        return output
+        return (output, errors)
     }
 
-    private func getAttributedText(from input: String) -> NSAttributedString? {
+    private func getAttributedText(from input: String) -> (output: NSAttributedString?, error: ParsingError?) {
         if isTextLatex(input) {
-            return self.extractLatex(from: input)
+            let latex = self.extractLatex(from: input)
+            if latex == nil {
+                return (NSAttributedString(string: input), ParsingError.latexGeneration(text: input))
+            }
+            return (latex, nil)
         }
         guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
-            return nil
+            return (nil, ParsingError.attributedTextGeneration(text: input))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
-        return mutableAttributedInput
+        return (mutableAttributedInput, nil)
     }
 
     func seperateComponents(from input: String) -> [String] {
@@ -82,7 +105,7 @@ class RichTextParser {
         )
     }
 
-    func extractLatex(from input: String) -> NSAttributedString {
+    func extractLatex(from input: String) -> NSAttributedString? {
         return self.latexParser.extractLatex(from: input)
     }
 

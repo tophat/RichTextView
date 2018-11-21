@@ -34,7 +34,7 @@ class RichTextParserSpec: QuickSpec {
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
                     let output = self.richTextParser.extractLatex(from: MarkDownText.basicLatex)
-                    self.testAttributedStringContainsImage(output)
+                    self.testAttributedStringContainsImage(output!)
                 }
             }
             context("Breaking up text into componenets") {
@@ -48,7 +48,8 @@ class RichTextParserSpec: QuickSpec {
                 }
                 it("generates an attributed string array with the correct components for latex and markdown") {
                     let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
-                    let attributedStrings = self.richTextParser.generateAttributedStringArray(from: components)
+                    let results = self.richTextParser.generateAttributedStringArray(from: components)
+                    let attributedStrings = results.output
 
                     expect(attributedStrings.count).to(equal(3))
                     expect(attributedStrings[1].string).to(equal("More Text\n"))
@@ -57,7 +58,8 @@ class RichTextParserSpec: QuickSpec {
                 }
                 it("generates an attributed string array with the correct components for html") {
                     let components = self.richTextParser.seperateComponents(from: MarkDownText.complexHTML)
-                    let attributedStrings = self.richTextParser.generateAttributedStringArray(from: components)
+                    let results = self.richTextParser.generateAttributedStringArray(from: components)
+                    let attributedStrings = results.output
 
                     expect(attributedStrings.count).to(equal(1))
                     expect(attributedStrings[0].string).to(equal("\nMessage\n\n"))
@@ -65,13 +67,13 @@ class RichTextParserSpec: QuickSpec {
             }
             context("Rich text to attributed string") {
                 it("generates a single attributed string with multiple rich text types") {
-                    let regularText = self.richTextParser.richTextToAttributedString(from: MarkDownText.regularText)
+                    let regularText = self.richTextParser.richTextToAttributedString(from: MarkDownText.regularText).output
                     expect(regularText.string.range(of: "Some Text")).toNot(beNil())
 
-                    let complexHTML = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexHTML)
+                    let complexHTML = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexHTML).output
                     expect(complexHTML.string.range(of: "Message")).toNot(beNil())
 
-                    let complexLatex = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexLatex)
+                    let complexLatex = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexLatex).output
                     expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                 }
             }
@@ -80,29 +82,31 @@ class RichTextParserSpec: QuickSpec {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this video: youtube[12345]")
                     expect(output.count).to(equal(2))
                     expect(output[0]).to(equal(RichDataType.text(
-                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this video: "),
-                        font: self.richTextParser.font
+                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this video: ").output,
+                        font: self.richTextParser.font,
+                        errors: [ParsingError]()
                     )))
-                    expect(output[1]).to(equal(RichDataType.video(tag: "youtube[12345]")))
+                    expect(output[1]).to(equal(RichDataType.video(tag: "youtube[12345]", error: nil)))
                 }
                 it("properly generates the correct views with only non-video strings") {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this!")
                     expect(output.count).to(equal(1))
                     expect(output[0]).to(equal(RichDataType.text(
-                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this!"),
-                        font: self.richTextParser.font
+                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this!").output,
+                        font: self.richTextParser.font,
+                        errors: [ParsingError]()
                     )))
                 }
                 it("properly generates the correct views with only video strings") {
                     let output = self.richTextParser.getRichDataTypes(from: "youtube[12345]")
                     expect(output.count).to(equal(1))
-                    expect(output[0]).to(equal(RichDataType.video(tag: "youtube[12345]")))
+                    expect(output[0]).to(equal(RichDataType.video(tag: "youtube[12345]", error: nil)))
                 }
 
             }
             context("Strip Code Tags") {
                 it("Successfully strips code tags from input") {
-                    let output = self.richTextParser.richTextToAttributedString(from: MarkDownText.codeText)
+                    let output = self.richTextParser.richTextToAttributedString(from: MarkDownText.codeText).output
                     expect(output.string).to(equal("print('Hello World')\n"))
                 }
             }
@@ -149,9 +153,9 @@ extension RichDataType: Equatable {
     public static func == (lhs: RichDataType, rhs: RichDataType) -> Bool {
         switch (lhs, rhs) {
         case let (.text(a), .text(b)):
-            return a == b
+            return a.richText == b.richText
         case let (.video(a), .video(b)):
-            return a == b
+            return a.tag == b.tag
         default:
             return false
         }
