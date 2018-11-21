@@ -72,6 +72,12 @@ jobs:
       - checkout
       - restore_cocoapods_cache
       - run:
+          name: Set Podspec Version
+          command: |
+#            git fetch --tags
+            git describe
+            sed -i 's/1.0.0/2.0.0/g' THRichTextView.podspec
+      - run:
           name: Deploy
           command: pod trunk push THRichTextView.podspec --allow-warnings
 
