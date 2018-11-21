@@ -25,13 +25,13 @@ public class RichTextView: UIView {
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
                 frame: CGRect,
-                completion: ([ParsingError]) -> ()) {
+                completion: (([ParsingError]) -> ())? = nil) {
         self.input = input
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
-        completion(errors)
+        completion?(errors)
     }
 
     required init?(coder aDecoder: NSCoder) {
