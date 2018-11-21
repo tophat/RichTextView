@@ -67,20 +67,20 @@ public class RichTextView: UIView {
         return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
             switch richDataType {
             case .video(let tag, let error):
-                self.appendError(error: error)
+                self.appendError(error)
                 let webView = RichWebViewGenerator.getWebView(from: tag)
                 if webView == nil {
-                    self.appendError(error: ParsingError.webViewGeneration(link: tag))
+                    self.appendError(ParsingError.webViewGeneration(link: tag))
                 }
                 return webView
             case .text(let richText, let font, let errors):
-                self.appendErrors(errors: errors)
+                self.appendErrors(errors)
                 return RichLabelGenerator.getLabel(from: richText, font: font, textColor: textColor)
             }
         }
     }
 
-    private func appendErrors(errors: [ParsingError]?) {
+    private func appendErrors(_ errors: [ParsingError]?) {
         if let errors = errors {
             if self.errors == nil {
                 self.errors = [ParsingError]()
@@ -89,7 +89,7 @@ public class RichTextView: UIView {
         }
     }
 
-    private func appendError(error: ParsingError?) {
+    private func appendError(_ error: ParsingError?) {
         if let error = error {
             if self.errors == nil {
                 self.errors = [ParsingError]()
