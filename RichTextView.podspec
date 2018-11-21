@@ -8,37 +8,26 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RichTextView'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = 'iOS Text View that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+This is an iOS UIView that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links. Simply feed in an input
+string with the relevant rich text surrounded by the appropriate tags and it will render correctly. Specifically:
+  - Any math/LaTeX should be in between [math] and [/math] tags
+  - Any code should be in between [code] and [/code] tags
+  - Any YouTube videos should be represented as youtube[x], where x is the ID of the YouTube video
+  - Any Vimeo videos should be represented as vimeo[y], where y is the ID of the Vimeo video
                        DESC
 
   s.homepage         = 'https://github.com/tophat/RichTextView'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'Apache-2', :file => 'LICENSE' }
   s.author           = { 'Top Hat' => 'tophat' }
   s.source           = { :git => 'https://github.com/tophat/RichTextView.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
-
-  s.source_files = 'Source/'
-  
-  # s.resource_bundles = {
-  #   'RichTextView' => ['RichTextView/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.source_files = 'Source/*.swift', 'Source/Text Parsing/*.swift', 'Source/Constants/*.swift', 'Source/Extensions/*.swift', 'Source/View Generators/*.swift'
   s.dependency 'Down'
-  s.dependency 'iosMath', :git => 'https://github.com/tophatmonocle/iosMath.git'
+  s.dependency 'iosMath'
   s.dependency 'SnapKit'
+  s.swift_version = '4.2'
 end
