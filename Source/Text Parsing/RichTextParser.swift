@@ -61,31 +61,38 @@ class RichTextParser {
         var output = [NSAttributedString]()
         var errors: [ParsingError]?
         for element in input {
-            if let attributedString = self.getAttributedText(from: element) {
+            let result = self.getAttributedText(from: element)
+            if let attributedString = result.output {
                 output.append(attributedString)
             } else {
-                if var errors = errors {
-                    errors.append(ParsingError.attributedTextGeneration(title: element))
-                } else {
-                    var tempErrors = [ParsingError]()
-                    tempErrors.append(ParsingError.attributedTextGeneration(title: element))
+                var tempErrors = [ParsingError]()
+                if let error = result.error {
+                    tempErrors.append(error)
+                }
+                if errors == nil {
                     errors = tempErrors
+                } else {
+                    errors?.append(contentsOf: tempErrors)
                 }
             }
         }
         return (output, errors)
     }
 
-    private func getAttributedText(from input: String) -> NSAttributedString? {
+    private func getAttributedText(from input: String) -> (output: NSAttributedString?, error: ParsingError?) {
         if isTextLatex(input) {
-            return self.extractLatex(from: input)
+            let latex = self.extractLatex(from: input)
+            if latex == nil {
+                return (NSAttributedString(string: input), ParsingError.latexGeneration(text: input))
+            }
+            return (latex, nil)
         }
         guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
-            return nil
+            return (nil, ParsingError.attributedTextGeneration(text: input))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
-        return mutableAttributedInput
+        return (mutableAttributedInput, nil)
     }
 
     func seperateComponents(from input: String) -> [String] {
@@ -98,7 +105,7 @@ class RichTextParser {
         )
     }
 
-    func extractLatex(from input: String) -> NSAttributedString {
+    func extractLatex(from input: String) -> NSAttributedString? {
         return self.latexParser.extractLatex(from: input)
     }
 

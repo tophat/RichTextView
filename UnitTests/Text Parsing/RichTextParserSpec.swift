@@ -34,7 +34,7 @@ class RichTextParserSpec: QuickSpec {
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
                     let output = self.richTextParser.extractLatex(from: MarkDownText.basicLatex)
-                    self.testAttributedStringContainsImage(output)
+                    self.testAttributedStringContainsImage(output!)
                 }
             }
             context("Breaking up text into componenets") {
