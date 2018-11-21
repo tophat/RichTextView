@@ -19,9 +19,11 @@ class RichLabelGenerator {
         label.attributedText = input
         label.accessibilityValue = input.string
         label.isAccessibilityElement = true
-        label.adjustsFontForContentSizeCategory = true
         label.font = font
         label.textColor = textColor
+        if #available(iOS 10.0, *) {
+            label.adjustsFontForContentSizeCategory = true
+        }
         return label
     }
 }

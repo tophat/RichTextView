@@ -21,9 +21,11 @@ class RichLabelGeneratorSpec: QuickSpec {
                     expect(label.attributedText?.string).to(equal("some text"))
                     expect(label.accessibilityValue).to(equal("some text"))
                     expect(label.isAccessibilityElement).to(beTrue())
-                    expect(label.adjustsFontForContentSizeCategory).to(beTrue())
                     expect(label.font).to(equal(UIFont.systemFont(ofSize: UIFont.systemFontSize)))
                     expect(label.textColor).to(equal(UIColor.white))
+                    if #available(iOS 10.0, *) {
+                        expect(label.adjustsFontForContentSizeCategory).to(beTrue())
+                    }
                 }
             }
         }
