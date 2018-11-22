@@ -1,10 +1,12 @@
 
+<div align="center">
+
 # RichTextView
 
-![alt text](../website/static/img/rtv.png "Title")
+<img src="../website/static/img/rtv-full-res.png" width="400px;"/>
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
 [![CocoaPods](https://img.shields.io/cocoapods/dt/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
@@ -12,6 +14,8 @@
 [![Maturity badge - level 2](https://img.shields.io/badge/Maturity-Level%202%20--%20First%20Release-yellowgreen.svg)](https://github.com/tophat/getting-started/blob/master/scorecard.md)
 
 iOS Text View (`UIView`) that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links
+
+</div>
 
 ## Installation
 
