@@ -4,10 +4,12 @@ title: Overview
 ---
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
 [![CocoaPods](https://img.shields.io/cocoapods/dt/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
 [![Slack workspace](https://slackinvite.dev.tophat.com/badge.svg)](https://tophat-opensource.slack.com/)
+[![License - Apache-2](https://img.shields.io/badge/license-Apache%202-blue.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0/)
 [![Maturity badge - level 2](https://img.shields.io/badge/Maturity-Level%202%20--%20First%20Release-yellowgreen.svg)](https://github.com/tophat/getting-started/blob/master/scorecard.md)
 
 ## About
@@ -25,6 +27,16 @@ Simply add the following to your Podfile:
 pod 'THRichTextView'
 ```
 And run `pod install` in your repo.
+
+### Using Carthage
+
+Simply add the following to your Cartfile:
+
+```
+github "tophat/RichTextView"
+```
+
+And run `carthage update --platform iOS` in your repo.
 
 ## Usage
 
