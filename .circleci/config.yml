@@ -39,8 +39,8 @@ jobs:
     macos:
       xcode: "10.0.0"
     steps:
-      - restore_cocoapods_cache
       - checkout
+      - restore_cocoapods_cache
       - run:
           name: Install CocoaPods
           command: pod install
