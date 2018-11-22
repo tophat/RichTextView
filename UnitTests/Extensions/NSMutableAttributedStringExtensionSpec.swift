@@ -52,6 +52,28 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                     expect(attributes[.font] as? UIFont).to(equal(UIFont(name: "CourierNewPSMT", size: UIFont.systemFontSize)))
                 }
             }
+            context("Trim trailing newlines and whitespaces") {
+                it("Trims trailing spaces") {
+                    var attributedString = NSMutableAttributedString(string: "Test     ")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("Test"))
+                }
+                it("Trims trailing newlines") {
+                    var attributedString = NSMutableAttributedString(string: "Test\n\n\n\n\n")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("Test"))
+                }
+                it("Does not trim leading spaces") {
+                    var attributedString = NSMutableAttributedString(string: "     Test")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("     Test"))
+                }
+                it("Does not trim leading newlines") {
+                    var attributedString = NSMutableAttributedString(string: "\n\n\n\n\nTest")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("\n\n\n\n\nTest"))
+                }
+            }
         }
     }
 }

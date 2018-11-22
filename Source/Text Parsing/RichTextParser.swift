@@ -94,8 +94,9 @@ class RichTextParser {
         guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
             return (nil, ParsingError.attributedTextGeneration(text: input))
         }
-        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
+        var mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
+        mutableAttributedInput = mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces()
         return (mutableAttributedInput, nil)
     }
 
