@@ -52,7 +52,7 @@ class RichTextParserSpec: QuickSpec {
                     let attributedStrings = results.output
 
                     expect(attributedStrings.count).to(equal(3))
-                    expect(attributedStrings[1].string).to(equal("More Text\n"))
+                    expect(attributedStrings[1].string).to(equal("More Text"))
                     self.testAttributedStringContainsImage(attributedStrings[0])
                     self.testAttributedStringContainsImage(attributedStrings[2])
                 }
@@ -62,7 +62,7 @@ class RichTextParserSpec: QuickSpec {
                     let attributedStrings = results.output
 
                     expect(attributedStrings.count).to(equal(1))
-                    expect(attributedStrings[0].string).to(equal("\nMessage\n\n"))
+                    expect(attributedStrings[0].string).to(equal("\nMessage"))
                 }
             }
             context("Rich text to attributed string") {
@@ -107,7 +107,7 @@ class RichTextParserSpec: QuickSpec {
             context("Strip Code Tags") {
                 it("Successfully strips code tags from input") {
                     let output = self.richTextParser.richTextToAttributedString(from: MarkDownText.codeText).output
-                    expect(output.string).to(equal("print('Hello World')\n"))
+                    expect(output.string).to(equal("print('Hello World')"))
                 }
             }
             context("Memory leaks") {

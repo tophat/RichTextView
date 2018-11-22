@@ -7,6 +7,7 @@
 //
 
 import SnapKit
+import WebKit
 
 public class RichTextView: UIView {
 
@@ -16,7 +17,13 @@ public class RichTextView: UIView {
     private(set) var richTextParser: RichTextParser
     private(set) var textColor: UIColor
 
-    public var errors: [ParsingError]?
+    private(set) var errors: [ParsingError]?
+
+    // MARK: - Constants
+
+    private enum VideoProperties {
+        static let defaultAspectRatio = 9.0/16.0
+    }
 
     // MARK: - Init
 
@@ -73,6 +80,9 @@ public class RichTextView: UIView {
                 }
                 make.width.equalTo(self)
                 make.centerX.equalTo(self)
+                if let webView = subview as? WKWebView {
+                    make.height.equalTo(self.snp.width).multipliedBy(VideoProperties.defaultAspectRatio)
+                }
                 if index == subviews.count - 1 {
                     make.bottom.equalTo(self)
                 }

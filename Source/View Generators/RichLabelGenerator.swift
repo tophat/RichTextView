@@ -16,11 +16,13 @@ class RichLabelGenerator {
 
     static func getLabel(from input: NSAttributedString, font: UIFont, textColor: UIColor) -> UILabel {
         let label = UILabel()
-        label.attributedText = input
+        let mutableInput = NSMutableAttributedString(attributedString: input)
+        mutableInput.replaceFont(with: font)
+        label.attributedText = mutableInput
         label.accessibilityValue = input.string
         label.isAccessibilityElement = true
-        label.font = font
         label.textColor = textColor
+        label.numberOfLines = 0
         if #available(iOS 10.0, *) {
             label.adjustsFontForContentSizeCategory = true
         }
