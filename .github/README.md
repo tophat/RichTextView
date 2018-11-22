@@ -3,10 +3,10 @@
 
 # RichTextView
 
-<img src="../website/static/img/rtv-full-res.png" width="400px;"/>
+<img src="../website/static/img/rtv-full-res.png" width="100px;"/>
+
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
-
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
 [![CocoaPods](https://img.shields.io/cocoapods/dt/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
