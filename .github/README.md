@@ -3,7 +3,7 @@
 
 # RichTextView
 
-<img src="../website/static/img/rtv-full-res.png" width="400px;"/>
+<img src="../website/static/img/rtv-full-res.png" width="300px;"/>
 
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
