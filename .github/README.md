@@ -21,7 +21,18 @@ Simply add the following to your Podfile:
 ```
 pod 'THRichTextView'
 ```
+
 And run `pod install` in your repo.
+
+### Using Carthage
+
+Simply add the following to your Cartfile:
+
+```
+github "tophat/RichTextView"
+```
+
+And run `carthage update --platform iOS` in your repo.
 
 ## Usage
 
