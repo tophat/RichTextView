@@ -25,6 +25,7 @@ commands:
           key: richtextview-{{ checksum "Podfile.lock" }}
           paths:
             - ./Pods
+            - /Users/distiller/.cocoapods/
             - ~/.cocoapods
   prep_website_env:
     description: Prepapres environment with cache
