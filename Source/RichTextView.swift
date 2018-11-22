@@ -13,7 +13,7 @@ public class RichTextView: UIView {
 
     // MARK: - Properties
 
-    private(set) var input: String
+    public private(set) var input: String
     private(set) var richTextParser: RichTextParser
     private(set) var textColor: UIColor
 
