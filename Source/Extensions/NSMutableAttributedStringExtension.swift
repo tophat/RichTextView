@@ -26,12 +26,9 @@ extension NSMutableAttributedString {
     func trimmingTrailingNewlinesAndWhitespaces() -> NSMutableAttributedString {
         let invertedSet = CharacterSet.whitespacesAndNewlines.inverted
 
-        var range = (self.string as NSString).rangeOfCharacter(from: invertedSet)
-        let location = range.length > 0 ? range.location : 0
+        let range = (self.string as NSString).rangeOfCharacter(from: invertedSet, options: .backwards)
+        let length = (range.length > 0 ? NSMaxRange(range) : self.string.count)
 
-        range = (self.string as NSString).rangeOfCharacter(from: invertedSet, options: .backwards)
-        let length = (range.length > 0 ? NSMaxRange(range) : self.string.count) - location
-
-        return NSMutableAttributedString(attributedString: self.attributedSubstring(from: NSMakeRange(location, length)))
+        return NSMutableAttributedString(attributedString: self.attributedSubstring(from: NSMakeRange(0, length)))
     }
 }

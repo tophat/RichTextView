@@ -53,15 +53,25 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                 }
             }
             context("Trim trailing newlines and whitespaces") {
-                it("Trims trailing newlines") {
+                it("Trims trailing spaces") {
                     var attributedString = NSMutableAttributedString(string: "Test     ")
                     attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
                     expect(attributedString.string).to(equal("Test"))
                 }
-                it("Trims trailing spaces") {
+                it("Trims trailing newlines") {
                     var attributedString = NSMutableAttributedString(string: "Test\n\n\n\n\n")
                     attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
                     expect(attributedString.string).to(equal("Test"))
+                }
+                it("Does not trim leading spaces") {
+                    var attributedString = NSMutableAttributedString(string: "     Test")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("     Test"))
+                }
+                it("Does not trim leading newlines") {
+                    var attributedString = NSMutableAttributedString(string: "\n\n\n\n\nTest")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("\n\n\n\n\nTest"))
                 }
             }
         }
