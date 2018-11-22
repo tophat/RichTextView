@@ -80,7 +80,7 @@ public class RichTextView: UIView {
                 }
                 make.width.equalTo(self)
                 make.centerX.equalTo(self)
-                if let webView = subview as? WKWebView {
+                if subview is WKWebView {
                     make.height.equalTo(self.snp.width).multipliedBy(VideoProperties.defaultAspectRatio)
                 }
                 if index == subviews.count - 1 {
