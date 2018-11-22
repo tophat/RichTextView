@@ -17,12 +17,12 @@ commands:
           path: ~/repo
       - restore_cache:
           name: Restores cocoapods Cache
-          key: richtextview-{{ checksum "Podfile.lock" }}-{{ .Branch }}
+          key: richtextview-{{ checksum "Podfile.lock" }}
   save_cocoapods_cache:
     steps:
       - save_cache:
           name: Saves cocoapods cache
-          key: richtextview-{{ checksum "Podfile.lock" }}-{{ .Branch }}
+          key: richtextview-{{ checksum "Podfile.lock" }}
           paths:
             - ./Pods
             - ~/.cocoapods
