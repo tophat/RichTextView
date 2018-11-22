@@ -2,12 +2,12 @@
 <!-- Add a bulleted list of items changed or added -->
 
 
-
 ## DevQA
 
 ### DevQA Prep
 <!-- Delete items that do not apply. -->
-- Please `make node_modules`, this PR uses a new package
+- run `pod install`
+- test RichTextView and ensure it passes
 
 
 ### DevQA Steps
