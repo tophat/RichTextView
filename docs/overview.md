@@ -12,7 +12,8 @@ title: Overview
 
 ## About
 
-Easily convert rich text (HTML, Latex, markdown, code tags, YouTube and Vimeo links) into iOS compatible UI View
+iOS Text View (`UIView`) that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links
+
 
 ## Installation
 
