@@ -1,12 +1,20 @@
 version: 2.1
 
 website_docker_defaults: &website_docker_defaults
+  working_directory: ~/repo/website
   docker:
     - image: circleci/node:8.11.3
 
+mac_defaults: &mac_defaults
+  working_directory: ~/repo
+  macos:
+    xcode: "10.0.0"
+
 commands:
-  restore_cocoapods_cache:
+  prep_mac_env:
     steps:
+      - checkout:
+          path: ~/repo
       - restore_cache:
           name: Restores cocoapods Cache
           key: richtextview-{{ checksum "Podfile.lock" }}
@@ -16,7 +24,8 @@ commands:
           name: Saves cocoapods cache
           key: richtextview-{{ checksum "Podfile.lock" }}
           paths:
-            - Pods/
+            - ./Pods
+            - ~/.cocoapods
   prep_website_env:
     description: Prepapres environment with cache
     steps:
@@ -36,11 +45,9 @@ commands:
 
 jobs:
   build:
-    macos:
-      xcode: "10.0.0"
+    <<: *mac_defaults
     steps:
-      - checkout
-      - restore_cocoapods_cache
+      - prep_mac_env
       - run:
           name: Install CocoaPods
           command: pod install
@@ -66,11 +73,9 @@ jobs:
           path: ~/Library/Logs/scan
           destination: scan-logs
   deploy:
-    macos:
-      xcode: "10.0.0"
+    <<: *mac_defaults
     steps:
-      - checkout
-      - restore_cocoapods_cache
+      - prep_mac_env
       - run:
           name: Set Podspec Version
           command: |
@@ -83,7 +88,6 @@ jobs:
 
   website:
     <<: *website_docker_defaults
-    working_directory: ~/repo/website
     steps:
       - prep_website_env
       - run: yarn install
@@ -95,7 +99,6 @@ jobs:
             - build/
   deploy_website:
     <<: *website_docker_defaults
-    working_directory: ~/repo/website
     steps:
       - prep_website_env
       - attach_workspace:
