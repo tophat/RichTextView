@@ -43,11 +43,7 @@ article p img, article iframe {
 .navigationSlider .slidingNav ul li.siteNavItemActive a,
 .navigationSlider .slidingNav ul li.siteNavGroupActive a
 {
-<<<<<<< HEAD
-    color: #3471c5 !important;
-=======
     color: #934af4 !important;
->>>>>>> c032d7a2419ce6f77d7ce67662170a161087e989
     background: #fff !important;
 }
 
@@ -58,9 +54,5 @@ article p img, article iframe {
 
 .navigationSlider .slidingNav ul li a:hover {
     background: #fff !important;
-<<<<<<< HEAD
-    color: #3471c5 !important;
-=======
     color: #934af4 !important;
->>>>>>> c032d7a2419ce6f77d7ce67662170a161087e989
 }
