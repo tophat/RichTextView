@@ -4,6 +4,7 @@
 ![alt text](../website/static/img/rtv.png "Title")
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
 [![CocoaPods](https://img.shields.io/cocoapods/dt/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
