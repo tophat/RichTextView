@@ -30,7 +30,7 @@ class RichTextViewSpec: QuickSpec {
                         }
                     }
                     var deinitCalled = false
-                    
+
                     var instance: RichTextViewWithMemoryLeakChecking? = RichTextViewWithMemoryLeakChecking(frame: .zero)
                     instance?.deinitCalled = {
                         deinitCalled = true
@@ -38,7 +38,7 @@ class RichTextViewSpec: QuickSpec {
                     DispatchQueue.global(qos: .background).async {
                         instance = nil
                     }
-                    
+
                     expect(deinitCalled).toEventually(beTrue(), timeout: 5)
                 }
             }

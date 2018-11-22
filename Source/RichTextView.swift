@@ -32,7 +32,7 @@ public class RichTextView: UIView {
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
                 frame: CGRect,
-                completion: (([ParsingError]?) -> ())? = nil) {
+                completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor)
         self.textColor = textColor
@@ -55,7 +55,7 @@ public class RichTextView: UIView {
                        latexParser: LatexParserProtocol? = nil,
                        font: UIFont? = nil,
                        textColor: UIColor? = nil,
-                       completion: (([ParsingError]?) -> ())? = nil) {
+                       completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
             latexParser: latexParser ?? self.richTextParser.latexParser,

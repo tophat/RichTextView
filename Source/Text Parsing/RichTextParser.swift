@@ -117,7 +117,7 @@ class RichTextParser {
     func isTextLatex(_ text: String) -> Bool {
         return text.ranges(of: ParserConstants.latexRegex, options: .regularExpression).count != 0
     }
-    
+
     private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {
         return ranges.flatMap { range in
             return [range.lowerBound, range.upperBound]
@@ -127,7 +127,7 @@ class RichTextParser {
     private func splitInputOnVideoPortions(_ input: String) -> [String] {
         return input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
     }
-    
+
     private func isStringAVideoTag(_ input: String) -> Bool {
         return input.range(of: RichTextViewConstants.videoTagRegex, options: .regularExpression, range: nil, locale: nil) != nil
     }

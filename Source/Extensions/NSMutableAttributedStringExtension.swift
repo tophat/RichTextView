@@ -10,7 +10,7 @@ extension NSMutableAttributedString {
     func replaceFont(with newFont: UIFont) {
         self.beginEditing()
         let defaultFontSize = UIFont.smallSystemFontSize
-        self.enumerateAttribute(.font, in: NSRange(location: 0, length: self.length)) { (value, range, stop) in
+        self.enumerateAttribute(.font, in: NSRange(location: 0, length: self.length)) { (value, range, _) in
             guard let oldFont = value as? UIFont,
                 let newFontDescriptor = newFont.fontDescriptor.withSymbolicTraits(oldFont.fontDescriptor.symbolicTraits) else {
                 return
@@ -29,6 +29,6 @@ extension NSMutableAttributedString {
         let range = (self.string as NSString).rangeOfCharacter(from: invertedSet, options: .backwards)
         let length = (range.length > 0 ? NSMaxRange(range) : self.string.count)
 
-        return NSMutableAttributedString(attributedString: self.attributedSubstring(from: NSMakeRange(0, length)))
+        return NSMutableAttributedString(attributedString: self.attributedSubstring(from: NSRange(location: 0, length: length)))
     }
 }

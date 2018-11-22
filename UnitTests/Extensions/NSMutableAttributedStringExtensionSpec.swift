@@ -31,7 +31,7 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                     let attributedText = NSMutableAttributedString(string: "Hello, world", attributes: [
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
                     ])
-                    
+
                     var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                     expect(attributes[.font] as? UIFont).to(equal(UIFont.systemFont(ofSize: UIFont.systemFontSize)))
 
@@ -43,10 +43,10 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                     let attributedText = NSMutableAttributedString(string: "Hello, world", attributes: [
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
                         ])
-                    
+
                     var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                     expect(attributes[.font] as? UIFont).to(equal(UIFont.systemFont(ofSize: UIFont.systemFontSize)))
-                    
+
                     attributedText.replaceFont(with: UIFont(name: "CourierNewPS-BoldItalicMT", size: UIFont.systemFontSize)!)
                     attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                     expect(attributes[.font] as? UIFont).to(equal(UIFont(name: "CourierNewPSMT", size: UIFont.systemFontSize)))
@@ -77,4 +77,3 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
         }
     }
 }
-

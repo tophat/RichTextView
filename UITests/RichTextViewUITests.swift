@@ -142,4 +142,3 @@ class RichTextViewUITests: QuickSpec {
         }
     }
 }
-
