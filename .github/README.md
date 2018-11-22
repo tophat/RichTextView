@@ -1,17 +1,16 @@
-<center>
 
 # RichTextView
 
 ![alt text](../website/static/img/rtv.png "Title")
 
+[![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
 [![Slack workspace](https://slackinvite.dev.tophat.com/badge.svg)](https://tophat-opensource.slack.com/)
 [![Maturity badge - level 2](https://img.shields.io/badge/Maturity-Level%202%20--%20First%20Release-yellowgreen.svg)](https://github.com/tophat/getting-started/blob/master/scorecard.md)
 
 iOS Text View (`UIView`) that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links
-
-</center>
 
 ## Installation
 
