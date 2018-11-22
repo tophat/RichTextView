@@ -12,12 +12,12 @@ const siteConfig = {
         { doc: 'overview', label: 'Docs' },
         { href: "https://github.com/tophat/RichTextView", label: "GitHub" },
     ],
-    headerIcon: 'img/ml.png',
-    footerIcon: 'img/ml.png',
+    headerIcon: 'img/rtv.png',
+    footerIcon: 'img/rtv.png',
     favicon: 'img/favicon.png',
     colors: {
-        primaryColor: '#3471c5',
-        secondaryColor: '#f9316d',
+        primaryColor: '#934af4',
+        secondaryColor: '#934af4',
     },
     customDocsPath: 'docs',
     gaTrackingId: '',
@@ -35,8 +35,8 @@ const siteConfig = {
     cleanUrl: true, // No .html extensions for paths.
 
     // Open Graph and Twitter card images.
-    ogImage: 'img/ml.png',
-    twitterImage: 'img/ml.png',
+    ogImage: 'img/rtv.png',
+    twitterImage: 'img/rtv.png',
 
     // Show documentation's last contributor's name.
     enableUpdateBy: true,
