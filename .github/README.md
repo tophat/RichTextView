@@ -94,12 +94,23 @@ In order for the `RichTextView` to handle the various use cases it might encount
 * **YouTube Videos**: Put the ID of the YouTube video in a YouTube tag as follows: `youtube[dQw4w9WgXcQ]`. The YouTube ID of any video can be found by looking at the URL of the video (Example: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`) and taking the value right after the `v=` URL parameter. In this case the ID of the YouTube video is `dQw4w9WgXcQ`
 * **Vimeo Videos**: Put the ID of the Vimeo video in a Vimeo tag as follows: `vimeo[100708006]`. The Vimeo ID of any video can be found by looking at the URL of the video (Example: `https://vimeo.com/100708006`) and taking the value right after the first `/`. In this case the ID of the Vimeo video is `100708006`
 
+## Screenshots
+<img src="../website/static/img/screenshot-1.png" width="300px;"/> <img src="../website/static/img/screenshot-2.png" width="300px;"/>
+
+Check out the sample project in the `Example` root folder to see the screenshots above in action!
+
 ## Contributing
 Simply clone the repo, run `pod install` and you should be good to go
 
-We are working on setting up an example project so that you can devQA any changes made to the `RichTextView`.
+If you want to visually devQA your changes you can navigate to the Example project (found in the root `Example` folder), run `pod install` and then build and run the app. This will show you some common usages of the `RichTextView`.
 
-In the meantime running the unit/UI tests should be sufficient. If you write code that introduces any additional functionality be sure to write the appropriate tests for it.
+The example project points to the local copy of the `RichTextView` pod, so any changes made locally will be reflected in the sample project.
+
+However, you need to be on the legacy build system to see your changes reflected. There is a [known issue](https://github.com/CocoaPods/CocoaPods/issues/7966) with caching development Pods and XCode 10.
+
+Feel free to add additional input/output examples to the example project, especially if you add any new functionality.
+
+Also, be sure to run the unit/UI tests locally as part of the devQA process.
 
 ## Credits
 
