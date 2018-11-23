@@ -2,9 +2,9 @@ const siteConfig = {
     title: 'Rich Text View',
     //tagline: 'Yarn Version Manager',
     // For deploy
-    //cname: 'yvm.js.org',
-    url: 'https://tophat.github.io',
-    baseUrl: '/RichTextView/',
+    cname: 'richtextview.com',
+    url: 'https://richtextview.com',
+    baseUrl: '/',
     projectName: 'RichTextView',
     organizationName: 'tophat',
     // End deploy options
