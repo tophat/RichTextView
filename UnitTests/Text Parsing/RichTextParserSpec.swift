@@ -141,7 +141,7 @@ class RichTextParserSpec: QuickSpec {
         input.enumerateAttribute(.attachment, in: fullRange, options: []) { (value, _, _) in
             guard let attachment = value as? NSTextAttachment else { return }
 
-            if let _ = attachment.image {
+            if attachment.image != nil {
                 hasImage = true
             }
         }
@@ -152,13 +152,12 @@ class RichTextParserSpec: QuickSpec {
 extension RichDataType: Equatable {
     public static func == (lhs: RichDataType, rhs: RichDataType) -> Bool {
         switch (lhs, rhs) {
-        case let (.text(a), .text(b)):
-            return a.richText == b.richText
-        case let (.video(a), .video(b)):
-            return a.tag == b.tag
+        case let (.text(left), .text(right)):
+            return left.richText == right.richText
+        case let (.video(left), .video(right)):
+            return left.tag == right.tag
         default:
             return false
         }
     }
 }
-

@@ -1,0 +1,10 @@
+disabled_rules:
+  - todo
+  - function_body_length
+  - force_try
+  - force_cast
+  - identifier_name
+  - weak_delegate
+  - file_length
+  - type_body_length
+line_length: 160
