@@ -66,33 +66,27 @@ class RichTextParser {
         var errors: [ParsingError]?
         for element in input {
             let result = self.getAttributedText(from: element)
-            if let attributedString = result.output {
-                output.append(attributedString)
-            } else {
-                var tempErrors = [ParsingError]()
-                if let error = result.error {
-                    tempErrors.append(error)
-                }
-                if errors == nil {
-                    errors = tempErrors
-                } else {
-                    errors?.append(contentsOf: tempErrors)
-                }
+            output.append(result.output)
+            guard let error = result.error else {
+                continue
             }
+            if errors == nil {
+                errors = [ParsingError]()
+            }
+            errors?.append(error)
         }
         return (output, errors)
     }
 
-    private func getAttributedText(from input: String) -> (output: NSAttributedString?, error: ParsingError?) {
-        if isTextLatex(input) {
-            let latex = self.extractLatex(from: input)
-            if latex == nil {
+    private func getAttributedText(from input: String) -> (output: NSAttributedString, error: ParsingError?) {
+        if self.isTextLatex(input) {
+            guard let latex = self.extractLatex(from: input) else {
                 return (NSAttributedString(string: input), ParsingError.latexGeneration(text: input))
             }
             return (latex, nil)
         }
         guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
-            return (nil, ParsingError.attributedTextGeneration(text: input))
+            return (NSAttributedString(string: input), ParsingError.attributedTextGeneration(text: input))
         }
         var mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
