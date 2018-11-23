@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'THRichTextView'
-  s.version          = 'VERSION_REPLACED_BY_CI'
+  s.version          = '1.0.1'
   s.summary          = 'iOS Text View that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links.'
   s.description      = <<-DESC
 This is an iOS UIView that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links. Simply feed in an input

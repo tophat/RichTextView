@@ -87,3 +87,6 @@ In order for the `RichTextView` to handle the various use cases it might encount
 <img src="../website/static/img/screenshot-1.png" width="300px;"/> <img src="../website/static/img/screenshot-2.png" width="300px;"/>
 
 Check out the sample project in the `Example` root folder to see the screenshots above in action!
+
+## Architecture
+![Architecture](architecture/RichTextView.png)

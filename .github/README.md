@@ -99,6 +99,9 @@ In order for the `RichTextView` to handle the various use cases it might encount
 
 Check out the sample project in the `Example` root folder to see the screenshots above in action!
 
+## Architecture
+![Architecture](../docs/architecture/RichTextView.png)
+
 ## Contributing
 Simply clone the repo, run `pod install` and you should be good to go
 
