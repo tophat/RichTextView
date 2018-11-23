@@ -46,12 +46,12 @@ You can instantiate a `RichTextView` by importing the project first:
 
 ```
 let richTextView = RichTextView(
-	input: "Test",
-	latexParser: LatexParser(),
-	font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
-	textColor: UIColor.black,
-	frame: CGRect.zero,
-	completion: nil
+    input: "Test",
+    latexParser: LatexParser(),
+    font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
+    textColor: UIColor.black,
+    frame: CGRect.zero,
+    completion: nil
 )
 ```
 
@@ -59,11 +59,11 @@ You can also update an existing `RichTextView` as follows:
 
 ```
 richTextView.update(
-	input: "Test",
-	latexParser: LatexParser(),
-	font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
-	textColor: UIColor.black,
-	completion: nil
+    input: "Test",
+    latexParser: LatexParser(),
+    font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
+    textColor: UIColor.black,
+    completion: nil
 )
 ```
 
