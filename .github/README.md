@@ -43,6 +43,14 @@ And run `carthage update --platform iOS` in your repo.
 ## Usage
 
 You can instantiate a `RichTextView` by importing the project first:
+```
+import THRichTextView
+```
+if you are using Cocoapods, or
+```
+import RichTextView
+```
+if you are using Carthage. To init a `RichTextView`:
 
 ```
 let richTextView = RichTextView(
