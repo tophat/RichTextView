@@ -17,15 +17,14 @@ commands:
           path: ~/repo
       - restore_cache:
           name: Restores cocoapods Cache
-          key: richtextview-v2-{{ checksum "Podfile.lock" }}
+          key: richtextview-v3-{{ checksum "Podfile.lock" }}
   save_cocoapods_cache:
     steps:
       - save_cache:
           name: Saves cocoapods cache
-          key: richtextview-v2-{{ checksum "Podfile.lock" }}
+          key: richtextview-v3-{{ checksum "Podfile.lock" }}
           paths:
             - ./Pods
-            - /Users/distiller/.cocoapods/
             - ~/.cocoapods
   prep_website_env:
     description: Prepapres environment with cache
