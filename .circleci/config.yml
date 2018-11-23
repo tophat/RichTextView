@@ -1,22 +1,31 @@
 version: 2.1
 
 website_docker_defaults: &website_docker_defaults
+  working_directory: ~/repo/website
   docker:
     - image: circleci/node:8.11.3
 
+mac_defaults: &mac_defaults
+  working_directory: ~/repo
+  macos:
+    xcode: "10.0.0"
+
 commands:
-  restore_cocoapods_cache:
+  prep_mac_env:
     steps:
+      - checkout:
+          path: ~/repo
       - restore_cache:
           name: Restores cocoapods Cache
-          key: richtextview-{{ checksum "Podfile.lock" }}
+          key: richtextview-v3-{{ checksum "Podfile.lock" }}
   save_cocoapods_cache:
     steps:
       - save_cache:
           name: Saves cocoapods cache
-          key: richtextview-{{ checksum "Podfile.lock" }}
+          key: richtextview-v3-{{ checksum "Podfile.lock" }}
           paths:
-            - Pods/
+            - ./Pods
+            - ~/.cocoapods
   prep_website_env:
     description: Prepapres environment with cache
     steps:
@@ -36,11 +45,9 @@ commands:
 
 jobs:
   build:
-    macos:
-      xcode: "10.0.0"
+    <<: *mac_defaults
     steps:
-      - checkout
-      - restore_cocoapods_cache
+      - prep_mac_env
       - run:
           name: Install CocoaPods
           command: pod install
@@ -66,24 +73,18 @@ jobs:
           path: ~/Library/Logs/scan
           destination: scan-logs
   deploy:
-    macos:
-      xcode: "10.0.0"
+    <<: *mac_defaults
     steps:
-      - checkout
-      - restore_cocoapods_cache
+      - prep_mac_env
       - run:
           name: Set Podspec Version
-          command: |
-            git fetch --tags
-            git describe
-            sed -i 's/1.0.0/2.0.0/g' THRichTextView.podspec
+          command: ./scripts/update-version.sh
       - run:
           name: Deploy
           command: pod trunk push THRichTextView.podspec --allow-warnings
 
   website:
     <<: *website_docker_defaults
-    working_directory: ~/repo/website
     steps:
       - prep_website_env
       - run: yarn install
@@ -95,7 +96,6 @@ jobs:
             - build/
   deploy_website:
     <<: *website_docker_defaults
-    working_directory: ~/repo/website
     steps:
       - prep_website_env
       - attach_workspace:
@@ -117,15 +117,15 @@ workflows:
       - build:
           filters:
             tags:
-              only: /^v.*/
-#      - deploy:
-#          requires:
-#            - build
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
+            branches:
+              ignore: /.*/
       - website
       - deploy_website:
           requires:
@@ -134,3 +134,9 @@ workflows:
             branches:
               only:
                 - master
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
