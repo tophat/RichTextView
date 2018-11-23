@@ -72,6 +72,7 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
+      - run: bundle exec danger --verbose
   deploy:
     <<: *mac_defaults
     steps:
