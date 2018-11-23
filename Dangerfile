@@ -15,7 +15,7 @@ swiftlint.lint_files fail_on_error: true
 xcov.report(
    scheme: 'RichTextView',
    workspace: './RichTextView.xcworkspace',
-   minimum_coverage_percentage: 90.0,
+   minimum_coverage_percentage: 80.0,
    output_directory: '',
    exclude_targets: 'Down.framework,
    FBSnapshotTestCase.framework,
@@ -24,10 +24,6 @@ xcov.report(
    Quick.framework,
    SnapKit.framework',
 )
-
-# XCode Compiler Summary
-xcode_summary.ignored_files = '**/Pods/**'
-xcode_summary.report 'xcodebuild.json'
 
 message("
 If anything other than `RichTextView` appears in the code coverage section please add it

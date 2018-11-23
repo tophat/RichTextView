@@ -86,20 +86,6 @@ class RichTextViewUITests: QuickSpec {
                         })
                     }
                 }
-                it("Renders a string with a Youtube Video") {
-                    let richTextView = RichTextView(input: "Checkout this video: youtube[DLzxrzFCyOs]", frame: CGRect(origin: .zero, size: Defaults.size))
-                    richTextView.backgroundColor = UIColor.white
-                    self.richTextView = richTextView
-                    self.viewController = UIViewController()
-                    self.viewController?.view.addSubview(richTextView)
-                    self.window?.rootViewController = self.viewController
-                    waitUntil(timeout: Defaults.timeOut) { done in
-                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
-                            expect(self.window).to(haveValidSnapshot())
-                            done()
-                        })
-                    }
-                }
             }
             context("Update") {
                 it("Updates Input Properly") {
