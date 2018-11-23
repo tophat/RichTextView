@@ -43,6 +43,14 @@ And run `carthage update --platform iOS` in your repo.
 ## Usage
 
 You can instantiate a `RichTextView` by importing the project first:
+```
+import THRichTextView
+```
+if you are using Cocoapods, or
+```
+import RichTextView
+```
+if you are using Carthage. To init a `RichTextView`:
 
 ```
 let richTextView = RichTextView(
@@ -99,6 +107,6 @@ Thanks goes to these wonderful people [emoji key](https://github.com/kentcdodds/
 
 | [<img src="https://avatars2.githubusercontent.com/u/6837609?s=100"/><br /><sub><b>Ahmed Elkady</b></sub>](https://github.com/aelkady)<br />[💻](https://github.com/tophat/RichTextView/commits?author=aelkady) 🤔 [⚠️](https://github.com/tophat/RichTextView/commits?author=aelkady) | [<img src="https://avatars0.githubusercontent.com/u/3929954?s=100"/><br /><sub><b>Orla Mitchell</b></sub>](https://github.com/OrlaM)<br />[💻](https://github.com/tophat/RichTextView/commits?author=OrlaM) 🤔 [👀](https://github.com/tophat/RichTextView/commits?author=OrlaM) | [<img src="https://avatars.githubusercontent.com/u/3534236?s=100" width="100px;"/><br /><sub><b>Jake Bolam</b></sub>](https://github.com/jakebolam)<br />[🚇](../.circleci/config.yml)[📖](https://github.com/tophat/RichTextView/commits?author=jakebolam)
 | :---: | :---: | :---: |
-| [<img src="https://avatars1.githubusercontent.com/u/8632167?s=100"/><br /><sub><b>Sanchit Gera</b></sub>](https://github.com/sanchitgera)<br />[📖](https://github.com/tophat/RichTextView/commits?author=sanchitgera) | [<img src="https://avatars1.githubusercontent.com/u/30090188?s=100" width="100px;"/><br /><sub><b>Stephen Truong</b></sub>](https://github.com/struong9)<br />[📖](https://github.com/tophat/RichTextView/commits?author=struong9) | [<img src="https://avatars1.githubusercontent.com/u/39271619?s=100" width="100px;"/><br /><sub><b>Brandon Baksh</b></sub>](https://github.com/brandonbaksh)<br />[📖](https://github.com/tophat/RichTextView/commits?author=brandonbaksh)
+| [<img src="https://avatars1.githubusercontent.com/u/8632167?s=100"/><br /><sub><b>Sanchit Gera</b></sub>](https://github.com/sanchitgera)<br />[📖](https://github.com/tophat/RichTextView/commits?author=sanchitgera) | [<img src="https://avatars2.githubusercontent.com/u/8105535?s=100" width="100px;"/><br /><sub><b>Monica Moore</b></sub>](https://github.com/monicamm95)<br />[🎨](http://monicamoore.ca/) | [<img src="https://avatars1.githubusercontent.com/u/39271619?s=100" width="100px;"/><br /><sub><b>Brandon Baksh</b></sub>](https://github.com/brandonbaksh)<br />[📖](https://github.com/tophat/RichTextView/commits?author=brandonbaksh)
 
 Thanks to [Carol Skelly](https://github.com/iatek) for donating the github organization!
