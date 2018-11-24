@@ -1,9 +1,7 @@
 ---
-id: Style Guide
+id: style-guide
 title: Style Guide
 ---
-# Rich Text View Swift Style Guide
-
 Make sure to read [Apple's API Design Guidelines](https://swift.org/documentation/api-design-guidelines/).
 
 Specifics from these guidelines + additional remarks are mentioned below.
