@@ -74,9 +74,6 @@ jobs:
     steps:
       - prep_mac_env
       - run:
-          name: Set Podspec Version
-          command: ./scripts/update-version.sh
-      - run:
           name: Deploy
           command: pod trunk push THRichTextView.podspec --allow-warnings
 
