@@ -95,7 +95,7 @@ In order for the `RichTextView` to handle the various use cases it might encount
 * **Vimeo Videos**: Put the ID of the Vimeo video in a Vimeo tag as follows: `vimeo[100708006]`. The Vimeo ID of any video can be found by looking at the URL of the video (Example: `https://vimeo.com/100708006`) and taking the value right after the first `/`. In this case the ID of the Vimeo video is `100708006`
 
 ## Screenshots
-<img src="./assets/screenshot-1.png" width="300px;"/> <img src="./assets/screenshot-2.png" width="300px;"/>
+<img src="./assets/screenshot-1.png" width="400px;"/> <img src="./assets/screenshot-2.png" width="400px;"/>
 
 Check out the sample project in the `Example` root folder to see the screenshots above in action!
 
