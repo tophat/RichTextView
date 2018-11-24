@@ -84,4 +84,4 @@ In order for the `RichTextView` to handle the various use cases it might encount
 * **Vimeo Videos**: Put the ID of the Vimeo video in a Vimeo tag as follows: `vimeo[100708006]`. The Vimeo ID of any video can be found by looking at the URL of the video (Example: `https://vimeo.com/100708006`) and taking the value right after the first `/`. In this case the ID of the Vimeo video is `100708006`
 
 ## Architecture
-![Architecture](assets/RichTextView.png)
+![Architecture](/img/RichTextView.png)
