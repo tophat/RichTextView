@@ -53,17 +53,11 @@ jobs:
           command: pod install
       - save_cocoapods_cache
       - run:
-          name: Build and run RichTextViewUnitTests
+          name: Build and run RichTextView Tests
           command: fastlane scan
           environment:
             SCAN_DEVICE: iPhone 6
-            SCAN_SCHEME: RichTextViewUnitTests
-      - run:
-          name: Build and run RichTextViewUITests
-          command: fastlane scan
-          environment:
-            SCAN_DEVICE: iPhone 6
-            SCAN_SCHEME: RichTextViewUITests
+            SCAN_SCHEME: RichTextView
       - store_test_results:
           path: test_output/report.xml
       - store_artifacts:
@@ -72,6 +66,9 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
+      - run: 
+          name: Execute Danger
+          command: bundle install && bundle exec danger --verbose
   deploy:
     <<: *mac_defaults
     steps:
