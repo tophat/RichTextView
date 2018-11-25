@@ -1,0 +1,23 @@
+included:
+  - Source
+excluded:
+  - Carthage
+  - Pods
+line_length: 160
+# naming rules can set warnings/errors for min_length and max_length
+# additionally they can set excluded names
+type_name:
+  min_length: 4 # only warning
+  max_length:
+    warning: 40
+    error: 50
+
+nesting:
+  type_level:
+    warning: 2
+
+type_body_length:
+  warning: 300 # warning
+  error: 400 # error
+file_length:
+  error: 500

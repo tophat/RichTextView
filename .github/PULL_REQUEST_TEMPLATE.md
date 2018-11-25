@@ -6,8 +6,10 @@
 
 ### DevQA Prep
 <!-- Delete items that do not apply. -->
-- run `pod install`
-- test RichTextView and ensure it passes
+- Run `pod install`
+- Test `RichTextView` to ensure that it passes (unit and UI tests)
+- Navigate to the `Example` project in the root `Example` folder and run the app
+- Ensure that everything in the `Example` app looks visually correct
 
 
 ### DevQA Steps
@@ -15,7 +17,7 @@
 
 
 
-### Comments:
+### Comments
 <!-- Any other comments you want to include for reviewers. -->
 
 

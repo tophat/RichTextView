@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		078D2CA9BFB60FA210318808 /* Pods_RichTextView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39629EFB9271E37F1EF5B4D /* Pods_RichTextView_Example.framework */; };
 		7814891E2195323700DED7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814891D2195323700DED7A1 /* AppDelegate.swift */; };
 		781489202195323700DED7A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814891F2195323700DED7A1 /* ViewController.swift */; };
 		781489232195323700DED7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781489212195323700DED7A1 /* Main.storyboard */; };
 		781489252195323A00DED7A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 781489242195323A00DED7A1 /* Assets.xcassets */; };
 		781489282195323A00DED7A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781489262195323A00DED7A1 /* LaunchScreen.storyboard */; };
-		C1416142F4A46416C0CF9E66 /* Pods_RichTextView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E38B120BE5595649B4875C75 /* Pods_RichTextView_Example.framework */; };
+		78964EE821A85577003A4860 /* InputOutputModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78964EE721A85577003A4860 /* InputOutputModuleView.swift */; };
+		78964EEA21A85588003A4860 /* InputOutputModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78964EE921A85588003A4860 /* InputOutputModuleView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		02E2E2F5B335DCC60F4E474F /* Pods-RichTextView-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.release.xcconfig"; sourceTree = "<group>"; };
+		5AF1D41140B7F9541915882D /* Pods-RichTextView-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.release.xcconfig"; sourceTree = "<group>"; };
 		7814891A2195323700DED7A1 /* RichTextView-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RichTextView-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7814891D2195323700DED7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7814891F2195323700DED7A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,8 +26,10 @@
 		781489242195323A00DED7A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		781489272195323A00DED7A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		781489292195323A00DED7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E38B120BE5595649B4875C75 /* Pods_RichTextView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F887627B3B26DDC897F2E6BE /* Pods-RichTextView-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		78964EE721A85577003A4860 /* InputOutputModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOutputModuleView.swift; sourceTree = "<group>"; };
+		78964EE921A85588003A4860 /* InputOutputModuleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputOutputModuleView.xib; sourceTree = "<group>"; };
+		7E2F677854F87B0A57A41B9E /* Pods-RichTextView-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		C39629EFB9271E37F1EF5B4D /* Pods_RichTextView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,26 +37,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1416142F4A46416C0CF9E66 /* Pods_RichTextView_Example.framework in Frameworks */,
+				078D2CA9BFB60FA210318808 /* Pods_RichTextView_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1FF9D9BF4031DEB7EBB7B53E /* Pods */ = {
+		020A156CD49AA884EC0B24D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F887627B3B26DDC897F2E6BE /* Pods-RichTextView-Example.debug.xcconfig */,
-				02E2E2F5B335DCC60F4E474F /* Pods-RichTextView-Example.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		2ED47D5D6A8E28829DB9A426 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E38B120BE5595649B4875C75 /* Pods_RichTextView_Example.framework */,
+				C39629EFB9271E37F1EF5B4D /* Pods_RichTextView_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -60,10 +55,10 @@
 		781489112195323700DED7A1 = {
 			isa = PBXGroup;
 			children = (
-				7814891C2195323700DED7A1 /* RichTextView-Example */,
+				020A156CD49AA884EC0B24D5 /* Frameworks */,
+				D6412253C8CAD63BEA2415EB /* Pods */,
 				7814891B2195323700DED7A1 /* Products */,
-				1FF9D9BF4031DEB7EBB7B53E /* Pods */,
-				2ED47D5D6A8E28829DB9A426 /* Frameworks */,
+				7814891C2195323700DED7A1 /* Source */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,17 +70,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7814891C2195323700DED7A1 /* RichTextView-Example */ = {
+		7814891C2195323700DED7A1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				7814891D2195323700DED7A1 /* AppDelegate.swift */,
-				7814891F2195323700DED7A1 /* ViewController.swift */,
-				781489212195323700DED7A1 /* Main.storyboard */,
 				781489242195323A00DED7A1 /* Assets.xcassets */,
-				781489262195323A00DED7A1 /* LaunchScreen.storyboard */,
 				781489292195323A00DED7A1 /* Info.plist */,
+				781489262195323A00DED7A1 /* LaunchScreen.storyboard */,
+				781489212195323700DED7A1 /* Main.storyboard */,
+				7814891F2195323700DED7A1 /* ViewController.swift */,
+				78964EE721A85577003A4860 /* InputOutputModuleView.swift */,
+				78964EE921A85588003A4860 /* InputOutputModuleView.xib */,
 			);
-			path = "RichTextView-Example";
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D6412253C8CAD63BEA2415EB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7E2F677854F87B0A57A41B9E /* Pods-RichTextView-Example.debug.xcconfig */,
+				5AF1D41140B7F9541915882D /* Pods-RichTextView-Example.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,11 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7814892C2195323A00DED7A1 /* Build configuration list for PBXNativeTarget "RichTextView-Example" */;
 			buildPhases = (
-				92A37091139FEAF9655C0EB8 /* [CP] Check Pods Manifest.lock */,
+				2421E11707A8013257772109 /* [CP] Check Pods Manifest.lock */,
 				781489162195323700DED7A1 /* Sources */,
 				781489172195323700DED7A1 /* Frameworks */,
 				781489182195323700DED7A1 /* Resources */,
-				54B80DFBACD524F53986B957 /* [CP] Embed Pods Frameworks */,
+				57AB518366D728672E827631 /* [CP] Embed Pods Frameworks */,
+				7880D52A21A77A120083901C /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -148,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78964EEA21A85588003A4860 /* InputOutputModuleView.xib in Resources */,
 				781489282195323A00DED7A1 /* LaunchScreen.storyboard in Resources */,
 				781489252195323A00DED7A1 /* Assets.xcassets in Resources */,
 				781489232195323700DED7A1 /* Main.storyboard in Resources */,
@@ -157,27 +165,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		54B80DFBACD524F53986B957 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Down/Down.framework",
-				"${BUILT_PRODUCTS_DIR}/RichTextView/RichTextView.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RichTextView.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		92A37091139FEAF9655C0EB8 /* [CP] Check Pods Manifest.lock */ = {
+		2421E11707A8013257772109 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -195,6 +183,48 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		57AB518366D728672E827631 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Down/Down.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/THRichTextView/THRichTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/iosMath/iosMath.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/THRichTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iosMath.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7880D52A21A77A120083901C /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -202,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78964EE821A85577003A4860 /* InputOutputModuleView.swift in Sources */,
 				781489202195323700DED7A1 /* ViewController.swift in Sources */,
 				7814891E2195323700DED7A1 /* AppDelegate.swift in Sources */,
 			);
@@ -347,12 +378,12 @@
 		};
 		7814892D2195323A00DED7A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F887627B3B26DDC897F2E6BE /* Pods-RichTextView-Example.debug.xcconfig */;
+			baseConfigurationReference = 7E2F677854F87B0A57A41B9E /* Pods-RichTextView-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8N4V63T666;
-				INFOPLIST_FILE = "RichTextView-Example/Info.plist";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Source/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,12 +397,12 @@
 		};
 		7814892E2195323A00DED7A1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02E2E2F5B335DCC60F4E474F /* Pods-RichTextView-Example.release.xcconfig */;
+			baseConfigurationReference = 5AF1D41140B7F9541915882D /* Pods-RichTextView-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8N4V63T666;
-				INFOPLIST_FILE = "RichTextView-Example/Info.plist";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Source/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

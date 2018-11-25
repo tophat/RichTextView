@@ -83,5 +83,10 @@ In order for the `RichTextView` to handle the various use cases it might encount
 * **YouTube Videos**: Put the ID of the YouTube video in a YouTube tag as follows: `youtube[dQw4w9WgXcQ]`. The YouTube ID of any video can be found by looking at the URL of the video (Example: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`) and taking the value right after the `v=` URL parameter. In this case the ID of the YouTube video is `dQw4w9WgXcQ`
 * **Vimeo Videos**: Put the ID of the Vimeo video in a Vimeo tag as follows: `vimeo[100708006]`. The Vimeo ID of any video can be found by looking at the URL of the video (Example: `https://vimeo.com/100708006`) and taking the value right after the first `/`. In this case the ID of the Vimeo video is `100708006`
 
+## Screenshots
+<img src="/img/screenshot-1.png" width="300px;"/> <img src="/img/screenshot-2.png" width="300px;"/>
+
+Check out the sample project in the `Example` root folder to see the screenshots above in action!
+
 ## Architecture
 ![Architecture](/img/RichTextView.png)

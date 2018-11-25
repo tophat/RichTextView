@@ -1,0 +1,35 @@
+PODS:
+  - Down (0.6.0)
+  - iosMath (0.9.4)
+  - SnapKit (4.2.0)
+  - SwiftLint (0.28.1)
+  - THRichTextView (1.0.1):
+    - Down
+    - iosMath
+    - SnapKit
+
+DEPENDENCIES:
+  - SwiftLint
+  - THRichTextView (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Down
+    - iosMath
+    - SnapKit
+    - SwiftLint
+
+EXTERNAL SOURCES:
+  THRichTextView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Down: f594e719ff2c2d974c42a122fa219813f5fc3c06
+  iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftLint: 7f5f7de0da74a649b16616cb5246ae323489656e
+  THRichTextView: 94e5b693905788835d85134fcbd779ac4ecc2c3d
+
+PODFILE CHECKSUM: d457df6b6e1b45dcd615a5cae01c23050a3dd9ec
+
+COCOAPODS: 1.5.3
