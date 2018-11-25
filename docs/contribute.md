@@ -12,7 +12,7 @@ However, you need to be on the legacy build system to see your changes reflected
 
 Feel free to add additional input/output examples to the example project, especially if you add any new functionality.
 
-Also, be sure to 
+Also, be sure to run the unit/UI tests locally as part of the devQA process.
 
 ## Have a question that wasn't answered?
 
