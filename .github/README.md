@@ -25,7 +25,7 @@ iOS Text View (`UIView`) that Properly Displays LaTeX, HTML, Markdown, and YouTu
 Simply add the following to your Podfile:
 
 ```
-pod 'THRichTextView'
+pod 'RichTextView'
 ```
 
 And run `pod install` in your repo.
@@ -43,14 +43,11 @@ And run `carthage update --platform iOS` in your repo.
 ## Usage
 
 You can instantiate a `RichTextView` by importing the project first:
-```
-import THRichTextView
-```
-if you are using Cocoapods, or
+
 ```
 import RichTextView
 ```
-if you are using Carthage. To init a `RichTextView`:
+To init a `RichTextView`:
 
 ```
 let richTextView = RichTextView(
@@ -123,4 +120,4 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 | :---: | :---: | :---: | :---: |
 | [<img src="https://avatars2.githubusercontent.com/u/8105535?s=100" width="100px;"/><br /><sub><b>Monica Moore</b></sub>](https://github.com/monicamm95)<br />[🎨](http://monicamoore.ca/) | [<img src="https://avatars1.githubusercontent.com/u/39271619?s=100" width="100px;"/><br /><sub><b>Brandon Baksh</b></sub>](https://github.com/brandonbaksh)<br />[📖](https://github.com/tophat/RichTextView/commits?author=brandonbaksh) | [<img src="https://avatars1.githubusercontent.com/u/445636?s=100" width="100px;"/><br /><sub><b>Siavash Bidgoly</b></sub>](https://github.com/syavash)<br />[🚇](../.circleci/config.yml) | [<img src="https://avatars1.githubusercontent.com/u/30090188?s=100" width="100px;"/><br /><sub><b>Stephen Truong</b></sub>](https://github.com/struong9)<br />[📖](https://github.com/tophat/RichTextView/commits?author=struong9)
 
-Thanks to [Carol Skelly](https://github.com/iatek) for donating the github organization!
+Thanks to [Carol Skelly](https://github.com/iatek) for donating the Github organization and [Kevin Zhow](https://github.com/kevinzhow) for donating the Pod name!

@@ -23,8 +23,9 @@ iOS Text View (`UIView`) that Properly Displays LaTeX, HTML, Markdown, and YouTu
 Simply add the following to your Podfile:
 
 ```
-pod 'THRichTextView'
+pod 'RichTextView'
 ```
+
 And run `pod install` in your repo.
 
 ### Using Carthage
@@ -40,6 +41,11 @@ And run `carthage update --platform iOS` in your repo.
 ## Usage
 
 You can instantiate a `RichTextView` by importing the project first:
+
+```
+import RichTextView
+```
+To init a `RichTextView`:
 
 ```
 let richTextView = RichTextView(

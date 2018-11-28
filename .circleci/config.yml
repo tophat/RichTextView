@@ -75,7 +75,7 @@ jobs:
       - prep_mac_env
       - run:
           name: Deploy
-          command: pod trunk push THRichTextView.podspec --allow-warnings
+          command: pod trunk push RichTextView.podspec --allow-warnings
 
   website:
     <<: *website_docker_defaults
