@@ -6,7 +6,7 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
-import THRichTextView
+import RichTextView
 import UIKit
 
 class InputOutputModuleView: UIView {
