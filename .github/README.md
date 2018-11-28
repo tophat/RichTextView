@@ -3,13 +3,13 @@
 
 # RichTextView
 
-<img src="../website/static/img/rtv-full-res.png" width="300px;"/>
+<img src="https://raw.githubusercontent.com/tophat/RichTextView/master/website/static/img/rtv-full-res.png" width="300px;"/>
 
 
-[![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
+[![Cocoapods](https://img.shields.io/cocoapods/v/RichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat)](#credits)
 [![Slack workspace](https://slackinvite.dev.tophat.com/badge.svg)](https://opensource.tophat.com/#join-slack)
 [![License - Apache-2](https://img.shields.io/badge/license-Apache%202-blue.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0/)
 [![Maturity badge - level 3](https://img.shields.io/badge/Maturity-Level%203%20--%20Stable-green.svg)](https://github.com/tophat/getting-started/blob/master/scorecard.md)
@@ -92,12 +92,12 @@ In order for the `RichTextView` to handle the various use cases it might encount
 * **Vimeo Videos**: Put the ID of the Vimeo video in a Vimeo tag as follows: `vimeo[100708006]`. The Vimeo ID of any video can be found by looking at the URL of the video (Example: `https://vimeo.com/100708006`) and taking the value right after the first `/`. In this case the ID of the Vimeo video is `100708006`
 
 ## Screenshots
-<img src="./assets/screenshot-1.png" width="400px;"/> <img src="./assets/screenshot-2.png" width="400px;"/>
+<img src="https://raw.githubusercontent.com/tophat/RichTextView/master/.github/assets/screenshot-1.png" width="400px;"/> <img src="https://raw.githubusercontent.com/tophat/RichTextView/master/.github/assets/screenshot-2.png" width="400px;"/>
 
 Check out the sample project in the `Example` root folder to see the screenshots above in action!
 
 ## Architecture
-![Architecture](assets/RichTextView.png)
+![Architecture](https://raw.githubusercontent.com/tophat/RichTextView/master/.github/assets/RichTextView.png)
 
 ## Contributing
 Simply clone the repo, run `pod install` and you should be good to go

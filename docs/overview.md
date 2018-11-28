@@ -3,10 +3,10 @@ id: overview
 title: Overview
 ---
 
-[![Cocoapods](https://img.shields.io/cocoapods/v/THRichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
+[![Cocoapods](https://img.shields.io/cocoapods/v/RichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#credits)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat)](#credits)
 [![Slack workspace](https://slackinvite.dev.tophat.com/badge.svg)](https://opensource.tophat.com/#join-slack)
 [![License - Apache-2](https://img.shields.io/badge/license-Apache%202-blue.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0/)
 [![Maturity badge - level 3](https://img.shields.io/badge/Maturity-Level%203%20--%20Stable-green.svg)](https://github.com/tophat/getting-started/blob/master/scorecard.md)
