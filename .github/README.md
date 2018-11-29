@@ -6,7 +6,7 @@
 <img src="https://raw.githubusercontent.com/tophat/RichTextView/master/website/static/img/rtv-full-res.png" width="300px;"/>
 
 
-[![Cocoapods](https://img.shields.io/cocoapods/v/RichTextView.svg)](https://cocoapods.org/pods/THRichTextView)
+[![Cocoapods](https://img.shields.io/cocoapods/v/RichTextView.svg)](https://cocoapods.org/pods/RichTextView)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView.svg)](https://circleci.com/gh/tophat/RichTextView)
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat)](#credits)
