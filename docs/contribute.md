@@ -16,4 +16,4 @@ Also, be sure to run the unit/UI tests locally as part of the devQA process.
 
 ## Have a question that wasn't answered?
 
-Join our [slack community](https://tophat-opensource.slack.com) and ask!
+Join our [slack community](https://opensource.tophat.com/slack) and ask!
