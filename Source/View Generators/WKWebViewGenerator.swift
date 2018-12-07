@@ -1,5 +1,5 @@
 //
-//  RichWebViewGenerator.swift
+//  WKWebViewGenerator.swift
 //  RichTextView
 //
 //  Created by Ahmed Elkady on 2018-11-08.
@@ -8,7 +8,7 @@
 
 import WebKit
 
-class RichWebViewGenerator {
+class WKWebViewGenerator {
 
     // MARK: - Init
 
@@ -17,7 +17,7 @@ class RichWebViewGenerator {
     // MARK: - Utility Functions
 
     static func getWebView(from input: String) -> WKWebView? {
-        guard let url = RichWebViewGenerator.getWebViewURL(from: input) else {
+        guard let url = WKWebViewGenerator.getWebViewURL(from: input) else {
             return nil
         }
         let configuration = WKWebViewConfiguration()

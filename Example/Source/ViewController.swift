@@ -23,7 +23,8 @@ class ViewController: UIViewController {
             InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
             InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),
             InputOutputModuleView(text: "Here is some code: [code]print('Hello World!')[/code]"),
-            InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]")
+            InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]"),
+            InputOutputModuleView(text: "<a href='https://www.google.com'>jump to page</a>")
         ]
     }
 
