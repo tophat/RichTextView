@@ -16,6 +16,8 @@ public class RichTextView: UIView {
     public private(set) var input: String
     private(set) var richTextParser: RichTextParser
     private(set) var textColor: UIColor
+    private(set) var isSelectable: Bool
+    private(set) var isEditable: Bool
 
     private(set) var errors: [ParsingError]?
 
@@ -31,9 +33,13 @@ public class RichTextView: UIView {
                 latexParser: LatexParserProtocol = LatexParser(),
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
+                isSelectable: Bool = true,
+                isEditable: Bool = false,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
+        self.isSelectable = isSelectable
+        self.isEditable = isEditable
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor)
         self.textColor = textColor
         super.init(frame: frame)
@@ -45,6 +51,8 @@ public class RichTextView: UIView {
         self.input = ""
         self.richTextParser = RichTextParser()
         self.textColor = UIColor.black
+        self.isSelectable = true
+        self.isEditable = false
         super.init(coder: aDecoder)
         self.setupSubviews()
     }
@@ -69,7 +77,7 @@ public class RichTextView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews = self.generateViews(from: self.input)
+        let subviews = self.generateViews()
         for (index, subview) in subviews.enumerated() {
             self.addSubview(subview)
             subview.snp.makeConstraints { make in
@@ -90,19 +98,25 @@ public class RichTextView: UIView {
         }
     }
 
-    func generateViews(from input: String) -> [UIView] {
-        return self.richTextParser.getRichDataTypes(from: input).compactMap { (richDataType: RichDataType) -> UIView? in
+    func generateViews() -> [UIView] {
+        return self.richTextParser.getRichDataTypes(from: self.input).compactMap { (richDataType: RichDataType) -> UIView? in
             switch richDataType {
             case .video(let tag, let error):
                 self.appendError(error)
-                let webView = RichWebViewGenerator.getWebView(from: tag)
+                let webView = WKWebViewGenerator.getWebView(from: tag)
                 if webView == nil {
                     self.appendError(ParsingError.webViewGeneration(link: tag))
                 }
                 return webView
             case .text(let richText, let font, let errors):
                 self.appendErrors(errors)
-                return RichLabelGenerator.getLabel(from: richText, font: font, textColor: textColor)
+                return UITextViewGenerator.getTextView(
+                    from: richText,
+                    font: font,
+                    textColor: textColor,
+                    isSelectable: self.isSelectable,
+                    isEditable: self.isEditable
+                )
             }
         }
     }

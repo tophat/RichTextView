@@ -16,10 +16,10 @@
 		781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488F42194E6D600DED7A1 /* RichTextView.swift */; };
 		781488FF2194E71C00DED7A1 /* RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781488E92194E6B600DED7A1 /* RichTextView.framework */; };
 		78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814893F219536DF00DED7A1 /* RichTextParser.swift */; };
-		781489422195378B00DED7A1 /* RichLabelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781489412195378B00DED7A1 /* RichLabelGenerator.swift */; };
-		781489442195379800DED7A1 /* RichWebViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781489432195379800DED7A1 /* RichWebViewGenerator.swift */; };
-		7886C3A421A2EB2600C11817 /* RichLabelGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A021A2EAF300C11817 /* RichLabelGeneratorSpec.swift */; };
-		7886C3A521A2EB2900C11817 /* RichWebViewGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A221A2EB2100C11817 /* RichWebViewGeneratorSpec.swift */; };
+		7823D04521BACCBC0041CD51 /* WKWebViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823D04321BACCBC0041CD51 /* WKWebViewGenerator.swift */; };
+		7823D04621BACCBC0041CD51 /* UITextViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823D04421BACCBC0041CD51 /* UITextViewGenerator.swift */; };
+		7886C3A421A2EB2600C11817 /* UITextViewGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A021A2EAF300C11817 /* UITextViewGeneratorSpec.swift */; };
+		7886C3A521A2EB2900C11817 /* WKWebViewGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A221A2EB2100C11817 /* WKWebViewGeneratorSpec.swift */; };
 		7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */; };
 		7886C3AF21A33AFD00C11817 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3AE21A33AFD00C11817 /* StringExtension.swift */; };
 		7886C3B421A3421A00C11817 /* StringExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3B121A33F6E00C11817 /* StringExtensionSpec.swift */; };
@@ -65,10 +65,10 @@
 		781489092194E72C00DED7A1 /* RichTextViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RichTextViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7814890D2194E72D00DED7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7814893F219536DF00DED7A1 /* RichTextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextParser.swift; sourceTree = "<group>"; };
-		781489412195378B00DED7A1 /* RichLabelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichLabelGenerator.swift; sourceTree = "<group>"; };
-		781489432195379800DED7A1 /* RichWebViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichWebViewGenerator.swift; sourceTree = "<group>"; };
-		7886C3A021A2EAF300C11817 /* RichLabelGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichLabelGeneratorSpec.swift; sourceTree = "<group>"; };
-		7886C3A221A2EB2100C11817 /* RichWebViewGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichWebViewGeneratorSpec.swift; sourceTree = "<group>"; };
+		7823D04321BACCBC0041CD51 /* WKWebViewGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKWebViewGenerator.swift; sourceTree = "<group>"; };
+		7823D04421BACCBC0041CD51 /* UITextViewGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewGenerator.swift; sourceTree = "<group>"; };
+		7886C3A021A2EAF300C11817 /* UITextViewGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewGeneratorSpec.swift; sourceTree = "<group>"; };
+		7886C3A221A2EB2100C11817 /* WKWebViewGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewGeneratorSpec.swift; sourceTree = "<group>"; };
 		7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexParserProtocol.swift; sourceTree = "<group>"; };
 		7886C3AE21A33AFD00C11817 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		7886C3B121A33F6E00C11817 /* StringExtensionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionSpec.swift; sourceTree = "<group>"; };
@@ -220,8 +220,8 @@
 		789E3C2121A46EE50089FD2F /* View Generators */ = {
 			isa = PBXGroup;
 			children = (
-				781489412195378B00DED7A1 /* RichLabelGenerator.swift */,
-				781489432195379800DED7A1 /* RichWebViewGenerator.swift */,
+				7823D04421BACCBC0041CD51 /* UITextViewGenerator.swift */,
+				7823D04321BACCBC0041CD51 /* WKWebViewGenerator.swift */,
 			);
 			path = "View Generators";
 			sourceTree = "<group>";
@@ -229,8 +229,8 @@
 		789E3C2221A46F070089FD2F /* View Generators */ = {
 			isa = PBXGroup;
 			children = (
-				7886C3A021A2EAF300C11817 /* RichLabelGeneratorSpec.swift */,
-				7886C3A221A2EB2100C11817 /* RichWebViewGeneratorSpec.swift */,
+				7886C3A021A2EAF300C11817 /* UITextViewGeneratorSpec.swift */,
+				7886C3A221A2EB2100C11817 /* WKWebViewGeneratorSpec.swift */,
 			);
 			path = "View Generators";
 			sourceTree = "<group>";
@@ -535,9 +535,9 @@
 			files = (
 				7886C3AF21A33AFD00C11817 /* StringExtension.swift in Sources */,
 				7886C3B721A3541D00C11817 /* RichTextViewConstants.swift in Sources */,
+				7823D04521BACCBC0041CD51 /* WKWebViewGenerator.swift in Sources */,
 				78D1DC3721A49486004CA0F1 /* NSMutableAttributedStringExtension.swift in Sources */,
-				781489422195378B00DED7A1 /* RichLabelGenerator.swift in Sources */,
-				781489442195379800DED7A1 /* RichWebViewGenerator.swift in Sources */,
+				7823D04621BACCBC0041CD51 /* UITextViewGenerator.swift in Sources */,
 				781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */,
 				7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */,
 				78D1DC3521A47B23004CA0F1 /* RichDataType.swift in Sources */,
@@ -550,8 +550,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7886C3A421A2EB2600C11817 /* RichLabelGeneratorSpec.swift in Sources */,
-				7886C3A521A2EB2900C11817 /* RichWebViewGeneratorSpec.swift in Sources */,
+				7886C3A421A2EB2600C11817 /* UITextViewGeneratorSpec.swift in Sources */,
+				7886C3A521A2EB2900C11817 /* WKWebViewGeneratorSpec.swift in Sources */,
 				7886C3B421A3421A00C11817 /* StringExtensionSpec.swift in Sources */,
 				78D1DC3A21A49727004CA0F1 /* NSMutableAttributedStringExtensionSpec.swift in Sources */,
 				2AD49AFD21A31A7400173AE1 /* RichTextViewSpec.swift in Sources */,
