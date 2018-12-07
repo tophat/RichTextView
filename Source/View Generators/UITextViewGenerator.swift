@@ -26,6 +26,7 @@ class UITextViewGenerator {
         textView.isEditable = isEditable
         textView.isScrollEnabled = false
         textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 0
         if #available(iOS 10.0, *) {
             textView.adjustsFontForContentSizeCategory = true
         }
