@@ -1,13 +1,12 @@
 ## What is the purpose of your *issue*?
 - [ ] Bug
-- [ ] Feature Request
 - [ ] Question
 - [ ] Other
 
 ## Description
 Provide as much information possible about the issue below
 
-## Bug Report (Include if 'Bug' selected):
+## Bug Report
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'

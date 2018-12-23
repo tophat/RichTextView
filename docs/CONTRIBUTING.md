@@ -1,6 +1,6 @@
 ---
-id: contribute
-title: Contribute
+id: contributing
+title: Contributing
 ---
 Simply clone the repo, run `pod install` and you should be good to go
 
