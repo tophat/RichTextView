@@ -102,7 +102,7 @@ jobs:
           command: |
             git config --global user.email "circleci-richtextview@users.noreply.github.com"
             git config --global user.name "CircleCI RichTextView"
-            USE_SSH=true yarn publish-gh-pages
+            CUSTOM_COMMIT_MESSAGE="[skip ci]" USE_SSH=true yarn publish-gh-pages
 
 workflows:
   version: 2
