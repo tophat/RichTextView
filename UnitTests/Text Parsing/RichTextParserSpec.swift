@@ -64,6 +64,20 @@ class RichTextParserSpec: QuickSpec {
                     expect(attributedStrings.count).to(equal(1))
                     expect(attributedStrings[0].string).to(equal("\nMessage"))
                 }
+                it("generates an attributed string array with the correct components for html on a non-main thread") {
+                    waitUntil { done in
+                        DispatchQueue.global().async {
+                            let components = self.richTextParser.seperateComponents(from: MarkDownText.complexHTML)
+                            let results = self.richTextParser.generateAttributedStringArray(from: components)
+                            let attributedStrings = results.output
+
+                            expect(attributedStrings.count).to(equal(1))
+                            expect(attributedStrings[0].string).to(equal("\nMessage"))
+                            done()
+                        }
+                    }
+
+                }
             }
             context("Rich text to attributed string") {
                 it("generates a single attributed string with multiple rich text types") {

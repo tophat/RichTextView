@@ -85,13 +85,28 @@ class RichTextParser {
             }
             return (latex, nil)
         }
+        if Thread.isMainThread {
+            return self.getAttributedTextFromDown(with: input)
+        }
+
+        var output = NSAttributedString(string: "")
+        var parsingError: ParsingError?
+
+        DispatchQueue.main.sync {
+            (output, parsingError) = self.getAttributedTextFromDown(with: input)
+        }
+
+        return (output, parsingError)
+    }
+
+    private func getAttributedTextFromDown(with input: String) -> (output: NSAttributedString, error: ParsingError?) {
         guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
             return (NSAttributedString(string: input), ParsingError.attributedTextGeneration(text: input))
         }
-        var mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
+
+        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
-        mutableAttributedInput = mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces()
-        return (mutableAttributedInput, nil)
+        return (mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces(), nil)
     }
 
     func seperateComponents(from input: String) -> [String] {
