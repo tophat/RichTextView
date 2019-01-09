@@ -89,7 +89,7 @@ class RichTextParser {
             return self.getAttributedTextFromDown(with: input)
         }
 
-        var output = NSAttributedString(string: input)
+        var output = NSAttributedString(string: "")
         var parsingError: ParsingError?
 
         DispatchQueue.main.sync {
