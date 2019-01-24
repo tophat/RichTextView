@@ -19,14 +19,14 @@ class RichTextParser {
     let latexParser: LatexParserProtocol
     let font: UIFont
     let textColor: UIColor
-    let latexTextBaselineOffset: Double
+    let latexTextBaselineOffset: CGFloat
 
     // MARK: - Init
 
     init(latexParser: LatexParserProtocol = LatexParser(),
          font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
          textColor: UIColor = UIColor.black,
-         latexTextBaselineOffset: Double = 0) {
+         latexTextBaselineOffset: CGFloat = 0) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor

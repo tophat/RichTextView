@@ -35,7 +35,7 @@ public class RichTextView: UIView {
                 textColor: UIColor = UIColor.black,
                 isSelectable: Bool = true,
                 isEditable: Bool = false,
-                latexTextBaselineOffset: Double = 0,
+                latexTextBaselineOffset: CGFloat = 0,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
@@ -64,7 +64,7 @@ public class RichTextView: UIView {
                        latexParser: LatexParserProtocol? = nil,
                        font: UIFont? = nil,
                        textColor: UIColor? = nil,
-                       latexTextBaselineOffset: Double? = nil,
+                       latexTextBaselineOffset: CGFloat? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
