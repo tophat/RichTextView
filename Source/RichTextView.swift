@@ -35,12 +35,13 @@ public class RichTextView: UIView {
                 textColor: UIColor = UIColor.black,
                 isSelectable: Bool = true,
                 isEditable: Bool = false,
+                latexTextBaselineOffset: CGFloat = 0,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
         self.isSelectable = isSelectable
         self.isEditable = isEditable
-        self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor)
+        self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor, latexTextBaselineOffset: latexTextBaselineOffset)
         self.textColor = textColor
         super.init(frame: frame)
         self.setupSubviews()
@@ -63,12 +64,14 @@ public class RichTextView: UIView {
                        latexParser: LatexParserProtocol? = nil,
                        font: UIFont? = nil,
                        textColor: UIColor? = nil,
+                       latexTextBaselineOffset: CGFloat? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
             latexParser: latexParser ?? self.richTextParser.latexParser,
             font: font ?? self.richTextParser.font,
-            textColor: textColor ?? self.textColor
+            textColor: textColor ?? self.textColor,
+            latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }

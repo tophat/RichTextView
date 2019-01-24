@@ -58,6 +58,24 @@ class RichTextViewUITests: QuickSpec {
                         })
                     }
                 }
+                it("Renders a string with LaTeX and a custom baseline offset") {
+                    let richTextView = RichTextView(
+                        input: "Here is some LaTeX: [math]x^n[/math]",
+                        latexTextBaselineOffset: -50,
+                        frame: CGRect(origin: .zero, size: Defaults.size)
+                    )
+                    richTextView.backgroundColor = UIColor.white
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
                 it("Renders a string with Markdown") {
                     let richTextView = RichTextView(input: "* Heading", frame: CGRect(origin: .zero, size: Defaults.size))
                     richTextView.backgroundColor = UIColor.white
