@@ -18,6 +18,7 @@ public class RichTextView: UIView {
     private(set) var textColor: UIColor
     private(set) var isSelectable: Bool
     private(set) var isEditable: Bool
+    private(set) weak var textViewDelegate: UITextViewDelegate?
 
     private(set) var errors: [ParsingError]?
 
@@ -36,6 +37,7 @@ public class RichTextView: UIView {
                 isSelectable: Bool = true,
                 isEditable: Bool = false,
                 latexTextBaselineOffset: CGFloat = 0,
+                textViewDelegate: UITextViewDelegate? = nil,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
@@ -43,6 +45,7 @@ public class RichTextView: UIView {
         self.isEditable = isEditable
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor, latexTextBaselineOffset: latexTextBaselineOffset)
         self.textColor = textColor
+        self.textViewDelegate = textViewDelegate
         super.init(frame: frame)
         self.setupSubviews()
         completion?(self.errors)
@@ -65,6 +68,7 @@ public class RichTextView: UIView {
                        font: UIFont? = nil,
                        textColor: UIColor? = nil,
                        latexTextBaselineOffset: CGFloat? = nil,
+                       textViewDelegate: UITextViewDelegate? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
@@ -74,6 +78,7 @@ public class RichTextView: UIView {
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset
         )
         self.textColor = textColor ?? self.textColor
+        self.textViewDelegate = textViewDelegate ?? self.textViewDelegate
         self.subviews.forEach { $0.removeFromSuperview() }
         self.setupSubviews()
         completion?(self.errors)
@@ -118,7 +123,8 @@ public class RichTextView: UIView {
                     font: font,
                     textColor: textColor,
                     isSelectable: self.isSelectable,
-                    isEditable: self.isEditable
+                    isEditable: self.isEditable,
+                    textViewDelegate: self.textViewDelegate
                 )
             }
         }
