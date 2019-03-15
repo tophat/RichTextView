@@ -17,7 +17,7 @@ class UITextViewGeneratorSpec: QuickSpec {
             context("Creation") {
                 it("creates a label using an NSAttributedString") {
                     let attributedString = NSAttributedString(string: "some text")
-                    class TextViewDelegate: NSObject, UITextViewDelegate {}
+                    class TextViewDelegate: NSObject, RichTextViewDelegate {}
                     let delegate = TextViewDelegate()
                     let textView = UITextViewGenerator.getTextView(
                         from: attributedString,

@@ -19,7 +19,7 @@ class UITextViewGenerator {
                             textColor: UIColor,
                             isSelectable: Bool,
                             isEditable: Bool,
-                            textViewDelegate: UITextViewDelegate?) -> UITextView {
+                            textViewDelegate: RichTextViewDelegate?) -> UITextView {
         let textView = UITextView()
         let mutableInput = NSMutableAttributedString(attributedString: input)
         mutableInput.replaceFont(with: font)

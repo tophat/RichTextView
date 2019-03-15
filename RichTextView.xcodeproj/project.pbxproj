@@ -18,6 +18,7 @@
 		78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814893F219536DF00DED7A1 /* RichTextParser.swift */; };
 		7823D04521BACCBC0041CD51 /* WKWebViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823D04321BACCBC0041CD51 /* WKWebViewGenerator.swift */; };
 		7823D04621BACCBC0041CD51 /* UITextViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823D04421BACCBC0041CD51 /* UITextViewGenerator.swift */; };
+		78322F99223C39C400C3D599 /* RichTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78322F98223C39C400C3D599 /* RichTextViewDelegate.swift */; };
 		7886C3A421A2EB2600C11817 /* UITextViewGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A021A2EAF300C11817 /* UITextViewGeneratorSpec.swift */; };
 		7886C3A521A2EB2900C11817 /* WKWebViewGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A221A2EB2100C11817 /* WKWebViewGeneratorSpec.swift */; };
 		7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */; };
@@ -67,6 +68,7 @@
 		7814893F219536DF00DED7A1 /* RichTextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextParser.swift; sourceTree = "<group>"; };
 		7823D04321BACCBC0041CD51 /* WKWebViewGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKWebViewGenerator.swift; sourceTree = "<group>"; };
 		7823D04421BACCBC0041CD51 /* UITextViewGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewGenerator.swift; sourceTree = "<group>"; };
+		78322F98223C39C400C3D599 /* RichTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextViewDelegate.swift; sourceTree = "<group>"; };
 		7886C3A021A2EAF300C11817 /* UITextViewGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewGeneratorSpec.swift; sourceTree = "<group>"; };
 		7886C3A221A2EB2100C11817 /* WKWebViewGeneratorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewGeneratorSpec.swift; sourceTree = "<group>"; };
 		7886C3A621A30B4500C11817 /* LatexParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexParserProtocol.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				7886C3B521A3540F00C11817 /* Constants */,
+				78322F97223C39B400C3D599 /* Delegates */,
 				7886C3AD21A33AE800C11817 /* Extensions */,
 				781488ED2194E6B600DED7A1 /* Info.plist */,
 				781488EC2194E6B600DED7A1 /* RichTextView.h */,
@@ -179,6 +182,14 @@
 				7814893F219536DF00DED7A1 /* RichTextParser.swift */,
 			);
 			path = "Text Parsing";
+			sourceTree = "<group>";
+		};
+		78322F97223C39B400C3D599 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				78322F98223C39C400C3D599 /* RichTextViewDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		7886C39C21A2E92F00C11817 /* Text Parsing */ = {
@@ -543,6 +554,7 @@
 				78D1DC3521A47B23004CA0F1 /* RichDataType.swift in Sources */,
 				78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */,
 				2AE9362D21A5B97E0057AE15 /* ParsingError.swift in Sources */,
+				78322F99223C39C400C3D599 /* RichTextViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
