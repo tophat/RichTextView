@@ -23,4 +23,4 @@ type_body_length:
   error: 400 # error
 file_length:
   error: 500
-function_parameter_count: 6
+function_parameter_count: 5
