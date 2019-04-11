@@ -38,6 +38,7 @@ post_install do |installer|
             if config.name == "Debug" && defined?(target.product_type) && target.product_type == "com.apple.product-type.framework"
                 config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = "YES"
             end
+            config.build_settings['SWIFT_VERSION'] = '5.0'
         end
     end
 end
