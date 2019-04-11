@@ -18,6 +18,7 @@ public class RichTextView: UIView {
     private(set) var textColor: UIColor
     private(set) var isSelectable: Bool
     private(set) var isEditable: Bool
+    public weak var textViewDelegate: RichTextViewDelegate?
 
     private(set) var errors: [ParsingError]?
 
@@ -36,6 +37,7 @@ public class RichTextView: UIView {
                 isSelectable: Bool = true,
                 isEditable: Bool = false,
                 latexTextBaselineOffset: CGFloat = 0,
+                textViewDelegate: RichTextViewDelegate? = nil,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
@@ -43,6 +45,7 @@ public class RichTextView: UIView {
         self.isEditable = isEditable
         self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor, latexTextBaselineOffset: latexTextBaselineOffset)
         self.textColor = textColor
+        self.textViewDelegate = textViewDelegate
         super.init(frame: frame)
         self.setupSubviews()
         completion?(self.errors)
@@ -118,7 +121,8 @@ public class RichTextView: UIView {
                     font: font,
                     textColor: textColor,
                     isSelectable: self.isSelectable,
-                    isEditable: self.isEditable
+                    isEditable: self.isEditable,
+                    textViewDelegate: self.textViewDelegate
                 )
             }
         }

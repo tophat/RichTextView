@@ -14,7 +14,12 @@ class UITextViewGenerator {
 
     // MARK: - Utility Functions
 
-    static func getTextView(from input: NSAttributedString, font: UIFont, textColor: UIColor, isSelectable: Bool, isEditable: Bool) -> UITextView {
+    static func getTextView(from input: NSAttributedString,
+                            font: UIFont,
+                            textColor: UIColor,
+                            isSelectable: Bool,
+                            isEditable: Bool,
+                            textViewDelegate: RichTextViewDelegate?) -> UITextView {
         let textView = UITextView()
         let mutableInput = NSMutableAttributedString(attributedString: input)
         mutableInput.replaceFont(with: font)
@@ -30,6 +35,7 @@ class UITextViewGenerator {
         if #available(iOS 10.0, *) {
             textView.adjustsFontForContentSizeCategory = true
         }
+        textView.delegate = textViewDelegate
         return textView
     }
 }

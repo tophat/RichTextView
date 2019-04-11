@@ -17,12 +17,15 @@ class UITextViewGeneratorSpec: QuickSpec {
             context("Creation") {
                 it("creates a label using an NSAttributedString") {
                     let attributedString = NSAttributedString(string: "some text")
+                    class TextViewDelegate: NSObject, RichTextViewDelegate {}
+                    let delegate = TextViewDelegate()
                     let textView = UITextViewGenerator.getTextView(
                         from: attributedString,
                         font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
                         textColor: .white,
                         isSelectable: true,
-                        isEditable: false
+                        isEditable: false,
+                        textViewDelegate: delegate
                     )
                     expect(textView.attributedText?.string).to(equal("some text"))
                     expect(textView.accessibilityValue).to(equal("some text"))
@@ -35,6 +38,7 @@ class UITextViewGeneratorSpec: QuickSpec {
                     if #available(iOS 10.0, *) {
                         expect(textView.adjustsFontForContentSizeCategory).to(beTrue())
                     }
+                    expect(textView.delegate as? TextViewDelegate).toNot(beNil())
                 }
             }
         }
