@@ -63,6 +63,11 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                     attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
                     expect(attributedString.string).to(equal("Test"))
                 }
+                it("Trims input only has newlines") {
+                    var attributedString = NSMutableAttributedString(string: "\n\n\n\n\n")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal(""))
+                }
                 it("Does not trim leading spaces") {
                     var attributedString = NSMutableAttributedString(string: "     Test")
                     attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()

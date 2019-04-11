@@ -12,19 +12,22 @@ target 'RichTextView' do
   pod 'iosMath', :git => 'https://github.com/tophatmonocle/iosMath.git'
   pod 'SwiftLint'
   pod 'SnapKit'
+end
 
-  target 'RichTextViewUITests' do
-    inherit! :search_paths
-    pod 'Nimble-Snapshots'
-    pod 'Quick'
-  end
+# This works around a unit test issue introduced in Xcode 10 / Cocoapod
+# https://github.com/CocoaPods/CocoaPods/issues/8605
+target 'RichTextViewUnitTests' do
+  use_frameworks!
+  inherit! :search_paths
+  pod 'Nimble'
+  pod 'Quick'
+end
 
-  target 'RichTextViewUnitTests' do
-    inherit! :search_paths
-    pod 'Nimble'
-    pod 'Quick'
-  end
-
+target 'RichTextViewUITests' do
+  use_frameworks!
+  inherit! :search_paths
+  pod 'Nimble-Snapshots'
+  pod 'Quick'
 end
 
 post_install do |installer|
@@ -37,4 +40,4 @@ post_install do |installer|
             end
         end
     end
-end 
+end
