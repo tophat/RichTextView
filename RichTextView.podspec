@@ -29,5 +29,5 @@ string with the relevant rich text surrounded by the appropriate tags and it wil
   s.dependency 'Down'
   s.dependency 'iosMath'
   s.dependency 'SnapKit'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 end
