@@ -189,7 +189,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Down/Down.framework",
 				"${BUILT_PRODUCTS_DIR}/RichTextView/RichTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -204,7 +204,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7880D52A21A77A120083901C /* SwiftLint */ = {
