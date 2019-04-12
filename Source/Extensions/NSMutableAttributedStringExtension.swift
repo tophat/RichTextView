@@ -27,7 +27,7 @@ extension NSMutableAttributedString {
         let invertedSet = CharacterSet.whitespacesAndNewlines.inverted
 
         let range = (self.string as NSString).rangeOfCharacter(from: invertedSet, options: .backwards)
-        let length = (range.length > 0 ? NSMaxRange(range) : self.string.count)
+        let length = range.location == NSNotFound ? 0 : NSMaxRange(range)
 
         return NSMutableAttributedString(attributedString: self.attributedSubstring(from: NSRange(location: 0, length: length)))
     }

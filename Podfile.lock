@@ -1,18 +1,18 @@
 PODS:
-  - Down (0.6.2)
-  - iosMath (1.0.2)
+  - Down (0.6.6)
+  - iosMath (1.0.3)
   - iOSSnapshotTestCase (4.0.1):
     - iOSSnapshotTestCase/SwiftSupport (= 4.0.1)
   - iOSSnapshotTestCase/Core (4.0.1)
   - iOSSnapshotTestCase/SwiftSupport (4.0.1):
     - iOSSnapshotTestCase/Core
-  - Nimble (7.3.1)
+  - Nimble (7.3.4)
   - Nimble-Snapshots (6.9.0):
     - Nimble-Snapshots/Core (= 6.9.0)
   - Nimble-Snapshots/Core (6.9.0):
     - iOSSnapshotTestCase (~> 4.0)
     - Nimble (~> 7.0)
-  - Quick (1.3.2)
+  - Quick (2.0.0)
   - SnapKit (4.2.0)
   - SwiftLint (0.29.1)
 
@@ -41,19 +41,19 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   iosMath:
-    :commit: 3a34524072b9769828e6021c090a2818106e438d
+    :commit: b30e7ead762bfb68b58896eebb1d8bc792ed4792
     :git: https://github.com/tophatmonocle/iosMath.git
 
 SPEC CHECKSUMS:
-  Down: 8c59a03cb229ef28dfa774b2132da860f3dee0ac
-  iosMath: f6a890ac9b6a1f892e88f3f8565025bb37d01897
+  Down: 71bf4af3c04fa093e65dffa25c4b64fa61287373
+  iosMath: 5259a309817ef066ae071bcce93f74f6712adf08
   iOSSnapshotTestCase: f3b2b7e606fe03fdbe49af84316bd235df32dc44
-  Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Nimble-Snapshots: 79394f8d0aea3df54bd5ff78ee9dff05a523a09c
-  Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
+  Quick: ce1276c7c27ba2da3cb2fd0cde053c3648b3b22d
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
 
-PODFILE CHECKSUM: c9a38d7da55ae3f2ecd817e296c11894959a3f3e
+PODFILE CHECKSUM: ea3f61bdf98d94774ed1901506f9c4bb22a14950
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

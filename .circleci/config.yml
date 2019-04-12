@@ -8,7 +8,7 @@ website_docker_defaults: &website_docker_defaults
 mac_defaults: &mac_defaults
   working_directory: ~/repo
   macos:
-    xcode: "10.0.0"
+    xcode: "10.2.0"
 
 commands:
   prep_mac_env:
@@ -66,7 +66,7 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
-      - run: 
+      - run:
           name: Execute Danger
           command: bundle install && bundle exec danger --verbose
   deploy:

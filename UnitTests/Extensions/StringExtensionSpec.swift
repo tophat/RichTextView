@@ -85,19 +85,19 @@ class StringExtensionSpec: QuickSpec {
                     let initialString = "<p>Some text<p>"
                     let ranges = initialString.ranges(of: "<p>")
                     expect(ranges.count).to(equal(2))
-                    expect(ranges[0].lowerBound.encodedOffset).to(equal(0))
-                    expect(ranges[0].upperBound.encodedOffset).to(equal(3))
-                    expect(ranges[1].lowerBound.encodedOffset).to(equal(12))
-                    expect(ranges[1].upperBound.encodedOffset).to(equal(15))
+                    expect(ranges[0].lowerBound.utf16Offset(in: initialString)).to(equal(0))
+                    expect(ranges[0].upperBound.utf16Offset(in: initialString)).to(equal(3))
+                    expect(ranges[1].lowerBound.utf16Offset(in: initialString)).to(equal(12))
+                    expect(ranges[1].upperBound.utf16Offset(in: initialString)).to(equal(15))
                 }
                 it("returns the ranges of given text as a regular expression") {
                     let initialString = "[math]Some text[/math] different text [math]more text[/math]"
                     let ranges = initialString.ranges(of: "\\[math\\](.*?)\\[\\/math\\]", options: .regularExpression)
                     expect(ranges.count).to(equal(2))
-                    expect(ranges[0].lowerBound.encodedOffset).to(equal(0))
-                    expect(ranges[0].upperBound.encodedOffset).to(equal(22))
-                    expect(ranges[1].lowerBound.encodedOffset).to(equal(38))
-                    expect(ranges[1].upperBound.encodedOffset).to(equal(60))
+                    expect(ranges[0].lowerBound.utf16Offset(in: initialString)).to(equal(0))
+                    expect(ranges[0].upperBound.utf16Offset(in: initialString)).to(equal(22))
+                    expect(ranges[1].lowerBound.utf16Offset(in: initialString)).to(equal(38))
+                    expect(ranges[1].upperBound.utf16Offset(in: initialString)).to(equal(60))
                 }
             }
         }
