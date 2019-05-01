@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RichTextView'
-  s.version          = '1.1.1'
+  s.version          = '1.1.2'
   s.summary          = 'iOS Text View that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links.'
   s.description      = <<-DESC
 This is an iOS UIView that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links. Simply feed in an input
@@ -24,7 +24,7 @@ string with the relevant rich text surrounded by the appropriate tags and it wil
   s.author           = { 'Top Hat' => 'tophat' }
   s.source           = { :git => 'https://github.com/tophat/RichTextView.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.source_files = 'Source/*.swift', 'Source/Text Parsing/*.swift', 'Source/Constants/*.swift', 'Source/Extensions/*.swift', 'Source/View Generators/*.swift', 'Source/Delegates/*.swift'
   s.dependency 'Down'
   s.dependency 'iosMath'
