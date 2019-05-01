@@ -13,7 +13,7 @@ PODS:
     - iOSSnapshotTestCase (~> 4.0)
     - Nimble (~> 7.0)
   - Quick (2.0.0)
-  - SnapKit (4.2.0)
+  - SnapKit (5.0.0)
   - SwiftLint (0.29.1)
 
 DEPENDENCIES:
@@ -51,9 +51,9 @@ SPEC CHECKSUMS:
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Nimble-Snapshots: 79394f8d0aea3df54bd5ff78ee9dff05a523a09c
   Quick: ce1276c7c27ba2da3cb2fd0cde053c3648b3b22d
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
 
-PODFILE CHECKSUM: ea3f61bdf98d94774ed1901506f9c4bb22a14950
+PODFILE CHECKSUM: fd6952a9b41a9a41bb7e6fb036901d60f1134d46
 
 COCOAPODS: 1.6.1

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 # ignore all warnings from all pods
 inhibit_all_warnings!
@@ -11,4 +11,12 @@ target 'RichTextView-Example' do
   pod 'RichTextView', :path => '../'
   pod 'SwiftLint'
 
+end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings['CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED'] = 'YES'
+  end
+  installer.pods_project.root_object.known_regions = ["Base", "en"]
+  installer.pods_project.root_object.development_region = "en"
 end
