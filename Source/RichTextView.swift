@@ -101,6 +101,7 @@ public class RichTextView: UIView {
                     make.bottom.equalTo(self)
                 }
             }
+            subview.backgroundColor = UIColor.clear
         }
     }
 
