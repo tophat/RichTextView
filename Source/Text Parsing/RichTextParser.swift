@@ -123,7 +123,12 @@ class RichTextParser {
     }
 
     func extractLatex(from input: String) -> NSAttributedString? {
-        return self.latexParser.extractLatex(from: input, textColor: self.textColor, baselineOffset: self.latexTextBaselineOffset)
+        return self.latexParser.extractLatex(
+            from: input,
+            textColor: self.textColor,
+            baselineOffset: self.latexTextBaselineOffset,
+            fontSize: self.font.pointSize
+        )
     }
 
     func isTextLatex(_ text: String) -> Bool {

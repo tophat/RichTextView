@@ -10,17 +10,18 @@ import Down
 import iosMath
 
 public protocol LatexParserProtocol: class {
-    func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat) -> NSAttributedString?
+    func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat) -> NSAttributedString?
 }
 
 extension LatexParserProtocol {
-    public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat) -> NSAttributedString? {
+    public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat) -> NSAttributedString? {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
 
         let label = MTMathUILabel()
         label.textColor = textColor
         label.latex = latexInput
+        label.fontSize = fontSize
 
         var newFrame = label.frame
         newFrame.size = label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
@@ -39,7 +40,7 @@ extension LatexParserProtocol {
 
     // MARK: - Helpers
 
-    private func extractLatexStringInsideTags(from input: String) -> String {
+    public func extractLatexStringInsideTags(from input: String) -> String {
         return input.getSubstring(inBetween: "[math]", and: "[/math]") ?? input
     }
 
