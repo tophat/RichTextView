@@ -103,7 +103,8 @@ class RichTextParser {
     }
 
     private func getAttributedTextFromDown(with input: String) -> (output: NSAttributedString, error: ParsingError?) {
-        guard let attributedInput = try? Down(markdownString: self.stripCodeTagsIfNecessary(from: input)).toAttributedString() else {
+        let markdownString = self.stripCodeTagsIfNecessary(from: input)
+        guard let attributedInput = try? Down(markdownString: markdownString).toAttributedString(.unsafe, stylesheet: nil) else {
             return (NSAttributedString(string: input), ParsingError.attributedTextGeneration(text: input))
         }
 
