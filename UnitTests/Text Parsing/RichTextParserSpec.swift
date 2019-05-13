@@ -14,10 +14,7 @@ import Nimble
 class RichTextParserSpec: QuickSpec {
     enum MarkDownText {
         static let regularText = "Some Text"
-        static let regularTextWithFalseFlags = "Some \"Text\" with random >p and some <no closing tag>"
-        static let standardHTML = "<p>some text</p>"
         static let complexHTML = "<p><div><randomtext>Message</randomtext></div></p>"
-        static let basicMarkdown = "**More Text**"
         static let complexMarkdown = "#text **something *more words* ~(testing brackets)~"
         static let basicLatex = "[math]x^n[/math]"
         static let complexLatex = "[math]x^2[/math] **More Text** [math]x^n+5=2[/math]"
