@@ -23,10 +23,10 @@ class UITextViewGenerator {
         let textView = UITextView()
         let mutableInput = NSMutableAttributedString(attributedString: input)
         mutableInput.replaceFont(with: font)
+        mutableInput.replaceColor(with: textColor)
         textView.attributedText = mutableInput
         textView.accessibilityValue = input.string
         textView.isAccessibilityElement = true
-        textView.textColor = textColor
         textView.isSelectable = isSelectable
         textView.isEditable = isEditable
         textView.isScrollEnabled = false

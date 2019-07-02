@@ -110,6 +110,7 @@ class RichTextParser {
 
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
+        mutableAttributedInput.replaceColor(with: self.textColor)
         return (mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces(), nil)
     }
 
