@@ -25,9 +25,9 @@ extension NSMutableAttributedString {
 
     func replaceColor(with newColor: UIColor) {
         self.beginEditing()
-        let defaultColor = UIColor.black
+//        let defaultColor = UIColor.black
         self.enumerateAttribute(.foregroundColor, in: NSRange(location: 0, length: self.length)) { (value, range, _) in
-            if let oldColor = value as? UIColor, oldColor == defaultColor {
+            if let oldColor = value as? UIColor, oldColor == UIColor(red: 0, green: 0, blue: 0, alpha: 1) {
                 self.addAttribute(.foregroundColor, value: newColor, range: range)
             }
         }
