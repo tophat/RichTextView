@@ -10,6 +10,7 @@
 		04E795A425A65D81DCE2EB46 /* Pods_RichTextViewUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D7221CDEA76C83413DAA33 /* Pods_RichTextViewUnitTests.framework */; };
 		22821FA0122B40D993544497 /* Pods_RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012345B5710779C8C7E7E7A /* Pods_RichTextView.framework */; };
 		2505503522CD15F700E2A5F5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505503422CD15F700E2A5F5 /* UIColorExtension.swift */; };
+		25A9B92822CE97F20070FC6D /* UIColorExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B92622CE97F20070FC6D /* UIColorExtensionSpec.swift */; };
 		2AD49AFD21A31A7400173AE1 /* RichTextViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781488FC2194E71C00DED7A1 /* RichTextViewSpec.swift */; };
 		2AE9362D21A5B97E0057AE15 /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9362C21A5B97E0057AE15 /* ParsingError.swift */; };
 		2FA42ECC0C4D26E4CCB5216B /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DA45F3356CF26110455FF8 /* Pods_RichTextViewUITests.framework */; };
@@ -55,6 +56,7 @@
 		07FC2CA5E35A2B6DC841428F /* Pods-RichTextViewUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUITests/Pods-RichTextViewUITests.release.xcconfig"; sourceTree = "<group>"; };
 		18DA45F3356CF26110455FF8 /* Pods_RichTextViewUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextViewUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2505503422CD15F700E2A5F5 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		25A9B92622CE97F20070FC6D /* UIColorExtensionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensionSpec.swift; sourceTree = "<group>"; };
 		2AE9362C21A5B97E0057AE15 /* ParsingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingError.swift; sourceTree = "<group>"; };
 		65B42AAD2EB3295380AB828B /* Pods-RichTextViewUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUITests/Pods-RichTextViewUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6B539959045BD559E2435740 /* Pods-RichTextViewUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextViewUnitTests/Pods-RichTextViewUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				78D1DC3821A49702004CA0F1 /* NSMutableAttributedStringExtensionSpec.swift */,
+				25A9B92622CE97F20070FC6D /* UIColorExtensionSpec.swift */,
 				7886C3B121A33F6E00C11817 /* StringExtensionSpec.swift */,
 			);
 			path = Extensions;
@@ -570,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7886C3A421A2EB2600C11817 /* UITextViewGeneratorSpec.swift in Sources */,
+				25A9B92822CE97F20070FC6D /* UIColorExtensionSpec.swift in Sources */,
 				7886C3A521A2EB2900C11817 /* WKWebViewGeneratorSpec.swift in Sources */,
 				7886C3B421A3421A00C11817 /* StringExtensionSpec.swift in Sources */,
 				78D1DC3A21A49727004CA0F1 /* NSMutableAttributedStringExtensionSpec.swift in Sources */,
