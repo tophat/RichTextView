@@ -19,6 +19,8 @@ class RichTextParserSpec: QuickSpec {
         static let basicLatex = "[math]x^n[/math]"
         static let complexLatex = "[math]x^2[/math] **More Text** [math]x^n+5=2[/math]"
         static let codeText = "[code]print('Hello World')[/code]"
+        static let basicInteractiveElement = "[interactive-element]This is an interactive element[/interactive-element]"
+        static let complexInteractiveElement = "Look! An interactive element: [interactive-element]element[/interactive-element]"
     }
 
     var richTextParser: RichTextParser!
@@ -32,6 +34,14 @@ class RichTextParserSpec: QuickSpec {
                 it("succesfully returns an NSAttributedString with an image") {
                     let output = self.richTextParser.extractLatex(from: MarkDownText.basicLatex)
                     self.testAttributedStringContainsImage(output!)
+                }
+            }
+            context("Interactive Element") {
+                it("succesfully returns an NSAttributedString with the custom link property") {
+                    let output = self.richTextParser.extractInteractiveElement(from: MarkDownText.basicInteractiveElement)
+                    let attributes: [NSAttributedString.Key: Any] = [.customLink: "This is an interactive element", .foregroundColor: UIColor.blue]
+                    let expectedAttributedString = NSAttributedString(string: "This is an interactive element", attributes: attributes)
+                    expect(output).to(equal(expectedAttributedString))
                 }
             }
             context("Breaking up text into componenets") {
@@ -73,7 +83,13 @@ class RichTextParserSpec: QuickSpec {
                             done()
                         }
                     }
+                }
+                it("seperates interactive elements from other types and maintains order") {
+                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexInteractiveElement)
 
+                    expect(components.count).to(equal(2))
+                    expect(components[0]).to(equal("Look! An interactive element: "))
+                    expect(components[1]).to(equal("[interactive-element]element[/interactive-element]"))
                 }
             }
             context("Rich text to attributed string") {

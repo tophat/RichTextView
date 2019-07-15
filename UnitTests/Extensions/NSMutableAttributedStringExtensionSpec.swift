@@ -91,6 +91,13 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                     expect(attributedString.string).to(equal("\n\n\n\n\nTest"))
                 }
             }
+            context("Custom Link Attribute") {
+                it("property adds custom link attribute") {
+                    let attributedString = NSAttributedString(string: "Test", attributes: [.customLink: "Test"])
+                    expect(attributedString.attribute(.customLink, at: 0, effectiveRange: nil) as? String).to(equal("Test"))
+                    expect(attributedString.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor).to(beNil())
+                }
+            }
         }
     }
 }

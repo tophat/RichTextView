@@ -50,7 +50,8 @@ class ViewController: UIViewController {
             InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]"),
             InputOutputModuleView(text: "<a href='https://www.google.com'>jump to page</a>"),
             InputOutputModuleView(text: Text.tableHTML),
-            InputOutputModuleView(text: "<blockquote>Here is a blockquote</blockquote>")
+            InputOutputModuleView(text: "<blockquote>Here is a blockquote</blockquote>"),
+            InputOutputModuleView(text: "[interactive-element]This is an interactive element[/interactive-element]")
         ]
     }
 

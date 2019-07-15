@@ -12,7 +12,7 @@ import Nimble
 import Nimble_Snapshots
 import Quick
 
-class RichTextViewUITests: QuickSpec {
+class RichTextViewUITests: KIFSpec {
     var richTextView: RichTextView?
     var viewController: UIViewController?
     var window: UIWindow?
