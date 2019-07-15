@@ -14,6 +14,18 @@ import Nimble
 class NSMutableAttributedStringExtensionSpec: QuickSpec {
     override func spec() {
         describe("NSMutableAttributedString Extension") {
+            context("Replace Font Color") {
+                it("successfully replaces the font color") {
+                    let attributedText = NSMutableAttributedString(string: "Hello, world", attributes: [
+                        .foregroundColor: UIColor.black
+                    ])
+                    var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
+                    expect(attributes[.foregroundColor] as? UIColor).to(equal(UIColor.black))
+                    attributedText.replaceColor(with: UIColor.red)
+                    attributes = attributedText.attributes(at: 0, effectiveRange: nil)
+                    expect(attributes[.foregroundColor] as? UIColor).to(equal(UIColor.red))
+                }
+            }
             context("Replace Font Family") {
                 it("successfully replaces the font family while retaining size") {
                     let attributedText = NSMutableAttributedString(string: "Hello, world", attributes: [

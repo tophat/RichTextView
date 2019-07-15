@@ -30,7 +30,6 @@ class UITextViewGeneratorSpec: QuickSpec {
                     expect(textView.attributedText?.string).to(equal("some text"))
                     expect(textView.accessibilityValue).to(equal("some text"))
                     expect(textView.isAccessibilityElement).to(beTrue())
-                    expect(textView.textColor).to(equal(UIColor.white))
                     expect(textView.isSelectable).to(beTrue())
                     expect(textView.isEditable).to(beFalse())
                     expect(textView.isScrollEnabled).to(beFalse())
