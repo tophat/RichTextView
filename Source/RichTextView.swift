@@ -37,13 +37,20 @@ public class RichTextView: UIView {
                 isSelectable: Bool = true,
                 isEditable: Bool = false,
                 latexTextBaselineOffset: CGFloat = 0,
+                interactiveTextColor: UIColor = UIColor.blue,
                 textViewDelegate: RichTextViewDelegate? = nil,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
         self.isSelectable = isSelectable
         self.isEditable = isEditable
-        self.richTextParser = RichTextParser(latexParser: latexParser, font: font, textColor: textColor, latexTextBaselineOffset: latexTextBaselineOffset)
+        self.richTextParser = RichTextParser(
+            latexParser: latexParser,
+            font: font,
+            textColor: textColor,
+            latexTextBaselineOffset: latexTextBaselineOffset,
+            interactiveTextColor: interactiveTextColor
+        )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate
         super.init(frame: frame)
@@ -68,13 +75,15 @@ public class RichTextView: UIView {
                        font: UIFont? = nil,
                        textColor: UIColor? = nil,
                        latexTextBaselineOffset: CGFloat? = nil,
+                       interactiveTextColor: UIColor? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
             latexParser: latexParser ?? self.richTextParser.latexParser,
             font: font ?? self.richTextParser.font,
             textColor: textColor ?? self.textColor,
-            latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset
+            latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
+            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }

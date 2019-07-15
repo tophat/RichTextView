@@ -10,8 +10,11 @@ import Down
 
 class RichTextParser {
 
-    private enum ParserConstants {
-        static let latexRegex = "\\[math\\](.*?)\\[\\/math\\]"
+    enum ParserConstants {
+        static let mathTagName = "math"
+        static let interactiveElementTagName = "interactive-element"
+        static let latexRegex = "\\[\(ParserConstants.mathTagName)\\](.*?)\\[\\/\(ParserConstants.mathTagName)\\]"
+        static let interactiveElementRegex = "\\[\(ParserConstants.interactiveElementTagName)\\](.*?)\\[\\/\(ParserConstants.interactiveElementTagName)\\]"
     }
 
     // MARK: - Dependencies
@@ -20,17 +23,20 @@ class RichTextParser {
     let font: UIFont
     let textColor: UIColor
     let latexTextBaselineOffset: CGFloat
+    let interactiveTextColor: UIColor
 
     // MARK: - Init
 
     init(latexParser: LatexParserProtocol = LatexParser(),
          font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
          textColor: UIColor = UIColor.black,
-         latexTextBaselineOffset: CGFloat = 0) {
+         latexTextBaselineOffset: CGFloat = 0,
+         interactiveTextColor: UIColor = UIColor.blue) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
         self.latexTextBaselineOffset = latexTextBaselineOffset
+        self.interactiveTextColor = interactiveTextColor
     }
 
     // MARK: - Utility Functions
@@ -88,6 +94,9 @@ class RichTextParser {
             }
             return (latex, nil)
         }
+        if self.isTextInteractiveElement(input) {
+            return (self.extractInteractiveElement(from: input), nil)
+        }
         if Thread.isMainThread {
             return self.getAttributedTextFromDown(with: input)
         }
@@ -115,7 +124,11 @@ class RichTextParser {
     }
 
     func seperateComponents(from input: String) -> [String] {
-        let splitPositions = self.extractPositions(fromRanges: input.ranges(of: ParserConstants.latexRegex, options: .regularExpression))
+        let latexPositions = self.extractPositions(fromRanges: input.ranges(of: ParserConstants.latexRegex, options: .regularExpression))
+        let interactiveElementPositions = self.extractPositions(
+            fromRanges: input.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression)
+        )
+        let splitPositions = latexPositions + interactiveElementPositions
         if splitPositions.count == 0 {
             return [input]
         }
@@ -133,8 +146,19 @@ class RichTextParser {
         )
     }
 
+    func extractInteractiveElement(from input: String) -> NSAttributedString {
+        let interactiveElementTagName = ParserConstants.interactiveElementTagName
+        let interactiveElementText = input.getSubstring(inBetween: "[\(interactiveElementTagName)]", and: "[/\(interactiveElementTagName)]") ?? input
+        let attributes: [NSAttributedString.Key: Any] = [.customLink: interactiveElementText, .foregroundColor: self.interactiveTextColor]
+        return NSAttributedString(string: interactiveElementText, attributes: attributes)
+    }
+
     func isTextLatex(_ text: String) -> Bool {
         return text.ranges(of: ParserConstants.latexRegex, options: .regularExpression).count != 0
+    }
+
+    func isTextInteractiveElement(_ text: String) -> Bool {
+        return text.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression).count != 0
     }
 
     private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {

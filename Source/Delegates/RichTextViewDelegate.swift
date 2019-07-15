@@ -6,4 +6,6 @@
 //  Copyright © 2019 Top Hat. All rights reserved.
 //
 
-public protocol RichTextViewDelegate: UITextViewDelegate {}
+public protocol RichTextViewDelegate: UITextViewDelegate {
+    func didTapCustomLink(withText linkText: String)
+}

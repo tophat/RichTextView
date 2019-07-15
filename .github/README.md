@@ -58,6 +58,11 @@ let richTextView = RichTextView(
     latexParser: LatexParser(),
     font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
     textColor: UIColor.black,
+    isSelectable: true,
+    isEditable: false,
+    latexTextBaselineOffset: 0,
+    interactiveTextColor: UIColor.blue,
+    textViewDelegate: nil,
     frame: CGRect.zero,
     completion: nil
 )
@@ -71,16 +76,24 @@ richTextView.update(
     latexParser: LatexParser(),
     font: UIFont.systemFont(ofSize: UIFont.systemFontSize),
     textColor: UIColor.black,
+    latexTextBaselineOffset: 0,
+    interactiveTextColor: UIColor.blue,
     completion: nil
 )
 ```
 
-All of the parameters above are Optional, for both the `init` and `update` methods (except for `frame`). The parameters are defined as follows:
+The parameters are defined as follows:
 
 * `input` - The string you want to render
 * `latexParser` - You can pass your own class that conforms to `LatexParserProtocol` if you want to handle LaTeX parsing in a custom way. Currently we use the `iosMath` Pod to handle LaTeX parsing by default
 * `font` - The font of the text to render
 * `texColor` - The color of the text to render
+* `isSelectable` - A property that determines whether or not `RichTextView` is selectable
+* `isEditable` - A property that determines whether or not `RichTextView` is editable
+* `latexTextBaselineOffset` - The baseline offset of the attributed text attachment that represents any LaTeX text that needs to be rendered
+* `interactiveTextColor` - The text color of any interactive elements/custom links (see **Interactive element** in `Formatting the input`)
+* `textViewDelegate` - A `RichTextViewDelegate` - conforms to `UITextViewDelegate` and also has handling when interactive elements/custom links are tapped
+* `frame` - A `CGRect` that represents the frame of the `RichTextView`
 * `completion` - A completion block to handle any errors that might be returned. The input will still render even if there are errors, however it might look differently than expected.
 
 
@@ -93,6 +106,7 @@ In order for the `RichTextView` to handle the various use cases it might encount
 * **HTML/Markdown**: No formatting necessary
 * **YouTube Videos**: Put the ID of the YouTube video in a YouTube tag as follows: `youtube[dQw4w9WgXcQ]`. The YouTube ID of any video can be found by looking at the URL of the video (Example: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`) and taking the value right after the `v=` URL parameter. In this case the ID of the YouTube video is `dQw4w9WgXcQ`
 * **Vimeo Videos**: Put the ID of the Vimeo video in a Vimeo tag as follows: `vimeo[100708006]`. The Vimeo ID of any video can be found by looking at the URL of the video (Example: `https://vimeo.com/100708006`) and taking the value right after the first `/`. In this case the ID of the Vimeo video is `100708006`
+* **Interactive element**: If you want to add text that has custom handling when you tap it, put the text in between two `[interactive-element]` and `[/interactive-element]` tags. By doing this, when a user taps this text it will call the `didTapCustomLink` function of `RichTextViewDelegate` with the entirety of the text that represents the interactive element, so be sure to hook into `RichTextViewDelegate` to capture this.
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/tophat/RichTextView/master/.github/assets/screenshot-1.png" width="400px;"/> <img src="https://raw.githubusercontent.com/tophat/RichTextView/master/.github/assets/screenshot-2.png" width="400px;"/>

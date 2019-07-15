@@ -6,6 +6,10 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
+extension NSAttributedString.Key {
+    static let customLink = NSAttributedString.Key(rawValue: "customLink")
+}
+
 extension NSMutableAttributedString {
     func replaceFont(with newFont: UIFont) {
         self.beginEditing()
