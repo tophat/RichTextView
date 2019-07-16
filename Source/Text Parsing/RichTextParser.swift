@@ -146,11 +146,12 @@ class RichTextParser {
         )
     }
 
-    func extractInteractiveElement(from input: String) -> NSAttributedString {
+    func extractInteractiveElement(from input: String) -> NSMutableAttributedString {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
         let interactiveElementText = input.getSubstring(inBetween: "[\(interactiveElementTagName)]", and: "[/\(interactiveElementTagName)]") ?? input
-        let attributes: [NSAttributedString.Key: Any] = [.customLink: interactiveElementText, .foregroundColor: self.interactiveTextColor]
-        return NSAttributedString(string: interactiveElementText, attributes: attributes)
+        let attributes: [NSAttributedString.Key: Any] = [.customLink: interactiveElementText, .foregroundColor: self.interactiveTextColor, .font: self.font]
+        let mutableAttributedInput = NSMutableAttributedString(string: " " + interactiveElementText + " ", attributes: attributes)
+        return mutableAttributedInput
     }
 
     func isTextLatex(_ text: String) -> Bool {
