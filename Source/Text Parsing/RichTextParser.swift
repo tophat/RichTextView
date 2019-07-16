@@ -15,6 +15,7 @@ class RichTextParser {
         static let interactiveElementTagName = "interactive-element"
         static let latexRegex = "\\[\(ParserConstants.mathTagName)\\](.*?)\\[\\/\(ParserConstants.mathTagName)\\]"
         static let interactiveElementRegex = "\\[\(ParserConstants.interactiveElementTagName)\\](.*?)\\[\\/\(ParserConstants.interactiveElementTagName)\\]"
+        typealias RichTextWithErrors = (output: NSAttributedString, errors: [ParsingError]?)
     }
 
     // MARK: - Dependencies
@@ -47,7 +48,7 @@ class RichTextParser {
             if self.isStringAVideoTag(input) {
                 return RichDataType.video(tag: input, error: nil)
             }
-            let results = self.richTextToAttributedString(from: input)
+            let results = self.getAttributedText(from: input)
             if errors == nil {
                 errors = results.errors
             } else if let resultErrors = results.errors {
@@ -59,82 +60,78 @@ class RichTextParser {
 
     // MARK: - Helpers
 
-    func richTextToAttributedString(from input: String) -> (output: NSAttributedString, errors: [ParsingError]?) {
-        let components = self.seperateComponents(from: input)
-        let results = self.generateAttributedStringArray(from: components)
-        let attributedArray = results.output
-        let mutableAttributedString = NSMutableAttributedString()
-        for attributedString in attributedArray {
-            mutableAttributedString.append(attributedString)
-        }
-        return (mutableAttributedString, results.errors)
-    }
-
-    func generateAttributedStringArray(from input: [String]) -> (output: [NSAttributedString], errors: [ParsingError]?) {
-        var output = [NSAttributedString]()
-        var errors: [ParsingError]?
-        for element in input {
-            let result = self.getAttributedText(from: element)
-            output.append(result.output)
-            guard let error = result.error else {
-                continue
-            }
-            if errors == nil {
-                errors = [ParsingError]()
-            }
-            errors?.append(error)
-        }
-        return (output, errors)
-    }
-
-    private func getAttributedText(from input: String) -> (output: NSAttributedString, error: ParsingError?) {
-        if self.isTextLatex(input) {
-            guard let latex = self.extractLatex(from: input) else {
-                return (NSAttributedString(string: input), ParsingError.latexGeneration(text: input))
-            }
-            return (latex, nil)
-        }
-        if self.isTextInteractiveElement(input) {
-            return (self.extractInteractiveElement(from: input), nil)
-        }
+    func getAttributedText(from input: String) -> ParserConstants.RichTextWithErrors {
         if Thread.isMainThread {
             return self.getAttributedTextFromDown(with: input)
         }
 
         var output = NSAttributedString(string: "")
-        var parsingError: ParsingError?
+        var parsingErrors: [ParsingError]?
 
         DispatchQueue.main.sync {
-            (output, parsingError) = self.getAttributedTextFromDown(with: input)
+            (output, parsingErrors) = self.getAttributedTextFromDown(with: input)
         }
 
-        return (output, parsingError)
+        return (output, parsingErrors)
     }
 
-    private func getAttributedTextFromDown(with input: String) -> (output: NSAttributedString, error: ParsingError?) {
+    private func getAttributedTextFromDown(with input: String) -> ParserConstants.RichTextWithErrors {
         let markdownString = self.stripCodeTagsIfNecessary(from: input)
         guard let attributedInput = try? Down(markdownString: markdownString).toAttributedString(.unsafe, stylesheet: nil) else {
-            return (NSAttributedString(string: input), ParsingError.attributedTextGeneration(text: input))
+            return (NSAttributedString(string: input), [ParsingError.attributedTextGeneration(text: input)])
         }
-
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
         mutableAttributedInput.replaceColor(with: self.textColor)
-        return (mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces(), nil)
+        return self.getAttributedStringWithSpecialDataTypesHandled(from: mutableAttributedInput)
     }
 
-    func seperateComponents(from input: String) -> [String] {
-        let latexPositions = self.extractPositions(fromRanges: input.ranges(of: ParserConstants.latexRegex, options: .regularExpression))
+    private func getAttributedStringWithSpecialDataTypesHandled(from mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
         let interactiveElementPositions = self.extractPositions(
-            fromRanges: input.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression)
+            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression)
         )
-        let splitPositions = latexPositions + interactiveElementPositions
-        if splitPositions.count == 0 {
-            return [input]
+        let latexPositions = self.extractPositions(
+            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.latexRegex, options: .regularExpression)
+        )
+        let splitPositions = interactiveElementPositions + latexPositions
+        if splitPositions.isEmpty {
+            return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), nil)
         }
-        return input.split(
-            atPositions: splitPositions
-        )
+        return self.getRichTextWithErrors(fromComponents: self.split(mutableAttributedString: mutableAttributedString, onPositions: splitPositions))
+    }
+
+    private func split(mutableAttributedString: NSMutableAttributedString, onPositions positions: [String.Index]) -> [NSAttributedString] {
+        let splitStrings = mutableAttributedString.string.split(atPositions: positions)
+        var output = [NSAttributedString]()
+        for string in splitStrings {
+            let range = (mutableAttributedString.string as NSString).range(of: string)
+            let attributedString = mutableAttributedString.attributedSubstring(from: range)
+            output.append(attributedString)
+        }
+        return output
+    }
+
+    private func getRichTextWithErrors(fromComponents attributedStringComponents: [NSAttributedString]) -> ParserConstants.RichTextWithErrors {
+        let output = NSMutableAttributedString()
+        var parsingErrors: [ParsingError]?
+        for attributedString in attributedStringComponents {
+            if self.isTextInteractiveElement(attributedString.string) {
+                output.append(self.extractInteractiveElement(from: attributedString.string))
+            } else if self.isTextLatex(attributedString.string) {
+                if let attributedLatexString = self.extractLatex(from: attributedString.string) {
+                    output.append(attributedLatexString)
+                } else {
+                    if parsingErrors == nil {
+                        parsingErrors = [ParsingError]()
+                    }
+                    output.append(attributedString)
+                    parsingErrors?.append(ParsingError.latexGeneration(text: attributedString.string))
+                }
+            } else {
+                output.append(attributedString)
+            }
+        }
+        return (output.trimmingTrailingNewlinesAndWhitespaces(), parsingErrors)
     }
 
     func extractLatex(from input: String) -> NSAttributedString? {

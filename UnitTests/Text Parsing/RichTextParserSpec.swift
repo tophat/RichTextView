@@ -48,64 +48,31 @@ class RichTextParserSpec: QuickSpec {
                     expect(output).to(equal(expectedAttributedString))
                 }
             }
-            context("Breaking up text into componenets") {
-                it("seperates latex from html/markdown and maintains the order") {
-                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
+            context("Rich text to attributed string") {
+                it("generates a single attributed string with multiple rich text types") {
+                    let regularText = self.richTextParser.getAttributedText(from: MarkDownText.regularText).output
+                    expect(regularText.string.range(of: "Some Text")).toNot(beNil())
 
-                    expect(components.count).to(equal(3))
-                    expect(components[0]).to(equal("[math]x^2[/math]"))
-                    expect(components[1]).to(equal(" **More Text** "))
-                    expect(components[2]).to(equal("[math]x^n+5=2[/math]"))
-                }
-                it("generates an attributed string array with the correct components for latex and markdown") {
-                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexLatex)
-                    let results = self.richTextParser.generateAttributedStringArray(from: components)
-                    let attributedStrings = results.output
+                    let complexHTML = self.richTextParser.getAttributedText(from: MarkDownText.complexHTML).output
+                    expect(complexHTML.string.range(of: "Message")).toNot(beNil())
 
-                    expect(attributedStrings.count).to(equal(3))
-                    expect(attributedStrings[1].string).to(equal("More Text"))
-                    self.testAttributedStringContainsImage(attributedStrings[0])
-                    self.testAttributedStringContainsImage(attributedStrings[2])
+                    let complexLatex = self.richTextParser.getAttributedText(from: MarkDownText.complexLatex).output
+                    expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                 }
-                it("generates an attributed string array with the correct components for html") {
-                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexHTML)
-                    let results = self.richTextParser.generateAttributedStringArray(from: components)
-                    let attributedStrings = results.output
-
-                    expect(attributedStrings.count).to(equal(1))
-                    expect(attributedStrings[0].string).to(equal("\nMessage"))
-                }
-                it("generates an attributed string array with the correct components for html on a non-main thread") {
+                it("generates a single attributed string with multiple rich text types on a background thread") {
                     waitUntil { done in
                         DispatchQueue.global().async {
-                            let components = self.richTextParser.seperateComponents(from: MarkDownText.complexHTML)
-                            let results = self.richTextParser.generateAttributedStringArray(from: components)
-                            let attributedStrings = results.output
+                            let regularText = self.richTextParser.getAttributedText(from: MarkDownText.regularText).output
+                            expect(regularText.string.range(of: "Some Text")).toNot(beNil())
 
-                            expect(attributedStrings.count).to(equal(1))
-                            expect(attributedStrings[0].string).to(equal("\nMessage"))
+                            let complexHTML = self.richTextParser.getAttributedText(from: MarkDownText.complexHTML).output
+                            expect(complexHTML.string.range(of: "Message")).toNot(beNil())
+
+                            let complexLatex = self.richTextParser.getAttributedText(from: MarkDownText.complexLatex).output
+                            expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                             done()
                         }
                     }
-                }
-                it("seperates interactive elements from other types and maintains order") {
-                    let components = self.richTextParser.seperateComponents(from: MarkDownText.complexInteractiveElement)
-
-                    expect(components.count).to(equal(2))
-                    expect(components[0]).to(equal("Look! An interactive element: "))
-                    expect(components[1]).to(equal("[interactive-element]element[/interactive-element]"))
-                }
-            }
-            context("Rich text to attributed string") {
-                it("generates a single attributed string with multiple rich text types") {
-                    let regularText = self.richTextParser.richTextToAttributedString(from: MarkDownText.regularText).output
-                    expect(regularText.string.range(of: "Some Text")).toNot(beNil())
-
-                    let complexHTML = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexHTML).output
-                    expect(complexHTML.string.range(of: "Message")).toNot(beNil())
-
-                    let complexLatex = self.richTextParser.richTextToAttributedString(from: MarkDownText.complexLatex).output
-                    expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                 }
             }
             context("Input String to Rich Data Type") {
@@ -113,7 +80,7 @@ class RichTextParserSpec: QuickSpec {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this video: youtube[12345]")
                     expect(output.count).to(equal(2))
                     expect(output[0]).to(equal(RichDataType.text(
-                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this video: ").output,
+                        richText: self.richTextParser.getAttributedText(from: "Look at this video: ").output,
                         font: self.richTextParser.font,
                         errors: [ParsingError]()
                     )))
@@ -123,7 +90,7 @@ class RichTextParserSpec: QuickSpec {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this!")
                     expect(output.count).to(equal(1))
                     expect(output[0]).to(equal(RichDataType.text(
-                        richText: self.richTextParser.richTextToAttributedString(from: "Look at this!").output,
+                        richText: self.richTextParser.getAttributedText(from: "Look at this!").output,
                         font: self.richTextParser.font,
                         errors: [ParsingError]()
                     )))
@@ -137,7 +104,7 @@ class RichTextParserSpec: QuickSpec {
             }
             context("Strip Code Tags") {
                 it("Successfully strips code tags from input") {
-                    let output = self.richTextParser.richTextToAttributedString(from: MarkDownText.codeText).output
+                    let output = self.richTextParser.getAttributedText(from: MarkDownText.codeText).output
                     expect(output.string).to(equal("print('Hello World')"))
                 }
             }
