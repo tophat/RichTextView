@@ -42,16 +42,17 @@ class ViewController: UIViewController {
 
     private enum Views {
         static let subviews: [UIView] = [
-            InputOutputModuleView(text: "Here is some LaTeX: [math]x^n[/math]"),
-            InputOutputModuleView(text: "# Here is some Markdown:\n`Wow this is great!`"),
-            InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
-            InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),
-            InputOutputModuleView(text: "Here is some code: [code]print('Hello World!')[/code]"),
-            InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]"),
-            InputOutputModuleView(text: "<a href='https://www.google.com'>jump to page</a>"),
-            InputOutputModuleView(text: Text.tableHTML),
-            InputOutputModuleView(text: "<blockquote>Here is a blockquote</blockquote>"),
-            InputOutputModuleView(text: "Look [interactive-element]This is an interactive element[/interactive-element] Wow")
+//            InputOutputModuleView(text: "Here is some LaTeX: [math]x^n[/math]"),
+//            InputOutputModuleView(text: "# Here is some Markdown:\n`Wow this is great!`"),
+//            InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
+//            InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),
+//            InputOutputModuleView(text: "Here is some code: [code]print('Hello World!')[/code]"),
+//            InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]"),
+//            InputOutputModuleView(text: "<a href='https://www.google.com'>jump to page</a>"),
+//            InputOutputModuleView(text: Text.tableHTML),
+//            InputOutputModuleView(text: "<blockquote>Here is a blockquote</blockquote>"),
+//            InputOutputModuleView(text: "[interactive-element]This is an interactive element[/interactive-element]"),
+            InputOutputModuleView(text: "[interactive-element id=123]This is an interactive element[/interactive-element]")
         ]
     }
 
