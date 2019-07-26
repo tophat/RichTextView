@@ -87,14 +87,19 @@
 <pre><code class="hljs"><span class="hljs-keyword">import</span> RichTextView
 </code></pre>
 <p>To init a <code>RichTextView</code>:</p>
-<pre><code class="hljs">let richTextView = RichTextView(
-<span class="hljs-symbol">    input:</span> <span class="hljs-string">"Test"</span>,
-<span class="hljs-symbol">    latexParser:</span> LatexParser(),
-<span class="hljs-symbol">    font:</span> UIFont.systemFont(ofSize: UIFont.systemFontSize),
-<span class="hljs-symbol">    textColor:</span> UIColor.black,
-<span class="hljs-symbol">    frame:</span> CGRect.zero,
-<span class="hljs-symbol">    completion:</span> nil
-)
+<pre><code class="hljs"><span class="hljs-string">let</span> <span class="hljs-string">richTextView</span> <span class="hljs-string">=</span> <span class="hljs-string">RichTextView(</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">"Test"</span><span class="hljs-string">,</span>
+<span class="hljs-attr">    latexParser:</span> <span class="hljs-string">LatexParser(),</span>
+<span class="hljs-attr">    font:</span> <span class="hljs-string">UIFont.systemFont(ofSize:</span> <span class="hljs-string">UIFont.systemFontSize),</span>
+<span class="hljs-attr">    textColor:</span> <span class="hljs-string">UIColor.black,</span>
+<span class="hljs-attr">    isSelectable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span>
+<span class="hljs-attr">    isEditable:</span> <span class="hljs-literal">false</span><span class="hljs-string">,</span>
+<span class="hljs-attr">    latexTextBaselineOffset:</span> <span class="hljs-number">0</span><span class="hljs-string">,</span>
+<span class="hljs-attr">    interactiveTextColor:</span> <span class="hljs-string">UIColor.blue,</span>
+<span class="hljs-attr">    textViewDelegate:</span> <span class="hljs-string">nil,</span>
+<span class="hljs-attr">    frame:</span> <span class="hljs-string">CGRect.zero,</span>
+<span class="hljs-attr">    completion:</span> <span class="hljs-string">nil</span>
+<span class="hljs-string">)</span>
 </code></pre>
 <p>You can also update an existing <code>RichTextView</code> as follows:</p>
 <pre><code class="hljs">richTextView.update(
@@ -102,15 +107,23 @@
     latexParser: <span class="hljs-constructor">LatexParser()</span>,
     font: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">UIFont</span>.</span></span>system<span class="hljs-constructor">Font(<span class="hljs-params">ofSize</span>: UIFont.<span class="hljs-params">systemFontSize</span>)</span>,
     textColor: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">UIColor</span>.</span></span>black,
+    latexTextBaselineOffset: <span class="hljs-number">0</span>,
+    interactiveTextColor: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">UIColor</span>.</span></span>blue,
     completion: nil
 )
 </code></pre>
-<p>All of the parameters above are Optional, for both the <code>init</code> and <code>update</code> methods (except for <code>frame</code>). The parameters are defined as follows:</p>
+<p>The parameters are defined as follows:</p>
 <ul>
 <li><code>input</code> - The string you want to render</li>
 <li><code>latexParser</code> - You can pass your own class that conforms to <code>LatexParserProtocol</code> if you want to handle LaTeX parsing in a custom way. Currently we use the <code>iosMath</code> Pod to handle LaTeX parsing by default</li>
 <li><code>font</code> - The font of the text to render</li>
 <li><code>texColor</code> - The color of the text to render</li>
+<li><code>isSelectable</code> - A property that determines whether or not <code>RichTextView</code> is selectable</li>
+<li><code>isEditable</code> - A property that determines whether or not <code>RichTextView</code> is editable</li>
+<li><code>latexTextBaselineOffset</code> - The baseline offset of the attributed text attachment that represents any LaTeX text that needs to be rendered</li>
+<li><code>interactiveTextColor</code> - The text color of any interactive elements/custom links (see <strong>Interactive element</strong> in <code>Formatting the input</code>)</li>
+<li><code>textViewDelegate</code> - A <code>RichTextViewDelegate</code> - conforms to <code>UITextViewDelegate</code> and also has handling when interactive elements/custom links are tapped</li>
+<li><code>frame</code> - A <code>CGRect</code> that represents the frame of the <code>RichTextView</code></li>
 <li><code>completion</code> - A completion block to handle any errors that might be returned. The input will still render even if there are errors, however it might look differently than expected.</li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="formatting-the-input"></a><a href="#formatting-the-input" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formatting the input</h3>
@@ -121,10 +134,11 @@
 <li><strong>HTML/Markdown</strong>: No formatting necessary</li>
 <li><strong>YouTube Videos</strong>: Put the ID of the YouTube video in a YouTube tag as follows: <code>youtube[dQw4w9WgXcQ]</code>. The YouTube ID of any video can be found by looking at the URL of the video (Example: <code>https://www.youtube.com/watch?v=dQw4w9WgXcQ</code>) and taking the value right after the <code>v=</code> URL parameter. In this case the ID of the YouTube video is <code>dQw4w9WgXcQ</code></li>
 <li><strong>Vimeo Videos</strong>: Put the ID of the Vimeo video in a Vimeo tag as follows: <code>vimeo[100708006]</code>. The Vimeo ID of any video can be found by looking at the URL of the video (Example: <code>https://vimeo.com/100708006</code>) and taking the value right after the first <code>/</code>. In this case the ID of the Vimeo video is <code>100708006</code></li>
+<li><strong>Interactive element</strong>: If you want to add text that has custom handling when you tap it, put the text in between two <code>[interactive-element id=&lt;id&gt;]</code> and <code>[/interactive-element]</code> tags. By doing this, when a user taps this text it will call the <code>didTapCustomLink</code> function of <code>RichTextViewDelegate</code> with the ID of the text that represents the interactive element (<code>&lt;id&gt;</code>), so be sure to hook into <code>RichTextViewDelegate</code> to capture this.</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="screenshots"></a><a href="#screenshots" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Screenshots</h2>
 <p><img src="/img/screenshot-1.png" width="300px;"/> <img src="/img/screenshot-2.png" width="300px;"/></p>
 <p>Check out the sample project in the <code>Example</code> root folder to see the screenshots above in action!</p>
 <h2><a class="anchor" aria-hidden="true" id="architecture"></a><a href="#architecture" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Architecture</h2>
 <p><img src="/img/RichTextView.png" alt="Architecture"></p>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated by Jake Bolam</em></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/contributing"><span>Contributing</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#about">About</a></li><li><a href="#installation">Installation</a><ul class="toc-headings"><li><a href="#using-cocoapods">Using Cocoapods</a></li><li><a href="#using-carthage">Using Carthage</a></li></ul></li><li><a href="#usage">Usage</a><ul class="toc-headings"><li><a href="#formatting-the-input">Formatting the input</a></li></ul></li><li><a href="#screenshots">Screenshots</a></li><li><a href="#architecture">Architecture</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="footer"><div class="footer-icon"><a href="/" class="nav-home"><img src="/img/rtv.png" alt="Rich Text View" width="58" height="58"/></a></div><div class="footer-github"><a href="https://github.com/tophat/RichTextView">GitHub</a><a class="github-button" href="https://github.com/tophat/RichTextView" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Top Hat Open Source</section></footer></div></body></html>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated by Simon</em></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/contributing"><span>Contributing</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#about">About</a></li><li><a href="#installation">Installation</a><ul class="toc-headings"><li><a href="#using-cocoapods">Using Cocoapods</a></li><li><a href="#using-carthage">Using Carthage</a></li></ul></li><li><a href="#usage">Usage</a><ul class="toc-headings"><li><a href="#formatting-the-input">Formatting the input</a></li></ul></li><li><a href="#screenshots">Screenshots</a></li><li><a href="#architecture">Architecture</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="footer"><div class="footer-icon"><a href="/" class="nav-home"><img src="/img/rtv.png" alt="Rich Text View" width="58" height="58"/></a></div><div class="footer-github"><a href="https://github.com/tophat/RichTextView">GitHub</a><a class="github-button" href="https://github.com/tophat/RichTextView" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Top Hat Open Source</section></footer></div></body></html>
