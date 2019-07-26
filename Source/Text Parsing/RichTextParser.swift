@@ -14,8 +14,7 @@ class RichTextParser {
         static let mathTagName = "math"
         static let interactiveElementTagName = "interactive-element"
         static let latexRegex = "\\[\(ParserConstants.mathTagName)\\](.*?)\\[\\/\(ParserConstants.mathTagName)\\]"
-        static let interactiveElementRegex =
-            "\\[\(ParserConstants.interactiveElementTagName)\\s+id\\s*=\\s*.+\\].*\\[\\/\(ParserConstants.interactiveElementTagName)\\]"
+        static let interactiveElementRegex = "\\[\(ParserConstants.interactiveElementTagName)\\sid=.+\\].*\\[\\/\(ParserConstants.interactiveElementTagName)\\]"
         typealias RichTextWithErrors = (output: NSAttributedString, errors: [ParsingError]?)
     }
 
@@ -146,7 +145,7 @@ class RichTextParser {
 
     func extractInteractiveElement(from input: String) -> NSMutableAttributedString {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
-        let interactiveElementID = input.getSubstring(inBetween: "[\(interactiveElementTagName) id = ", and: "]") ?? input
+        let interactiveElementID = input.getSubstring(inBetween: "[\(interactiveElementTagName) id=", and: "]") ?? input
         let interactiveElementText = input.getSubstring(inBetween: "]", and: "[/\(interactiveElementTagName)]") ?? input
         let attributes: [NSAttributedString.Key: Any] = [.customLink: interactiveElementID, .foregroundColor: self.interactiveTextColor, .font: self.font]
         let mutableAttributedInput = NSMutableAttributedString(string: " " + interactiveElementText + " ", attributes: attributes)

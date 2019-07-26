@@ -19,8 +19,8 @@ class RichTextParserSpec: QuickSpec {
         static let basicLatex = "[math]x^n[/math]"
         static let complexLatex = "[math]x^2[/math] **More Text** [math]x^n+5=2[/math]"
         static let codeText = "[code]print('Hello World')[/code]"
-        static let basicInteractiveElement = "[interactive-element id = 123]This is an interactive element[/interactive-element]"
-        static let complexInteractiveElement = "Look! An interactive element: [interactive-element id = 123]element[/interactive-element]"
+        static let basicInteractiveElement = "[interactive-element id=123]This is an interactive element[/interactive-element]"
+        static let complexInteractiveElement = "Look! An interactive element: [interactive-element id=123]element[/interactive-element]"
     }
 
     var richTextParser: RichTextParser!
