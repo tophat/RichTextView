@@ -146,6 +146,7 @@ class RichTextParser {
     func extractInteractiveElement(from input: String) -> NSMutableAttributedString {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
         let interactiveElementID = input.getSubstring(inBetween: "[\(interactiveElementTagName) id = ", and: "]") ?? input
+        let interactiveElementText = input.getSubstring(inBetween: "[\(interactiveElementTagName) id = ", and: "]") ?? input
         let attributes: [NSAttributedString.Key: Any] = [.customLink: interactiveElementID, .foregroundColor: self.interactiveTextColor, .font: self.font]
         let mutableAttributedInput = NSMutableAttributedString(string: " " + interactiveElementID + " ", attributes: attributes)
         return mutableAttributedInput
