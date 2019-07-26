@@ -37,7 +37,7 @@ class RichTextParserSpec: QuickSpec {
                 }
             }
             context("Interactive Element") {
-                it("succesfully returns an NSAttributedString with the custom link property") {
+                it("succesfully returns an NSAttributedString with the custom link property from a basic interactive element") {
                     let output = self.richTextParser.extractInteractiveElement(from: MarkDownText.basicInteractiveElement)
                     let attributes: [NSAttributedString.Key: Any] = [
                         .customLink: "123",
@@ -45,6 +45,16 @@ class RichTextParserSpec: QuickSpec {
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
                     ]
                     let expectedAttributedString = NSAttributedString(string: " This is an interactive element ", attributes: attributes)
+                    expect(output).to(equal(expectedAttributedString))
+                }
+                it("succesfully returns an NSAttributedString with the custom link property from a complex interactive element") {
+                    let output = self.richTextParser.extractInteractiveElement(from: MarkDownText.complexInteractiveElement)
+                    let attributes: [NSAttributedString.Key: Any] = [
+                        .customLink: "123",
+                        .foregroundColor: UIColor.blue,
+                        .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
+                    ]
+                    let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
                 }
             }
