@@ -7,5 +7,5 @@
 //
 
 public protocol RichTextViewDelegate: UITextViewDelegate {
-    func didTapCustomLink(withText linkText: String)
+    func didTapCustomLink(withID linkID: String)
 }
