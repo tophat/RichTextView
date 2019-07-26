@@ -19,8 +19,8 @@ class RichTextParserSpec: QuickSpec {
         static let basicLatex = "[math]x^n[/math]"
         static let complexLatex = "[math]x^2[/math] **More Text** [math]x^n+5=2[/math]"
         static let codeText = "[code]print('Hello World')[/code]"
-        static let basicInteractiveElement = "[interactive-element]This is an interactive element[/interactive-element]"
-        static let complexInteractiveElement = "Look! An interactive element: [interactive-element]element[/interactive-element]"
+        static let basicInteractiveElement = "[interactive-element id=123]This is an interactive element[/interactive-element]"
+        static let complexInteractiveElement = "Look! An interactive element: [interactive-element id=123]element[/interactive-element]"
     }
 
     var richTextParser: RichTextParser!
@@ -37,14 +37,24 @@ class RichTextParserSpec: QuickSpec {
                 }
             }
             context("Interactive Element") {
-                it("succesfully returns an NSAttributedString with the custom link property") {
+                it("succesfully returns an NSAttributedString with the custom link property from a basic interactive element") {
                     let output = self.richTextParser.extractInteractiveElement(from: MarkDownText.basicInteractiveElement)
                     let attributes: [NSAttributedString.Key: Any] = [
-                        .customLink: "This is an interactive element",
+                        .customLink: "123",
                         .foregroundColor: UIColor.blue,
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
                     ]
                     let expectedAttributedString = NSAttributedString(string: " This is an interactive element ", attributes: attributes)
+                    expect(output).to(equal(expectedAttributedString))
+                }
+                it("succesfully returns an NSAttributedString with the custom link property from a complex interactive element") {
+                    let output = self.richTextParser.extractInteractiveElement(from: MarkDownText.complexInteractiveElement)
+                    let attributes: [NSAttributedString.Key: Any] = [
+                        .customLink: "123",
+                        .foregroundColor: UIColor.blue,
+                        .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
+                    ]
+                    let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
                 }
             }

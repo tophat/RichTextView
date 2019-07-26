@@ -47,9 +47,9 @@ class InputOutputModuleView: UIView, RichTextViewDelegate {
 
     // MARK: - RichTextViewDelegate
 
-    func didTapCustomLink(withText linkText: String) {
+    func didTapCustomLink(withID linkID: String) {
         DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "Custom Link", message: linkText, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Custom Link", message: linkID, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Okay", style: .default))
             UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
         }

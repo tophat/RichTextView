@@ -18,7 +18,7 @@ class UITextViewGeneratorSpec: QuickSpec {
                 it("creates a label using an NSAttributedString") {
                     let attributedString = NSAttributedString(string: "some text")
                     class TextViewDelegate: NSObject, RichTextViewDelegate {
-                        func didTapCustomLink(withText linkText: String) {}
+                        func didTapCustomLink(withID linkID: String) {}
                     }
                     let delegate = TextViewDelegate()
                     let textView = UITextViewGenerator.getTextView(

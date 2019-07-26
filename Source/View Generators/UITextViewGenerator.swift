@@ -56,9 +56,9 @@ class UITextViewGenerator {
         guard tappedCharacterIndex < textView.textStorage.length else {
             return
         }
-        if let linkText = textView.attributedText?.attribute(.customLink, at: tappedCharacterIndex, effectiveRange: nil) as? String,
+        if let linkID = textView.attributedText?.attribute(.customLink, at: tappedCharacterIndex, effectiveRange: nil) as? String,
             let richTextViewDelegate = textView.delegate as? RichTextViewDelegate {
-            richTextViewDelegate.didTapCustomLink(withText: linkText)
+            richTextViewDelegate.didTapCustomLink(withID: linkID)
         }
     }
 }
