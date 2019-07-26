@@ -1,6 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Style Guide · Rich Text View</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Make sure to read &lt;a href=&quot;https://swift.org/documentation/api-design-guidelines/&quot;&gt;Apple&#x27;s API Design Guidelines&lt;/a&gt;.&lt;/p&gt;
-"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Style Guide · Rich Text View"/><meta property="og:type" content="website"/><meta property="og:url" content="https://richtextview.com/index.html"/><meta property="og:description" content="&lt;p&gt;Make sure to read &lt;a href=&quot;https://swift.org/documentation/api-design-guidelines/&quot;&gt;Apple&#x27;s API Design Guidelines&lt;/a&gt;.&lt;/p&gt;
-"/><meta property="og:image" content="https://richtextview.com/img/rtv.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://richtextview.com/img/rtv.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Style Guide · Rich Text View</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Make sure to read [Apple&#x27;s API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Style Guide · Rich Text View"/><meta property="og:type" content="website"/><meta property="og:url" content="https://richtextview.com/"/><meta property="og:description" content="Make sure to read [Apple&#x27;s API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)."/><meta property="og:image" content="https://richtextview.com/img/rtv.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://richtextview.com/img/rtv.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -8,7 +6,7 @@
 
               ga('create', 'UA-129741728-1', 'auto');
               ga('send', 'pageview');
-            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/rtv.png" alt="Rich Text View"/><h2 class="headerTitleWithLogo">Rich Text View</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/overview" target="_self">Docs</a></li><li class=""><a href="https://github.com/tophat/RichTextView" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Getting Started</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/contributing">Contributing</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/style-guide">Style Guide</a></li></ul></div></div></section></div><script>
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/rtv.png" alt="Rich Text View"/><h2 class="headerTitleWithLogo">Rich Text View</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/overview" target="_self">Docs</a></li><li class=""><a href="https://github.com/tophat/RichTextView" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Getting Started</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/contributing">Contributing</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/style-guide">Style Guide</a></li></ul></div></div></section></div><script>
             var coll = document.getElementsByClassName('collapsible');
             var checkActiveCategory = true;
             for (var i = 0; i < coll.length; i++) {
@@ -36,10 +34,16 @@
               createToggler('#navToggler', '#docsNav', 'docsSliderActive');
               createToggler('#tocToggler', 'body', 'tocActive');
 
-              const headings = document.querySelector('.toc-headings');
+              var headings = document.querySelector('.toc-headings');
               headings && headings.addEventListener('click', function(event) {
-                if (event.target.tagName === 'A') {
-                  document.body.classList.remove('tocActive');
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
                 }
               }, false);
 
@@ -323,9 +327,9 @@ someFunction(someArgument: <span class="hljs-string">"Kitten"</span>)
 
     <span class="hljs-comment">// when working with outlets, make sure to specify the outlet type in the</span>
     <span class="hljs-comment">// property name.</span>
-    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> submitButton: <span class="hljs-type">UIButton</span>!
-    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> emailTextField: <span class="hljs-type">UITextField</span>!
-    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> nameLabel: <span class="hljs-type">UILabel</span>!
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> submitButton: <span class="hljs-type">UIButton!</span>
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> emailTextField: <span class="hljs-type">UITextField!</span>
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> nameLabel: <span class="hljs-type">UILabel!</span>
 
 }
 
@@ -359,12 +363,12 @@ someFunction(someArgument: <span class="hljs-string">"Kitten"</span>)
 
     <span class="hljs-comment">// for the sake of consistency, we should put the type name at the end of the</span>
     <span class="hljs-comment">// property name and not at the start</span>
-    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> btnSubmit: <span class="hljs-type">UIButton</span>!
-    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> buttonSubmit: <span class="hljs-type">UIButton</span>!
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> btnSubmit: <span class="hljs-type">UIButton!</span>
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> buttonSubmit: <span class="hljs-type">UIButton!</span>
 
     <span class="hljs-comment">// we should always have a type in the property name when dealing with outlets</span>
     <span class="hljs-comment">// for example, here, we should have `firstNameLabel` instead</span>
-    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> firstName: <span class="hljs-type">UILabel</span>!
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> firstName: <span class="hljs-type">UILabel!</span>
 }
 </code></pre>
 <ul>
@@ -604,10 +608,10 @@ imageView.backgroundColor = <span class="hljs-type">UIColor</span>.white
 <li><strong>3.5.4</strong> Don't use <code>unowned</code>. You can think of <code>unowned</code> as somewhat of an equivalent of a <code>weak</code> property that is implicitly unwrapped (though <code>unowned</code> has slight performance improvements on account of completely ignoring reference counting). Since we don't ever want to have implicit unwraps, we similarly don't want <code>unowned</code> properties.</li>
 </ul>
 <pre><code class="hljs css language-swift"><span class="hljs-comment">// PREFERRED</span>
-<span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> parentViewController: <span class="hljs-type">UIViewController</span>?
+<span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> parentViewController: <span class="hljs-type">UIViewController?</span>
 
 <span class="hljs-comment">// NOT PREFERRED</span>
-<span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> parentViewController: <span class="hljs-type">UIViewController</span>!
+<span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> parentViewController: <span class="hljs-type">UIViewController!</span>
 <span class="hljs-keyword">unowned</span> <span class="hljs-keyword">var</span> parentViewController: <span class="hljs-type">UIViewController</span>
 </code></pre>
 <ul>
@@ -734,7 +738,7 @@ doSomething(<span class="hljs-number">1.0</span>, success: { (parameter1) <span 
 <h3><a class="anchor" aria-hidden="true" id="310-error-handling"></a><a href="#310-error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.10 Error Handling</h3>
 <p>Suppose a function <code>myFunction</code> is supposed to return a <code>String</code>, however, at some point it can run into an error. A common approach is to have this function return an optional <code>String?</code> where we return <code>nil</code> if something went wrong.</p>
 <p>Example:</p>
-<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">readFile</span><span class="hljs-params">(named filename: String)</span></span> -&gt; <span class="hljs-type">String</span>? {
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">readFile</span><span class="hljs-params">(named filename: String)</span></span> -&gt; <span class="hljs-type">String?</span> {
     <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> file = openFile(named: filename) <span class="hljs-keyword">else</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
     }
