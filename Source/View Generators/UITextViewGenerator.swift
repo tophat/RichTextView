@@ -25,7 +25,13 @@ class UITextViewGenerator {
         mutableInput.replaceFont(with: font)
         mutableInput.replaceColor(with: textColor)
         textView.attributedText = mutableInput
-        textView.accessibilityValue = input.string
+        if #available(iOS 11.0, *) {
+            textView.accessibilityAttributedValue = mutableInput
+        } else {
+            textView.accessibilityValue = input.string
+        }
+        textView.accessibilityLabel = RichTextView.AccessibilityLabel.richTextView
+        textView.accessibilityIdentifier = RichTextView.AccessibilityIdentifier.richTextView
         textView.isAccessibilityElement = true
         textView.isSelectable = isSelectable
         textView.isEditable = isEditable

@@ -28,6 +28,14 @@ public class RichTextView: UIView {
         static let defaultAspectRatio = 9.0/16.0
     }
 
+    public enum AccessibilityLabel {
+        static let richTextView = "An image of a math expression"
+    }
+
+    public enum AccessibilityIdentifier {
+        static let richTextView = "Rich text view"
+    }
+
     // MARK: - Init
 
     public init(input: String = "",
