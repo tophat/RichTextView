@@ -29,7 +29,7 @@ public class RichTextView: UIView {
     }
 
     public enum AccessibilityLabel {
-        static let richTextView = "An image of a math expression"
+        static let richTextViewlabel = NSLocalizedString("An image of a math expression", comment: "Rich text view label")
     }
 
     public enum AccessibilityIdentifier {
@@ -120,6 +120,7 @@ public class RichTextView: UIView {
             }
             subview.backgroundColor = UIColor.clear
         }
+        self.enableAccessibility()
     }
 
     func generateViews() -> [UIView] {
@@ -161,6 +162,21 @@ public class RichTextView: UIView {
                 self.errors = [ParsingError]()
             }
             self.errors?.append(error)
+        }
+    }
+
+    private func enableAccessibility() {
+        self.isAccessibilityElement = true
+        self.accessibilityLabel = AccessibilityLabel.richTextViewlabel
+        self.accessibilityIdentifier = AccessibilityIdentifier.richTextView
+        for view in self.subviews {
+            if let accessibilityValue = view.accessibilityValue, !accessibilityValue.isEmpty {
+                if self.accessibilityValue == nil {
+                    self.accessibilityValue = accessibilityValue
+                } else {
+                    self.accessibilityValue?.append(accessibilityValue)
+                }
+            }
         }
     }
 }
