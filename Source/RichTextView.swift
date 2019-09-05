@@ -28,14 +28,6 @@ public class RichTextView: UIView {
         static let defaultAspectRatio = 9.0/16.0
     }
 
-    public enum AccessibilityLabel {
-        static let richTextViewlabel = NSLocalizedString("An image of a math expression", comment: "Rich text view label")
-    }
-
-    public enum AccessibilityIdentifier {
-        static let richTextView = "Rich text view"
-    }
-
     // MARK: - Init
 
     public init(input: String = "",
@@ -167,8 +159,6 @@ public class RichTextView: UIView {
 
     private func enableAccessibility() {
         self.isAccessibilityElement = true
-        self.accessibilityLabel = AccessibilityLabel.richTextViewlabel
-        self.accessibilityIdentifier = AccessibilityIdentifier.richTextView
         for view in self.subviews {
             if let accessibilityValue = view.accessibilityValue, !accessibilityValue.isEmpty {
                 if self.accessibilityValue == nil {

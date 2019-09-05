@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,6 @@
 		78E2681121A4B16900C9B2DE /* RichTextViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E2680F21A4B16300C9B2DE /* RichTextViewUITests.swift */; };
 		78E2681421A4B75800C9B2DE /* RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781488E92194E6B600DED7A1 /* RichTextView.framework */; };
 		9339C493C6F2730BE640EB5D /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCAAED0BE7B7B2385AF8EA0 /* Pods_RichTextViewUITests.framework */; };
-		CAA42282231EB39F0088A34A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAA42284231EB39F0088A34A /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +87,6 @@
 		78E2680F21A4B16300C9B2DE /* RichTextViewUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextViewUITests.swift; sourceTree = "<group>"; };
 		7D37F662D57395E63679616E /* Pods-RichTextView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView.release.xcconfig"; path = "Target Support Files/Pods-RichTextView/Pods-RichTextView.release.xcconfig"; sourceTree = "<group>"; };
 		9DCBB5B80F8F11286B0D7691 /* Pods_RichTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAA42283231EB39F0088A34A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D73C2E6CD811ECEE6482E7E0 /* Pods-RichTextViewUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUITests.debug.xcconfig"; path = "Target Support Files/Pods-RichTextViewUITests/Pods-RichTextViewUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D75248A00E6B75543B21032D /* Pods-RichTextView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView.debug.xcconfig"; path = "Target Support Files/Pods-RichTextView/Pods-RichTextView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,7 +150,6 @@
 				78322F97223C39B400C3D599 /* Delegates */,
 				7886C3AD21A33AE800C11817 /* Extensions */,
 				781488ED2194E6B600DED7A1 /* Info.plist */,
-				CAA42284231EB39F0088A34A /* Localizable.strings */,
 				781488EC2194E6B600DED7A1 /* RichTextView.h */,
 				781488F42194E6D600DED7A1 /* RichTextView.swift */,
 				7814893C2195369D00DED7A1 /* Text Parsing */,
@@ -265,7 +262,6 @@
 				68BA867CE471EFD41E10136D /* Pods-RichTextViewUnitTests.debug.xcconfig */,
 				56F27E4FE94458E8122460CD /* Pods-RichTextViewUnitTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -402,7 +398,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAA42282231EB39F0088A34A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,17 +624,6 @@
 			targetProxy = 78E2681221A4B74B00C9B2DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		CAA42284231EB39F0088A34A /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CAA42283231EB39F0088A34A /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		781488EF2194E6B600DED7A1 /* Debug */ = {
