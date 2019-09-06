@@ -116,7 +116,7 @@ class RichTextParser {
         var parsingErrors: [ParsingError]?
         for attributedString in attributedStringComponents {
             if self.isTextInteractiveElement(attributedString.string) {
-                output.append(self.extractInteractiveElement(from: attributedString.string))
+                output.append(self.extractInteractiveElement(from: attributedString))
             } else if self.isTextLatex(attributedString.string) {
                 if let attributedLatexString = self.extractLatex(from: attributedString.string) {
                     output.append(attributedLatexString)
@@ -143,11 +143,15 @@ class RichTextParser {
         )
     }
 
-    func extractInteractiveElement(from input: String) -> NSMutableAttributedString {
+    func extractInteractiveElement(from input: NSAttributedString) -> NSMutableAttributedString {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
-        let interactiveElementID = input.getSubstring(inBetween: "[\(interactiveElementTagName) id=", and: "]") ?? input
-        let interactiveElementText = input.getSubstring(inBetween: "]", and: "[/\(interactiveElementTagName)]") ?? input
-        let attributes: [NSAttributedString.Key: Any] = [.customLink: interactiveElementID, .foregroundColor: self.interactiveTextColor, .font: self.font]
+        let interactiveElementID = input.string.getSubstring(inBetween: "[\(interactiveElementTagName) id=", and: "]") ?? input.string
+        let interactiveElementText = input.string.getSubstring(inBetween: "]", and: "[/\(interactiveElementTagName)]") ?? input.string
+        let attributes: [NSAttributedString.Key: Any] = [
+            .customLink: interactiveElementID,
+            .foregroundColor: self.interactiveTextColor,
+            .font: self.font
+        ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
         let mutableAttributedInput = NSMutableAttributedString(string: " " + interactiveElementText + " ", attributes: attributes)
         return mutableAttributedInput
     }
