@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		078D2CA9BFB60FA210318808 /* Pods_RichTextView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39629EFB9271E37F1EF5B4D /* Pods_RichTextView_Example.framework */; };
 		7814891E2195323700DED7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814891D2195323700DED7A1 /* AppDelegate.swift */; };
 		781489202195323700DED7A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7814891F2195323700DED7A1 /* ViewController.swift */; };
 		781489232195323700DED7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781489212195323700DED7A1 /* Main.storyboard */; };
@@ -15,10 +14,12 @@
 		781489282195323A00DED7A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781489262195323A00DED7A1 /* LaunchScreen.storyboard */; };
 		78964EE821A85577003A4860 /* InputOutputModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78964EE721A85577003A4860 /* InputOutputModuleView.swift */; };
 		78964EEA21A85588003A4860 /* InputOutputModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78964EE921A85588003A4860 /* InputOutputModuleView.xib */; };
+		9330172A9C0C4799C0258286 /* Pods_RichTextView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E5B8C297F1106D323DD27D /* Pods_RichTextView_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5AF1D41140B7F9541915882D /* Pods-RichTextView-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.release.xcconfig"; sourceTree = "<group>"; };
+		1F6FF82D3D96D21B34536B14 /* Pods-RichTextView-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.release.xcconfig"; path = "Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.release.xcconfig"; sourceTree = "<group>"; };
+		36835A10BEE41E2906340085 /* Pods-RichTextView-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.debug.xcconfig"; path = "Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7814891A2195323700DED7A1 /* RichTextView-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RichTextView-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7814891D2195323700DED7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7814891F2195323700DED7A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,8 +29,7 @@
 		781489292195323A00DED7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78964EE721A85577003A4860 /* InputOutputModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOutputModuleView.swift; sourceTree = "<group>"; };
 		78964EE921A85588003A4860 /* InputOutputModuleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputOutputModuleView.xib; sourceTree = "<group>"; };
-		7E2F677854F87B0A57A41B9E /* Pods-RichTextView-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextView-Example/Pods-RichTextView-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		C39629EFB9271E37F1EF5B4D /* Pods_RichTextView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5E5B8C297F1106D323DD27D /* Pods_RichTextView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +37,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				078D2CA9BFB60FA210318808 /* Pods_RichTextView_Example.framework in Frameworks */,
+				9330172A9C0C4799C0258286 /* Pods_RichTextView_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		020A156CD49AA884EC0B24D5 /* Frameworks */ = {
+		19474C0ADC88175DB91FC49A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C39629EFB9271E37F1EF5B4D /* Pods_RichTextView_Example.framework */,
+				D5E5B8C297F1106D323DD27D /* Pods_RichTextView_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -55,10 +55,10 @@
 		781489112195323700DED7A1 = {
 			isa = PBXGroup;
 			children = (
-				020A156CD49AA884EC0B24D5 /* Frameworks */,
-				D6412253C8CAD63BEA2415EB /* Pods */,
 				7814891B2195323700DED7A1 /* Products */,
 				7814891C2195323700DED7A1 /* Source */,
+				B6C1B74523CDC9AC76A58D83 /* Pods */,
+				19474C0ADC88175DB91FC49A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,13 +85,14 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		D6412253C8CAD63BEA2415EB /* Pods */ = {
+		B6C1B74523CDC9AC76A58D83 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7E2F677854F87B0A57A41B9E /* Pods-RichTextView-Example.debug.xcconfig */,
-				5AF1D41140B7F9541915882D /* Pods-RichTextView-Example.release.xcconfig */,
+				36835A10BEE41E2906340085 /* Pods-RichTextView-Example.debug.xcconfig */,
+				1F6FF82D3D96D21B34536B14 /* Pods-RichTextView-Example.release.xcconfig */,
 			);
 			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,12 +102,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7814892C2195323A00DED7A1 /* Build configuration list for PBXNativeTarget "RichTextView-Example" */;
 			buildPhases = (
-				2421E11707A8013257772109 /* [CP] Check Pods Manifest.lock */,
+				A536D1422F33AB4D7782FA8B /* [CP] Check Pods Manifest.lock */,
 				781489162195323700DED7A1 /* Sources */,
 				781489172195323700DED7A1 /* Frameworks */,
 				781489182195323700DED7A1 /* Resources */,
-				57AB518366D728672E827631 /* [CP] Embed Pods Frameworks */,
 				7880D52A21A77A120083901C /* SwiftLint */,
+				676B9B4F14160B4301641F63 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,25 +167,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2421E11707A8013257772109 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RichTextView-Example-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		57AB518366D728672E827631 /* [CP] Embed Pods Frameworks */ = {
+		676B9B4F14160B4301641F63 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -218,6 +201,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		A536D1422F33AB4D7782FA8B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RichTextView-Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -372,7 +377,7 @@
 		};
 		7814892D2195323A00DED7A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E2F677854F87B0A57A41B9E /* Pods-RichTextView-Example.debug.xcconfig */;
+			baseConfigurationReference = 36835A10BEE41E2906340085 /* Pods-RichTextView-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -391,7 +396,7 @@
 		};
 		7814892E2195323A00DED7A1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AF1D41140B7F9541915882D /* Pods-RichTextView-Example.release.xcconfig */;
+			baseConfigurationReference = 1F6FF82D3D96D21B34536B14 /* Pods-RichTextView-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
