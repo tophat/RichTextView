@@ -78,6 +78,10 @@ class RichTextViewSpec: QuickSpec {
                     expect(richTextView?.textColor).to(equal(UIColor.red))
                     expect(richTextView?.richTextParser.textColor).to(equal(UIColor.red))
                 }
+                it("properly updates the accessibility value") {
+                    richTextView?.update(input: "Testing accessibility value")
+                    expect(richTextView?.accessibilityValue).to(equal("Testing accessibility value"))
+                }
             }
         }
     }

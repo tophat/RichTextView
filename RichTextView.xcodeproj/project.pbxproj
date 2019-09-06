@@ -262,7 +262,6 @@
 				68BA867CE471EFD41E10136D /* Pods-RichTextViewUnitTests.debug.xcconfig */,
 				56F27E4FE94458E8122460CD /* Pods-RichTextViewUnitTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

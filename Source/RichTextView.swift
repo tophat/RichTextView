@@ -112,6 +112,7 @@ public class RichTextView: UIView {
             }
             subview.backgroundColor = UIColor.clear
         }
+        self.enableAccessibility()
     }
 
     func generateViews() -> [UIView] {
@@ -153,6 +154,19 @@ public class RichTextView: UIView {
                 self.errors = [ParsingError]()
             }
             self.errors?.append(error)
+        }
+    }
+
+    private func enableAccessibility() {
+        self.isAccessibilityElement = true
+        for view in self.subviews {
+            if let accessibilityValue = view.accessibilityValue, !accessibilityValue.isEmpty {
+                if self.accessibilityValue == nil {
+                    self.accessibilityValue = accessibilityValue
+                } else {
+                    self.accessibilityValue?.append(accessibilityValue)
+                }
+            }
         }
     }
 }
