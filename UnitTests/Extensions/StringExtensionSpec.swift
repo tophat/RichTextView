@@ -99,6 +99,18 @@ class StringExtensionSpec: QuickSpec {
                     expect(ranges[1].lowerBound.utf16Offset(in: initialString)).to(equal(38))
                     expect(ranges[1].upperBound.utf16Offset(in: initialString)).to(equal(60))
                 }
+                it("returns the ranges of given text with multiple interactive elements.") {
+                    let initialString = """
+                        [interactive-element id=1]Some interactive element text[/interactive-element] different text
+                        [interactive-element id=1]more interactive element text[/interactive-element]
+                    """
+                    let ranges = initialString.ranges(of: "\\[interactive-element\\sid=.+?\\].*?\\[\\/interactive-element\\]", options: .regularExpression)
+                    expect(ranges.count).to(equal(2))
+                    expect(ranges[0].lowerBound.utf16Offset(in: initialString)).to(equal(4))
+                    expect(ranges[0].upperBound.utf16Offset(in: initialString)).to(equal(81))
+                    expect(ranges[1].lowerBound.utf16Offset(in: initialString)).to(equal(101))
+                    expect(ranges[1].upperBound.utf16Offset(in: initialString)).to(equal(178))
+                }
             }
         }
     }
