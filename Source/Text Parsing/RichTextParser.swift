@@ -15,7 +15,7 @@ class RichTextParser {
         static let interactiveElementTagName = "interactive-element"
         static let latexRegex = "\\[\(ParserConstants.mathTagName)\\](.*?)\\[\\/\(ParserConstants.mathTagName)\\]"
         static let interactiveElementRegex = """
-            \\[\(ParserConstants.interactiveElementTagName)\\sid=.+?\\].*?\\[\\/\(ParserConstants.interactiveElementTagName)\\]
+        \\[\(ParserConstants.interactiveElementTagName)\\sid=.+?\\].*?\\[\\/\(ParserConstants.interactiveElementTagName)\\]
         """
         typealias RichTextWithErrors = (output: NSAttributedString, errors: [ParsingError]?)
     }
