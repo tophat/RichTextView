@@ -40,6 +40,23 @@ extension String {
         return ranges.map { String(self[$0]) }
     }
 
+    subscript(bounds: CountableClosedRange<Int>) -> String {
+        let start = self.index(self.startIndex, offsetBy: bounds.lowerBound)
+        let end = self.index(self.startIndex, offsetBy: bounds.upperBound)
+        return String(self[start...end])
+    }
+
+    subscript(bounds: CountableRange<Int>) -> String {
+        let start = self.index(self.startIndex, offsetBy: bounds.lowerBound)
+        let end = self.index(self.startIndex, offsetBy: bounds.upperBound)
+        return String(self[start..<end])
+    }
+
+    subscript(_ index: Int) -> String {
+        let index = self.index(self.startIndex, offsetBy: index)
+        return String(self[index])
+    }
+
     // MARK: - Split String Extensions
 
     func split(atPositions positions: [Index]) -> [String] {

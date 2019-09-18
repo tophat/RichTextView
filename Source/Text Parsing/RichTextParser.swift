@@ -78,14 +78,49 @@ class RichTextParser {
     }
 
     private func getAttributedTextFromDown(with input: String) -> ParserConstants.RichTextWithErrors {
-        let markdownString = self.stripCodeTagsIfNecessary(from: input)
-        guard let attributedInput = try? Down(markdownString: markdownString).toAttributedString(.unsafe, stylesheet: nil) else {
-            return (NSAttributedString(string: input), [ParsingError.attributedTextGeneration(text: input)])
+        let strippedInput = self.stripCodeTagsIfNecessary(from: input)
+        let strippedInputAsMutableAttributedString = NSMutableAttributedString(string: strippedInput)
+        let strippedInputWithSpecialDataTypesHandled = self.getAttributedStringWithSpecialDataTypesHandled(
+            from: strippedInputAsMutableAttributedString
+        )
+        let strippedInputAsAttributedString = strippedInputWithSpecialDataTypesHandled.output
+        var allParsingErrors = strippedInputWithSpecialDataTypesHandled.errors
+        let rangeOfStrippedInputAttributedString = NSRange(location: 0, length: strippedInputAsAttributedString.length)
+        let outputAttributedStringToReturn = NSMutableAttributedString(attributedString: strippedInputWithSpecialDataTypesHandled.output)
+
+        strippedInputWithSpecialDataTypesHandled.output.enumerateAttributes(in: rangeOfStrippedInputAttributedString) { (attributes, range, _) in
+            let parsedOutputWithErrors = self.parseHTMLAndMarkdown(
+                inAttributes: attributes,
+                range: range,
+                entireAttributedString: strippedInputAsAttributedString
+            )
+            if let attributedString = parsedOutputWithErrors.0 {
+                outputAttributedStringToReturn.replaceCharacters(in: range, with: attributedString)
+            }
+            if let error = parsedOutputWithErrors.1 {
+                if allParsingErrors == nil {
+                    allParsingErrors = [ParsingError]()
+                }
+                allParsingErrors?.append(error)
+            }
+        }
+        return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+    }
+
+    private func parseHTMLAndMarkdown(inAttributes attributes: [NSAttributedString.Key: Any],
+                                      range: NSRange,
+                                      entireAttributedString: NSAttributedString) -> (NSMutableAttributedString?, ParsingError?) {
+        guard attributes[.attachment] == nil else {
+            return (nil, nil)
+        }
+        let relevantString = entireAttributedString.string[range.lowerBound..<range.upperBound]
+        guard let attributedInput = try? Down(markdownString: relevantString).toAttributedString(.unsafe, stylesheet: nil) else {
+            return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
         mutableAttributedInput.replaceFont(with: self.font)
         mutableAttributedInput.replaceColor(with: self.textColor)
-        return self.getAttributedStringWithSpecialDataTypesHandled(from: mutableAttributedInput)
+        return (mutableAttributedInput.trimmingTrailingNewlines(), nil)
     }
 
     private func getAttributedStringWithSpecialDataTypesHandled(from mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {

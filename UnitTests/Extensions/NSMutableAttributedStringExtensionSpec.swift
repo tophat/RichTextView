@@ -91,6 +91,33 @@ class NSMutableAttributedStringExtensionSpec: QuickSpec {
                     expect(attributedString.string).to(equal("\n\n\n\n\nTest"))
                 }
             }
+            context("Trim trailing newlines") {
+                it("Does not trim trailing spaces") {
+                    var attributedString = NSMutableAttributedString(string: "Test     ")
+                    attributedString = attributedString.trimmingTrailingNewlines()
+                    expect(attributedString.string).to(equal("Test     "))
+                }
+                it("Trims trailing newlines") {
+                    var attributedString = NSMutableAttributedString(string: "Test\n\n\n\n\n")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("Test"))
+                }
+                it("Trims input only has newlines") {
+                    var attributedString = NSMutableAttributedString(string: "\n\n\n\n\n")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal(""))
+                }
+                it("Does not trim leading spaces") {
+                    var attributedString = NSMutableAttributedString(string: "     Test")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("     Test"))
+                }
+                it("Does not trim leading newlines") {
+                    var attributedString = NSMutableAttributedString(string: "\n\n\n\n\nTest")
+                    attributedString = attributedString.trimmingTrailingNewlinesAndWhitespaces()
+                    expect(attributedString.string).to(equal("\n\n\n\n\nTest"))
+                }
+            }
             context("Custom Link Attribute") {
                 it("property adds custom link attribute") {
                     let attributedString = NSAttributedString(string: "Test", attributes: [.customLink: "Test"])
