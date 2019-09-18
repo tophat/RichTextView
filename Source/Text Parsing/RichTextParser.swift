@@ -88,14 +88,16 @@ class RichTextParser {
         let rangeOfStrippedInputAttributedString = NSRange(location: 0, length: strippedInputAsAttributedString.length)
         let outputAttributedStringToReturn = NSMutableAttributedString(attributedString: strippedInputWithSpecialDataTypesHandled.output)
 
-        strippedInputWithSpecialDataTypesHandled.output.enumerateAttributes(in: rangeOfStrippedInputAttributedString) { (attributes, range, _) in
+        strippedInputAsAttributedString.enumerateAttributes(in: rangeOfStrippedInputAttributedString) { (attributes, range, _) in
             let parsedOutputWithErrors = self.parseHTMLAndMarkdown(
                 inAttributes: attributes,
                 range: range,
                 entireAttributedString: strippedInputAsAttributedString
             )
             if let attributedString = parsedOutputWithErrors.0 {
-                outputAttributedStringToReturn.replaceCharacters(in: range, with: attributedString)
+                let substring = strippedInputAsAttributedString.string[range.lowerBound..<range.upperBound]
+                let outputAttributedStringRange = (outputAttributedStringToReturn.string as NSString).range(of: substring)
+                outputAttributedStringToReturn.replaceCharacters(in: outputAttributedStringRange, with: attributedString)
             }
             if let error = parsedOutputWithErrors.1 {
                 if allParsingErrors == nil {
@@ -118,6 +120,9 @@ class RichTextParser {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
+        if !attributes.isEmpty {
+            mutableAttributedInput.addAttributes(attributes, range: NSRange(location: 0, length: mutableAttributedInput.length))
+        }
         mutableAttributedInput.replaceFont(with: self.font)
         mutableAttributedInput.replaceColor(with: self.textColor)
         return (mutableAttributedInput.trimmingTrailingNewlines(), nil)
