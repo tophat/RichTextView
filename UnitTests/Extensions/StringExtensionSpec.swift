@@ -112,6 +112,23 @@ class StringExtensionSpec: QuickSpec {
                     expect(ranges[1].upperBound.utf16Offset(in: initialString)).to(equal(178))
                 }
             }
+            context("Subscripts") {
+                it("correctly subscripts a closed range of type Int") {
+                    let initialString = "Wow I love RichTextView!"
+                    let substring = initialString[1...3]
+                    expect(substring).to(equal("ow "))
+                }
+                it("correctly subscripts an open range of type Int") {
+                    let initialString = "Wow I love RichTextView!"
+                    let substring = initialString[5..<8]
+                    expect(substring).to(equal(" lo"))
+                }
+                it("correctly subscripts when it is just a single Int") {
+                    let initialString = "Wow I love RichTextView!"
+                    let substring = initialString[6]
+                    expect(substring).to(equal("l"))
+                }
+            }
         }
     }
 }
