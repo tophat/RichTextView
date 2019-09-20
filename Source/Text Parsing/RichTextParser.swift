@@ -95,7 +95,9 @@ class RichTextParser {
                 entireAttributedString: strippedInputAsAttributedString
             )
             if let attributedString = parsedOutputWithErrors.0 {
-                let substring = strippedInputAsAttributedString.string[range.lowerBound..<range.upperBound]
+                let substring = strippedInputAsAttributedString.string[
+                    max(range.lowerBound, 0)..<min(range.upperBound, strippedInputAsAttributedString.string.count)
+                ]
                 let outputAttributedStringRange = (outputAttributedStringToReturn.string as NSString).range(of: substring)
                 outputAttributedStringToReturn.replaceCharacters(in: outputAttributedStringRange, with: attributedString)
             }
@@ -115,7 +117,9 @@ class RichTextParser {
         guard attributes[.attachment] == nil else {
             return (nil, nil)
         }
-        let relevantString = entireAttributedString.string[range.lowerBound..<range.upperBound]
+        let relevantString = entireAttributedString.string[
+            max(range.lowerBound, 0)..<min(range.upperBound, entireAttributedString.string.count)
+        ]
         guard let attributedInput = try? Down(markdownString: relevantString).toAttributedString(.unsafe, stylesheet: nil) else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
