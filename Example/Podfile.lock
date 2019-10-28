@@ -1,7 +1,7 @@
 PODS:
   - Down (0.8.2)
   - iosMath (0.9.4)
-  - RichTextView (2.3.5):
+  - RichTextView (2.3.6):
     - Down
     - iosMath
     - SnapKit
@@ -13,7 +13,7 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Down
     - iosMath
     - SnapKit
@@ -26,10 +26,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Down: 8babe0cafe145de188d2efa76ea938a11a5fdc6f
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
-  RichTextView: 072585daa885ac3c32b394bce31d93e0a3f317c0
+  RichTextView: 05f6bc91b7898c198c4a83dc9b342b77eef76333
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
 PODFILE CHECKSUM: 7ed278778742c6fba1a76cb63542d5cc16be9fb8
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3
