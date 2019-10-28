@@ -120,7 +120,7 @@ class RichTextParser {
         let relevantString = entireAttributedString.string[
             max(range.lowerBound, 0)..<min(range.upperBound, entireAttributedString.string.count)
         ]
-        guard let attributedInput = try? Down(markdownString: relevantString).toAttributedString(.unsafe, stylesheet: nil) else {
+        guard let attributedInput = try? Down(markdownString: relevantString).toAttributedString([.unsafe, .hardBreaks], stylesheet: nil) else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
