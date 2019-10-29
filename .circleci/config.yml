@@ -50,7 +50,9 @@ jobs:
       - prep_mac_env
       - run:
           name: Install CocoaPods
-          command: pod install
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+            pod install
       - save_cocoapods_cache
       - run:
           name: Build and run RichTextView Tests
