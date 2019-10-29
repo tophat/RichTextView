@@ -7,6 +7,7 @@
 //
 
 import Down
+import DTCoreText
 
 class RichTextParser {
 
@@ -60,24 +61,7 @@ class RichTextParser {
         }
     }
 
-    // MARK: - Helpers
-
     func getAttributedText(from input: String) -> ParserConstants.RichTextWithErrors {
-        if Thread.isMainThread {
-            return self.getAttributedTextFromDown(with: input)
-        }
-
-        var output = NSAttributedString(string: "")
-        var parsingErrors: [ParsingError]?
-
-        DispatchQueue.main.sync {
-            (output, parsingErrors) = self.getAttributedTextFromDown(with: input)
-        }
-
-        return (output, parsingErrors)
-    }
-
-    private func getAttributedTextFromDown(with input: String) -> ParserConstants.RichTextWithErrors {
         let strippedInput = self.stripCodeTagsIfNecessary(from: input)
         let strippedInputAsMutableAttributedString = NSMutableAttributedString(string: strippedInput)
         let strippedInputWithSpecialDataTypesHandled = self.getAttributedStringWithSpecialDataTypesHandled(
@@ -111,6 +95,8 @@ class RichTextParser {
         return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
     }
 
+    // MARK: - Helpers
+
     private func parseHTMLAndMarkdown(inAttributes attributes: [NSAttributedString.Key: Any],
                                       range: NSRange,
                                       entireAttributedString: NSAttributedString) -> (NSMutableAttributedString?, ParsingError?) {
@@ -120,7 +106,9 @@ class RichTextParser {
         let relevantString = entireAttributedString.string[
             max(range.lowerBound, 0)..<min(range.upperBound, entireAttributedString.string.count)
         ]
-        guard let attributedInput = try? Down(markdownString: relevantString).toAttributedString([.unsafe, .hardBreaks], stylesheet: nil) else {
+        guard let inputAsHTMLString = try? Down(markdownString: relevantString).toHTML([.unsafe, .hardBreaks]),
+            let htmlData = inputAsHTMLString.data(using: .utf8),
+            let attributedInput = NSAttributedString(htmlData: htmlData, options: [DTUseiOS6Attributes: true], documentAttributes: nil) else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)

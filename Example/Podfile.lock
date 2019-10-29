@@ -1,8 +1,26 @@
 PODS:
   - Down (0.8.2)
+  - DTCoreText (1.6.23):
+    - DTCoreText/Core (= 1.6.23)
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTCoreText/Core (1.6.23):
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTFoundation/Core (1.7.14)
+  - DTFoundation/DTAnimatedGIF (1.7.14)
+  - DTFoundation/DTHTMLParser (1.7.14):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.14):
+    - DTFoundation/Core
   - iosMath (0.9.4)
   - RichTextView (2.3.6):
     - Down
+    - DTCoreText
     - iosMath
     - SnapKit
   - SnapKit (5.0.0)
@@ -18,6 +36,9 @@ SPEC REPOS:
     - iosMath
     - SnapKit
     - SwiftLint
+  trunk:
+    - DTCoreText
+    - DTFoundation
 
 EXTERNAL SOURCES:
   RichTextView:
@@ -25,8 +46,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Down: 8babe0cafe145de188d2efa76ea938a11a5fdc6f
+  DTCoreText: 67023bb51b26711d5f640c851f4845aea14c24c9
+  DTFoundation: 25aa19bb7c6e225b1dfae195604fb8cf1da0ab4c
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
-  RichTextView: 05f6bc91b7898c198c4a83dc9b342b77eef76333
+  RichTextView: 39ae3c63ff80c2c113d6b0fa9b0d5f2171c16580
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
