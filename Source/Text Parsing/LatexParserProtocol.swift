@@ -17,17 +17,17 @@ extension LatexParserProtocol {
     public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat) -> NSAttributedString? {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
+        var mathImage: UIImage?
 
-        let label = MTMathUILabel()
-        label.textColor = textColor
-        label.latex = latexInput
-        label.fontSize = fontSize
+        if Thread.isMainThread {
+            mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: fontSize)
+        } else {
+            DispatchQueue.main.sync {
+                mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: fontSize)
+            }
+        }
 
-        var newFrame = label.frame
-        newFrame.size = label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
-        label.frame = newFrame
-
-        guard let image = self.getImage(from: label) else {
+        guard let image = mathImage else {
             return nil
         }
 
@@ -43,6 +43,18 @@ extension LatexParserProtocol {
     public func extractLatexStringInsideTags(from input: String) -> String {
         let mathTagName = RichTextParser.ParserConstants.mathTagName
         return input.getSubstring(inBetween: "[\(mathTagName)]", and: "[/\(mathTagName)]") ?? input
+    }
+
+    private func setupMathLabelAndGetImage(from input: String, textColor: UIColor, fontSize: CGFloat) -> UIImage? {
+        let label = MTMathUILabel()
+        label.textColor = textColor
+        label.latex = input
+        label.fontSize = fontSize
+
+        var newFrame = label.frame
+        newFrame.size = label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+        label.frame = newFrame
+        return self.getImage(from: label)
     }
 
     private func getImage(from label: MTMathUILabel) -> UIImage? {
