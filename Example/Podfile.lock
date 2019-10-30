@@ -18,7 +18,7 @@ PODS:
   - DTFoundation/UIKit (1.7.14):
     - DTFoundation/Core
   - iosMath (0.9.4)
-  - RichTextView (2.3.6):
+  - RichTextView (2.4.0):
     - Down
     - DTCoreText
     - iosMath
@@ -49,7 +49,7 @@ SPEC CHECKSUMS:
   DTCoreText: 67023bb51b26711d5f640c851f4845aea14c24c9
   DTFoundation: 25aa19bb7c6e225b1dfae195604fb8cf1da0ab4c
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
-  RichTextView: 39ae3c63ff80c2c113d6b0fa9b0d5f2171c16580
+  RichTextView: 6dd9d8d5124b5deffc2a6db3887a56519a5d36c3
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
