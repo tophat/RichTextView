@@ -29,6 +29,7 @@ class RichTextParser {
     let textColor: UIColor
     let latexTextBaselineOffset: CGFloat
     let interactiveTextColor: UIColor
+    let highlightedElementBackGroundColor: UIColor
 
     // MARK: - Init
 
@@ -36,12 +37,14 @@ class RichTextParser {
          font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
          textColor: UIColor = UIColor.black,
          latexTextBaselineOffset: CGFloat = 0,
-         interactiveTextColor: UIColor = UIColor.blue) {
+         interactiveTextColor: UIColor = UIColor.blue,
+         highlightedColor: UIColor = UIColor.white) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
         self.latexTextBaselineOffset = latexTextBaselineOffset
         self.interactiveTextColor = interactiveTextColor
+        self.highlightedElementBackGroundColor = highlightedColor
     }
 
     // MARK: - Utility Functions
@@ -93,6 +96,10 @@ class RichTextParser {
                 allParsingErrors?.append(error)
             }
         }
+        //        outputAttributedStringToReturn.addAttributes(
+        //            [.backgroundColor: self.highlightedElementBackGroundColor],
+        //            range: NSRange(location: 0, length: outputAttributedStringToReturn.length)
+        //        )
         return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
     }
 
