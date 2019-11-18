@@ -39,6 +39,7 @@ public class RichTextView: UIView {
                 latexTextBaselineOffset: CGFloat = 0,
                 interactiveTextColor: UIColor = UIColor.blue,
                 textViewDelegate: RichTextViewDelegate? = nil,
+                attributes: [String: [NSAttributedString.Key: Any]]? = nil,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
@@ -76,8 +77,8 @@ public class RichTextView: UIView {
                        textColor: UIColor? = nil,
                        latexTextBaselineOffset: CGFloat? = nil,
                        interactiveTextColor: UIColor? = nil,
-                       completion: (([ParsingError]?) -> Void)? = nil,
-                       attributes: [String: [NSAttributedString.Key: Any]]? = nil) {
+                       attributes: [String: [NSAttributedString.Key: Any]]? = nil,
+                       completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
             latexParser: latexParser ?? self.richTextParser.latexParser,

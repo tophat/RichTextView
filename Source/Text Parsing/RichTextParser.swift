@@ -96,10 +96,10 @@ class RichTextParser {
                 allParsingErrors?.append(error)
             }
         }
-        //        outputAttributedStringToReturn.addAttributes(
-        //            [.backgroundColor: self.highlightedElementBackGroundColor],
-        //            range: NSRange(location: 0, length: outputAttributedStringToReturn.length)
-        //        )
+        outputAttributedStringToReturn.addAttributes(
+            [.backgroundColor: self.highlightedElementBackGroundColor],
+            range: NSRange(location: 0, length: outputAttributedStringToReturn.length)
+        )
         return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
     }
 
