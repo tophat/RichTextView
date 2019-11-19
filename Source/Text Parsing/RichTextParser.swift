@@ -33,7 +33,7 @@ class RichTextParser {
     let textColor: UIColor
     let latexTextBaselineOffset: CGFloat
     let interactiveTextColor: UIColor
-    let highlightedElementBackGroundColor: UIColor
+    let attributes: [String: [NSAttributedString.Key: Any]]?
 
     // MARK: - Init
 
@@ -42,13 +42,13 @@ class RichTextParser {
          textColor: UIColor = UIColor.black,
          latexTextBaselineOffset: CGFloat = 0,
          interactiveTextColor: UIColor = UIColor.blue,
-         highlightedColor: UIColor = UIColor.white) {
+         attributes: [String: [NSAttributedString.Key: Any]]? = nil) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
         self.latexTextBaselineOffset = latexTextBaselineOffset
         self.interactiveTextColor = interactiveTextColor
-        self.highlightedElementBackGroundColor = highlightedColor
+        self.attributes = attributes
     }
 
     // MARK: - Utility Functions
@@ -100,10 +100,6 @@ class RichTextParser {
                 allParsingErrors?.append(error)
             }
         }
-        outputAttributedStringToReturn.addAttributes(
-            [.backgroundColor: self.highlightedElementBackGroundColor],
-            range: NSRange(location: 0, length: outputAttributedStringToReturn.length)
-        )
         return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
     }
 
@@ -162,11 +158,10 @@ class RichTextParser {
         let output = NSMutableAttributedString()
         var parsingErrors: [ParsingError]?
         for attributedString in attributedStringComponents {
-            if self.isHighlightedElement(attributedString.string) {
-                output.append(self.extractHighlightedElement(from: attributedString))
-            }
             if self.isTextInteractiveElement(attributedString.string) {
                 output.append(self.extractInteractiveElement(from: attributedString))
+            } else if self.isTextHighlightedElement(attributedString.string) {
+                output.append(self.extractHighlightedElement(from: attributedString))
             } else if self.isTextLatex(attributedString.string) {
                 if let attributedLatexString = self.extractLatex(from: attributedString.string) {
                     output.append(attributedLatexString)
@@ -210,9 +205,12 @@ class RichTextParser {
         let highlightedElementTagName = ParserConstants.highlightedElementTagName
         let highlightedElementID = input.string.getSubstring(inBetween: "[\(highlightedElementTagName) id=", and: "]") ?? input.string
         let highlightedElementText = input.string.getSubstring(inBetween: "]", and: "[/\(highlightedElementTagName)]") ?? input.string
+        guard let richTextAttributes = self.attributes else {
+            return NSMutableAttributedString(string: highlightedElementText)
+        }
         let attributes: [NSAttributedString.Key: Any] = [
             .highlight: highlightedElementID,
-            .backgroundColor: self.highlightedElementBackGroundColor
+            .backgroundColor: richTextAttributes[highlightedElementID]?[.backgroundColor]
         ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
         let mutableAttributedInput = NSMutableAttributedString(string: " " + highlightedElementText + " ", attributes: attributes)
         return mutableAttributedInput

@@ -50,7 +50,8 @@ public class RichTextView: UIView {
             font: font,
             textColor: textColor,
             latexTextBaselineOffset: latexTextBaselineOffset,
-            interactiveTextColor: interactiveTextColor
+            interactiveTextColor: interactiveTextColor,
+            attributes: attributes
         )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate
@@ -85,8 +86,7 @@ public class RichTextView: UIView {
             font: font ?? self.richTextParser.font,
             textColor: textColor ?? self.textColor,
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
-            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor,
-            highlightedColor: attributes?.first?.value[.backgroundColor] as? UIColor ?? UIColor.white
+            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }
