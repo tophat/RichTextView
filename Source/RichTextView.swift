@@ -86,7 +86,8 @@ public class RichTextView: UIView {
             font: font ?? self.richTextParser.font,
             textColor: textColor ?? self.textColor,
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
-            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor
+            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor,
+            attributes: attributes
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }

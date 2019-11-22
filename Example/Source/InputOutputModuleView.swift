@@ -42,7 +42,10 @@ class InputOutputModuleView: UIView, RichTextViewDelegate {
     private func updateText(_ text: String) {
         self.inputLabel.text = text
         self.outputRichTextView.textViewDelegate = self
-        self.outputRichTextView.update(input: text)
+        self.outputRichTextView.update(
+            input: text,
+            attributes: ["456": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]]
+        )
     }
 
     // MARK: - RichTextViewDelegate
