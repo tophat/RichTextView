@@ -107,7 +107,7 @@ class RichTextViewUITests: QuickSpec {
                 it("Renders a string with highlights") {
                     let richTextView = RichTextView(
                         input: "[highlighted-element id=123]Test[/highlighted-element]",
-                        attributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]],
+                        customAdditionalAttributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]],
                         frame: CGRect(origin: .zero, size: Defaults.size
                     ))
                     richTextView.backgroundColor = UIColor.white
