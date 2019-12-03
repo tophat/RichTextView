@@ -21,6 +21,8 @@ class RichTextParserSpec: QuickSpec {
         static let codeText = "[code]print('Hello World')[/code]"
         static let basicInteractiveElement = "[interactive-element id=123]This is an interactive element[/interactive-element]"
         static let complexInteractiveElement = "Look! An interactive element: [interactive-element id=123]element[/interactive-element]"
+        static let highlightedElement = "[highlighted-element id=123]This is an highlighted element[/highlighted-element]"
+        static let complexHighlightedElement = "Look! An highlighted element: [highlighted-element id=123]element[/highlighted-element]"
     }
 
     var richTextParser: RichTextParser!
@@ -28,7 +30,7 @@ class RichTextParserSpec: QuickSpec {
     override func spec() {
         describe("RichTextParser") {
             beforeEach {
-                self.richTextParser = RichTextParser()
+                self.richTextParser = RichTextParser(attributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]])
             }
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
@@ -53,6 +55,25 @@ class RichTextParserSpec: QuickSpec {
                         .customLink: "123",
                         .foregroundColor: UIColor.blue,
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
+                    ]
+                    let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
+                    expect(output).to(equal(expectedAttributedString))
+                }
+            }
+            context("highlighted Element") {
+                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
+                    let attributes: [NSAttributedString.Key: Any] = [
+                        NSAttributedString.Key(rawValue: "highlight"): "123",
+                        .backgroundColor: UIColor.lightGray
+                    ]
+                    let expectedAttributedString = NSAttributedString(string: " This is an highlighted element ", attributes: attributes)
+                    expect(output).to(equal(expectedAttributedString))
+                }
+                it("succesfully returns an NSAttributedString with the highlighted property from a complex highlighted element") {
+                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.complexHighlightedElement))
+                    let attributes: [NSAttributedString.Key: Any] = [
+                        NSAttributedString.Key(rawValue: "highlight"): "123",
+                        .backgroundColor: UIColor.lightGray
                     ]
                     let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))

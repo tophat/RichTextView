@@ -14,10 +14,14 @@ class RichTextParser {
     enum ParserConstants {
         static let mathTagName = "math"
         static let interactiveElementTagName = "interactive-element"
+        static let highlightedElementTagName = "highlighted-element"
         static let latexRegex = "\\[\(ParserConstants.mathTagName)\\](.*?)\\[\\/\(ParserConstants.mathTagName)\\]"
         static let latexRegexCaptureGroupIndex = 0
         static let interactiveElementRegex = """
         \\[\(ParserConstants.interactiveElementTagName)\\sid=.+?\\].*?\\[\\/\(ParserConstants.interactiveElementTagName)\\]
+        """
+        static let highlightedElementRegex = """
+        \\[\(ParserConstants.highlightedElementTagName)\\sid=.+?\\].*?\\[\\/\(ParserConstants.highlightedElementTagName)\\]
         """
         typealias RichTextWithErrors = (output: NSAttributedString, errors: [ParsingError]?)
     }
@@ -29,6 +33,7 @@ class RichTextParser {
     let textColor: UIColor
     let latexTextBaselineOffset: CGFloat
     let interactiveTextColor: UIColor
+    let attributes: [String: [NSAttributedString.Key: Any]]?
 
     // MARK: - Init
 
@@ -36,12 +41,14 @@ class RichTextParser {
          font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
          textColor: UIColor = UIColor.black,
          latexTextBaselineOffset: CGFloat = 0,
-         interactiveTextColor: UIColor = UIColor.blue) {
+         interactiveTextColor: UIColor = UIColor.blue,
+         attributes: [String: [NSAttributedString.Key: Any]]? = nil) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
         self.latexTextBaselineOffset = latexTextBaselineOffset
         self.interactiveTextColor = interactiveTextColor
+        self.attributes = attributes
     }
 
     // MARK: - Utility Functions
@@ -125,8 +132,11 @@ class RichTextParser {
         let interactiveElementPositions = self.extractPositions(
             fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression)
         )
+        let highlightedElementPositions = self.extractPositions(
+            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.highlightedElementRegex, options: .regularExpression)
+        )
         let latexPositions = self.extractPositions(fromRanges: self.getLatexRanges(inText: mutableAttributedString.string))
-        let splitPositions = interactiveElementPositions + latexPositions
+        let splitPositions = interactiveElementPositions + latexPositions + highlightedElementPositions
         if splitPositions.isEmpty {
             return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), nil)
         }
@@ -150,6 +160,8 @@ class RichTextParser {
         for attributedString in attributedStringComponents {
             if self.isTextInteractiveElement(attributedString.string) {
                 output.append(self.extractInteractiveElement(from: attributedString))
+            } else if self.isTextHighlightedElement(attributedString.string) {
+                output.append(self.extractHighlightedElement(from: attributedString))
             } else if self.isTextLatex(attributedString.string) {
                 if let attributedLatexString = self.extractLatex(from: attributedString.string) {
                     output.append(attributedLatexString)
@@ -189,12 +201,31 @@ class RichTextParser {
         return mutableAttributedInput
     }
 
+    func extractHighlightedElement(from input: NSAttributedString) -> NSMutableAttributedString {
+        let highlightedElementTagName = ParserConstants.highlightedElementTagName
+        let highlightedElementID = input.string.getSubstring(inBetween: "[\(highlightedElementTagName) id=", and: "]") ?? input.string
+        let highlightedElementText = input.string.getSubstring(inBetween: "]", and: "[/\(highlightedElementTagName)]") ?? input.string
+        guard let richTextAttributes = self.attributes else {
+            return NSMutableAttributedString(string: highlightedElementText)
+        }
+        let attributes: [NSAttributedString.Key: Any] = [
+            .highlight: highlightedElementID,
+            .backgroundColor: richTextAttributes[highlightedElementID]?[.backgroundColor]
+        ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
+        let mutableAttributedInput = NSMutableAttributedString(string: " " + highlightedElementText + " ", attributes: attributes)
+        return mutableAttributedInput
+    }
+
     func isTextLatex(_ text: String) -> Bool {
         return !self.getLatexRanges(inText: text).isEmpty
     }
 
     func isTextInteractiveElement(_ text: String) -> Bool {
         return text.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression).count != 0
+    }
+
+    func isTextHighlightedElement(_ text: String) -> Bool {
+        return text.ranges(of: ParserConstants.highlightedElementRegex, options: .regularExpression).count != 0
     }
 
     private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {

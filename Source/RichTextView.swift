@@ -39,6 +39,7 @@ public class RichTextView: UIView {
                 latexTextBaselineOffset: CGFloat = 0,
                 interactiveTextColor: UIColor = UIColor.blue,
                 textViewDelegate: RichTextViewDelegate? = nil,
+                customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
@@ -49,7 +50,8 @@ public class RichTextView: UIView {
             font: font,
             textColor: textColor,
             latexTextBaselineOffset: latexTextBaselineOffset,
-            interactiveTextColor: interactiveTextColor
+            interactiveTextColor: interactiveTextColor,
+            attributes: customAdditionalAttributes
         )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate
@@ -76,6 +78,7 @@ public class RichTextView: UIView {
                        textColor: UIColor? = nil,
                        latexTextBaselineOffset: CGFloat? = nil,
                        interactiveTextColor: UIColor? = nil,
+                       attributes: [String: [NSAttributedString.Key: Any]]? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
@@ -83,7 +86,8 @@ public class RichTextView: UIView {
             font: font ?? self.richTextParser.font,
             textColor: textColor ?? self.textColor,
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
-            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor
+            interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor,
+            attributes: attributes
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }

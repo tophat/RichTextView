@@ -104,6 +104,24 @@ class RichTextViewUITests: QuickSpec {
                         })
                     }
                 }
+                it("Renders a string with highlights") {
+                    let richTextView = RichTextView(
+                        input: "[highlighted-element id=123]Test[/highlighted-element]",
+                        customAdditionalAttributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]],
+                        frame: CGRect(origin: .zero, size: Defaults.size
+                    ))
+                    richTextView.backgroundColor = UIColor.white
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
             }
             context("Update") {
                 it("Updates Input Properly") {
@@ -151,6 +169,25 @@ class RichTextViewUITests: QuickSpec {
                         })
                     }
                 }
+                it("Updates highlight Color Properly") {
+                    let richTextView = RichTextView(frame: CGRect(origin: .zero, size: Defaults.size))
+                    richTextView.backgroundColor = UIColor.white
+                    richTextView.update(
+                        input: "[highlighted-element id=123]* Heading[/highlighted-element]",
+                        attributes: ["123": [NSMutableAttributedString.Key.backgroundColor: UIColor.lightGray]]
+                    )
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(haveValidSnapshot())
+                            done()
+                        })
+                    }
+                }
+
             }
             afterEach {
                 UIView.setAnimationsEnabled(false)
