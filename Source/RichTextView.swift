@@ -39,7 +39,7 @@ public class RichTextView: UIView {
                 latexTextBaselineOffset: CGFloat = 0,
                 interactiveTextColor: UIColor = UIColor.blue,
                 textViewDelegate: RichTextViewDelegate? = nil,
-                attributes: [String: [NSAttributedString.Key: Any]]? = nil,
+                customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                 frame: CGRect,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
@@ -51,7 +51,7 @@ public class RichTextView: UIView {
             textColor: textColor,
             latexTextBaselineOffset: latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor,
-            attributes: attributes
+            attributes: customAdditionalAttributes
         )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate

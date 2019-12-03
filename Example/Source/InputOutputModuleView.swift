@@ -11,6 +11,10 @@ import UIKit
 
 class InputOutputModuleView: UIView, RichTextViewDelegate {
 
+    // MARK: - Constants
+
+    let attributes = ["456": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]]
+
     // MARK: - IBOutlets
 
     @IBOutlet var contentView: UIView!
@@ -44,7 +48,7 @@ class InputOutputModuleView: UIView, RichTextViewDelegate {
         self.outputRichTextView.textViewDelegate = self
         self.outputRichTextView.update(
             input: text,
-            attributes: ["456": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]]
+            attributes: self.attributes
         )
     }
 
