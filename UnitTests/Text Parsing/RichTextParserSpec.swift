@@ -30,7 +30,9 @@ class RichTextParserSpec: QuickSpec {
     override func spec() {
         describe("RichTextParser") {
             beforeEach {
-                self.richTextParser = RichTextParser(attributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]])
+                self.richTextParser = RichTextParser(attributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray,
+                                                                          NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single]
+                ])
             }
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
@@ -61,10 +63,12 @@ class RichTextParserSpec: QuickSpec {
                 }
             }
             context("highlighted Element") {
-                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
+                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {
+                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
-                        .backgroundColor: UIColor.lightGray
+                        .backgroundColor: UIColor.lightGray,
+                        .underlineStyle: NSUnderlineStyle.single
                     ]
                     let expectedAttributedString = NSAttributedString(string: " This is an highlighted element ", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
