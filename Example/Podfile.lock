@@ -31,14 +31,13 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Down
+    - DTCoreText
+    - DTFoundation
     - iosMath
     - SnapKit
     - SwiftLint
-  trunk:
-    - DTCoreText
-    - DTFoundation
 
 EXTERNAL SOURCES:
   RichTextView:
