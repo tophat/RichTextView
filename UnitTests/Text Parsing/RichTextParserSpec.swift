@@ -31,7 +31,7 @@ class RichTextParserSpec: QuickSpec {
         describe("RichTextParser") {
             beforeEach {
                 self.richTextParser = RichTextParser(attributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray,
-                                                                          NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single]
+                                                                          NSAttributedString.Key.underlineStyle: 1]
                 ])
             }
             context("Latex Parsing") {
@@ -68,7 +68,7 @@ class RichTextParserSpec: QuickSpec {
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
                         .backgroundColor: UIColor.lightGray,
-                        .underlineStyle: NSUnderlineStyle.single
+                        .underlineStyle: 1
                     ]
                     let expectedAttributedString = NSAttributedString(string: " This is an highlighted element ", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
@@ -77,7 +77,8 @@ class RichTextParserSpec: QuickSpec {
                     let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.complexHighlightedElement))
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
-                        .backgroundColor: UIColor.lightGray
+                        .backgroundColor: UIColor.lightGray,
+                        .underlineStyle: 1
                     ]
                     let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
