@@ -44,17 +44,16 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Down
+    - DTCoreText
+    - DTFoundation
     - iOSSnapshotTestCase
     - Nimble
     - Nimble-Snapshots
     - Quick
     - SnapKit
     - SwiftLint
-  trunk:
-    - DTCoreText
-    - DTFoundation
 
 EXTERNAL SOURCES:
   iosMath:

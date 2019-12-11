@@ -18,7 +18,7 @@ PODS:
   - DTFoundation/UIKit (1.7.14):
     - DTFoundation/Core
   - iosMath (0.9.4)
-  - RichTextView (2.6.0):
+  - RichTextView (2.6.1):
     - Down
     - DTCoreText
     - iosMath
@@ -31,14 +31,13 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Down
+    - DTCoreText
+    - DTFoundation
     - iosMath
     - SnapKit
     - SwiftLint
-  trunk:
-    - DTCoreText
-    - DTFoundation
 
 EXTERNAL SOURCES:
   RichTextView:
@@ -49,7 +48,7 @@ SPEC CHECKSUMS:
   DTCoreText: 67023bb51b26711d5f640c851f4845aea14c24c9
   DTFoundation: 25aa19bb7c6e225b1dfae195604fb8cf1da0ab4c
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
-  RichTextView: 54ed82ac14d6ad441e7c241c820bf32363684cbc
+  RichTextView: 67dbb25eafd5635d32d8d8ebb1c16fb441341f63
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 

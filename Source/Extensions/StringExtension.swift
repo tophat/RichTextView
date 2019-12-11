@@ -62,6 +62,9 @@ extension String {
     func split(atPositions positions: [Index]) -> [String] {
         var substrings = [String]()
         var start = 0
+        var positions = positions
+        positions.sort()
+        positions = positions.filter { return $0 > self.startIndex && $0 < self.endIndex }
         while start < positions.count {
             let substring: String = {
                 let startIndex = positions[start]
@@ -79,6 +82,9 @@ extension String {
             if !substring.isEmpty {
                 substrings.append(substring)
             }
+        }
+        if substrings.isEmpty {
+            return [self]
         }
         return substrings
     }
