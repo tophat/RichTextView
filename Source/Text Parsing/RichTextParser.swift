@@ -210,8 +210,8 @@ class RichTextParser {
         }
         let attributes: [NSAttributedString.Key: Any] = [
             .highlight: highlightedElementID,
-            .backgroundColor: richTextAttributes[highlightedElementID]?[.backgroundColor],
-            .underlineStyle: richTextAttributes[highlightedElementID]?[.underlineStyle]
+            .backgroundColor: richTextAttributes[highlightedElementID]?[.backgroundColor] ?? UIColor.white,
+            .underlineStyle: richTextAttributes[highlightedElementID]?[.underlineStyle] ?? 0
         ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
         let mutableAttributedInput = NSMutableAttributedString(string: " " + highlightedElementText + " ", attributes: attributes)
         return mutableAttributedInput
