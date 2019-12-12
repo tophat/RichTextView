@@ -114,8 +114,8 @@ class RichTextParser {
         let relevantString = entireAttributedString.string[
             max(range.lowerBound, 0)..<min(range.upperBound, entireAttributedString.string.count)
         ]
-        let newString = relevantString.replaceTrailingSpaceWithNonBreakingSpace.replaceLeadingSpaceWithNonBreakingSpace
-        guard let inputAsHTMLString = try? Down(markdownString: newString).toHTML([.unsafe, .hardBreaks]),
+        let cleanRelevantString = relevantString.replaceTrailingSpaceWithNonBreakingSpace.replaceLeadingSpaceWithNonBreakingSpace
+        guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
             let htmlData = inputAsHTMLString.data(using: .utf8),
             let attributedInput = NSAttributedString(htmlData: htmlData, options: [DTUseiOS6Attributes: true], documentAttributes: nil) else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
