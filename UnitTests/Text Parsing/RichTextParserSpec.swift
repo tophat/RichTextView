@@ -30,7 +30,10 @@ class RichTextParserSpec: QuickSpec {
     override func spec() {
         describe("RichTextParser") {
             beforeEach {
-                self.richTextParser = RichTextParser(attributes: ["123": [NSAttributedString.Key.backgroundColor: UIColor.lightGray]])
+                self.richTextParser = RichTextParser(attributes: ["123": [
+                    NSAttributedString.Key.backgroundColor: UIColor.lightGray,
+                    NSAttributedString.Key.underlineStyle: 1]
+                ])
             }
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
@@ -46,7 +49,7 @@ class RichTextParserSpec: QuickSpec {
                         .foregroundColor: UIColor.blue,
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
                     ]
-                    let expectedAttributedString = NSAttributedString(string: " This is an interactive element ", attributes: attributes)
+                    let expectedAttributedString = NSAttributedString(string: "This is an interactive element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
                 }
                 it("succesfully returns an NSAttributedString with the custom link property from a complex interactive element") {
@@ -56,26 +59,29 @@ class RichTextParserSpec: QuickSpec {
                         .foregroundColor: UIColor.blue,
                         .font: UIFont.systemFont(ofSize: UIFont.systemFontSize)
                     ]
-                    let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
+                    let expectedAttributedString = NSAttributedString(string: "element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
                 }
             }
             context("highlighted Element") {
-                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
+                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {
+                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
-                        .backgroundColor: UIColor.lightGray
+                        .backgroundColor: UIColor.lightGray,
+                        NSAttributedString.Key.underlineStyle: 1
                     ]
-                    let expectedAttributedString = NSAttributedString(string: " This is an highlighted element ", attributes: attributes)
+                    let expectedAttributedString = NSAttributedString(string: "This is an highlighted element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
                 }
                 it("succesfully returns an NSAttributedString with the highlighted property from a complex highlighted element") {
                     let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.complexHighlightedElement))
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
-                        .backgroundColor: UIColor.lightGray
+                        .backgroundColor: UIColor.lightGray,
+                        NSAttributedString.Key.underlineStyle: 1
                     ]
-                    let expectedAttributedString = NSAttributedString(string: " element ", attributes: attributes)
+                    let expectedAttributedString = NSAttributedString(string: "element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
                 }
             }
