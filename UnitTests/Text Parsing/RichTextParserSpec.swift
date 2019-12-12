@@ -69,7 +69,7 @@ class RichTextParserSpec: QuickSpec {
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
                         .backgroundColor: UIColor.lightGray,
-                        NSAttributedString.Key.underlineStyle: 1
+                        .underlineStyle: 1
                     ]
                     let expectedAttributedString = NSAttributedString(string: "This is an highlighted element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
@@ -79,7 +79,7 @@ class RichTextParserSpec: QuickSpec {
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
                         .backgroundColor: UIColor.lightGray,
-                        NSAttributedString.Key.underlineStyle: 1
+                        .underlineStyle: 1
                     ]
                     let expectedAttributedString = NSAttributedString(string: "element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
