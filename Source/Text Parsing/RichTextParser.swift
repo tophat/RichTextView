@@ -205,13 +205,15 @@ class RichTextParser {
         let highlightedElementTagName = ParserConstants.highlightedElementTagName
         let highlightedElementID = input.string.getSubstring(inBetween: "[\(highlightedElementTagName) id=", and: "]") ?? input.string
         let highlightedElementText = input.string.getSubstring(inBetween: "]", and: "[/\(highlightedElementTagName)]") ?? input.string
-        guard let richTextAttributes = self.attributes else {
+        guard let richTextAttributes = self.attributes?[highlightedElementID] else {
             return NSMutableAttributedString(string: highlightedElementText)
         }
+
         let attributes: [NSAttributedString.Key: Any] = [
-            .highlight: highlightedElementID,
-            .backgroundColor: richTextAttributes[highlightedElementID]?[.backgroundColor]
-        ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
+            .highlight: highlightedElementID
+        ]
+        .merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
+        .merging(richTextAttributes) { (current, _) in current }
         let mutableAttributedInput = NSMutableAttributedString(string: " " + highlightedElementText + " ", attributes: attributes)
         return mutableAttributedInput
     }
