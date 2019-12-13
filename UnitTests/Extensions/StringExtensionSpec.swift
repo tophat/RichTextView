@@ -36,6 +36,20 @@ class StringExtensionSpec: QuickSpec {
                     expect(output).to(beNil())
                 }
             }
+            context("Replace white spaces") {
+                it("Replaces leading White space with non-breaking space") {
+                    let input = " Space "
+                    let output = input.replaceLeadingWhiteSpaceWithNonBreakingSpace()
+                    let desiredOutput = "&nbsp;Space "
+                    expect(output).to(equal(desiredOutput))
+                }
+                it("Replaces leading White space with non-breaking space") {
+                    let input = " Space "
+                    let output = input.replaceTrailingWhiteSpaceWithNonBreakingSpace()
+                    let desiredOutput = " Space&nbsp;"
+                    expect(output).to(equal(desiredOutput))
+                }
+            }
             context("Get Components Separated by Regex") {
                 it("returns components correctly split if regex is in middle of string") {
                     let input = "Test youtube[123] wow"

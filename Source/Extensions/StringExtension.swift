@@ -7,7 +7,7 @@
 //
 
 extension String {
-    var replaceTrailingSpaceWithNonBreakingSpace: String {
+    func replaceTrailingWhiteSpaceWithNonBreakingSpace() -> String {
         var newString = self
         while newString.last?.isWhitespace == true {
             newString = String(newString.dropLast())
@@ -16,7 +16,7 @@ extension String {
         return newString
     }
 
-    var replaceLeadingSpaceWithNonBreakingSpace: String {
+    func replaceLeadingWhiteSpaceWithNonBreakingSpace() -> String {
         var newString = self
         while newString.first?.isWhitespace == true {
             newString = newString.replacingCharacters(in: ...newString.startIndex, with: "&nbsp;")
