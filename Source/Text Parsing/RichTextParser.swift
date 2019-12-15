@@ -114,7 +114,8 @@ class RichTextParser {
         let relevantString = entireAttributedString.string[
             max(range.lowerBound, 0)..<min(range.upperBound, entireAttributedString.string.count)
         ]
-        guard let inputAsHTMLString = try? Down(markdownString: relevantString).toHTML([.unsafe, .hardBreaks]),
+        let cleanRelevantString = relevantString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
+        guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
             let htmlData = inputAsHTMLString.data(using: .utf8),
             let attributedInput = NSAttributedString(htmlData: htmlData, options: [DTUseiOS6Attributes: true], documentAttributes: nil) else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
@@ -197,7 +198,7 @@ class RichTextParser {
             .foregroundColor: self.interactiveTextColor,
             .font: self.font
         ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
-        let mutableAttributedInput = NSMutableAttributedString(string: " " + interactiveElementText + " ", attributes: attributes)
+        let mutableAttributedInput = NSMutableAttributedString(string: interactiveElementText, attributes: attributes)
         return mutableAttributedInput
     }
 
@@ -208,13 +209,10 @@ class RichTextParser {
         guard let richTextAttributes = self.attributes?[highlightedElementID] else {
             return NSMutableAttributedString(string: highlightedElementText)
         }
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .highlight: highlightedElementID
-        ]
+        let attributes: [NSAttributedString.Key: Any] = [.highlight: highlightedElementID]
         .merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
         .merging(richTextAttributes) { (current, _) in current }
-        let mutableAttributedInput = NSMutableAttributedString(string: " " + highlightedElementText + " ", attributes: attributes)
+        let mutableAttributedInput = NSMutableAttributedString(string: highlightedElementText, attributes: attributes)
         return mutableAttributedInput
     }
 
