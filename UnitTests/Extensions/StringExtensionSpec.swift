@@ -79,6 +79,24 @@ class StringExtensionSpec: QuickSpec {
                     expect(splitStrings[2]).to(equal("be "))
                     expect(splitStrings[3]).to(equal("split"))
                 }
+                it("splits the string on the first and last index") {
+                    let regularString = "You know nothing, Jon Snow"
+                    let positions: [String.Index] = [0, 26].compactMap { return String.Index(utf16Offset: $0, in: regularString) }
+                    let substrings = regularString.split(atPositions: positions)
+                    expect(substrings).to(equal([regularString]))
+                }
+                it("splits the string on out of bounds indices") {
+                    let regularString = "You know nothing, Jon Snow"
+                    let positions: [String.Index] = [-1, 100].compactMap { return String.Index(utf16Offset: $0, in: regularString) }
+                    let substrings = regularString.split(atPositions: positions)
+                    expect(substrings).to(equal([regularString]))
+                }
+                it("splits the string when the input positions are out of order") {
+                    let regularString = "You know nothing, Jon Snow"
+                    let positions: [String.Index] = [5, 9, 2, 20, 7].compactMap { return String.Index(utf16Offset: $0, in: regularString) }
+                    let substrings = regularString.split(atPositions: positions)
+                    expect(substrings).to(equal(["Yo", "u k", "no", "w ", "nothing, Jo", "n Snow"]))
+                }
             }
             context("Ranges") {
                 it("returns the ranges of given text") {

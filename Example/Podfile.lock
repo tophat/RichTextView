@@ -1,26 +1,8 @@
 PODS:
   - Down (0.8.2)
-  - DTCoreText (1.6.23):
-    - DTCoreText/Core (= 1.6.23)
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTCoreText/Core (1.6.23):
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation/Core (1.7.14)
-  - DTFoundation/DTAnimatedGIF (1.7.14)
-  - DTFoundation/DTHTMLParser (1.7.14):
-    - DTFoundation/Core
-  - DTFoundation/UIKit (1.7.14):
-    - DTFoundation/Core
   - iosMath (0.9.4)
   - RichTextView (2.6.0):
     - Down
-    - DTCoreText
     - iosMath
     - SnapKit
   - SnapKit (5.0.0)
@@ -31,14 +13,11 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Down
     - iosMath
     - SnapKit
     - SwiftLint
-  trunk:
-    - DTCoreText
-    - DTFoundation
 
 EXTERNAL SOURCES:
   RichTextView:
@@ -46,10 +25,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Down: 8babe0cafe145de188d2efa76ea938a11a5fdc6f
-  DTCoreText: 67023bb51b26711d5f640c851f4845aea14c24c9
-  DTFoundation: 25aa19bb7c6e225b1dfae195604fb8cf1da0ab4c
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
-  RichTextView: 54ed82ac14d6ad441e7c241c820bf32363684cbc
+  RichTextView: a66d1e0a54cd1edbe99e3e794f17a6e7fd051e5c
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 

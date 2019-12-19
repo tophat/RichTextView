@@ -61,7 +61,8 @@ class RichTextParserSpec: QuickSpec {
                 }
             }
             context("highlighted Element") {
-                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
+                it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {
+                    let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
                     let attributes: [NSAttributedString.Key: Any] = [
                         NSAttributedString.Key(rawValue: "highlight"): "123",
                         .backgroundColor: UIColor.lightGray
