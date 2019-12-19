@@ -1,22 +1,5 @@
 PODS:
   - Down (0.8.2)
-  - DTCoreText (1.6.23):
-    - DTCoreText/Core (= 1.6.23)
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTCoreText/Core (1.6.23):
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation/Core (1.7.14)
-  - DTFoundation/DTAnimatedGIF (1.7.14)
-  - DTFoundation/DTHTMLParser (1.7.14):
-    - DTFoundation/Core
-  - DTFoundation/UIKit (1.7.14):
-    - DTFoundation/Core
   - iosMath (1.0.3)
   - iOSSnapshotTestCase (6.0.3):
     - iOSSnapshotTestCase/SwiftSupport (= 6.0.3)
@@ -35,7 +18,6 @@ PODS:
 
 DEPENDENCIES:
   - Down
-  - DTCoreText
   - iosMath (from `https://github.com/tophatmonocle/iosMath.git`)
   - Nimble
   - Nimble-Snapshots
@@ -46,8 +28,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Down
-    - DTCoreText
-    - DTFoundation
     - iOSSnapshotTestCase
     - Nimble
     - Nimble-Snapshots
@@ -66,8 +46,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Down: 8babe0cafe145de188d2efa76ea938a11a5fdc6f
-  DTCoreText: 67023bb51b26711d5f640c851f4845aea14c24c9
-  DTFoundation: 25aa19bb7c6e225b1dfae195604fb8cf1da0ab4c
   iosMath: 5259a309817ef066ae071bcce93f74f6712adf08
   iOSSnapshotTestCase: 944a73f6d9676302811a86c0cf35f0e6ef5ab2a0
   Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
@@ -76,6 +54,6 @@ SPEC CHECKSUMS:
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
-PODFILE CHECKSUM: f6fe77da859ca9643b5846ec01310846dcbfa657
+PODFILE CHECKSUM: fd6952a9b41a9a41bb7e6fb036901d60f1134d46
 
 COCOAPODS: 1.8.4

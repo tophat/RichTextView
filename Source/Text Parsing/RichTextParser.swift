@@ -7,7 +7,6 @@
 //
 
 import Down
-import DTCoreText
 
 class RichTextParser {
 
@@ -116,7 +115,8 @@ class RichTextParser {
         ]
         guard let inputAsHTMLString = try? Down(markdownString: relevantString).toHTML([.unsafe, .hardBreaks]),
             let htmlData = inputAsHTMLString.data(using: .utf8),
-            let attributedInput = NSAttributedString(htmlData: htmlData, options: [DTUseiOS6Attributes: true], documentAttributes: nil) else {
+            let attributedInput = try? NSAttributedString(data: htmlData, options:
+                [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
