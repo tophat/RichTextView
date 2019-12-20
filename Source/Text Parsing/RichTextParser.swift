@@ -121,11 +121,11 @@ class RichTextParser {
         var attributedString: NSAttributedString?
         if Thread.isMainThread {
             attributedString = try? NSAttributedString(data: htmlData, options:
-                [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+                [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
         } else {
             DispatchQueue.main.sync {
                 attributedString = try? NSAttributedString(data: htmlData, options:
-                    [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+                    [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
             }
         }
         guard let attributedStringNonOptional = attributedString else {
