@@ -28,8 +28,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Down
-    - DTCoreText
-    - DTFoundation
     - iOSSnapshotTestCase
     - Nimble
     - Nimble-Snapshots
