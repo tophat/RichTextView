@@ -7,7 +7,6 @@
 //
 
 import Down
-import DTCoreText
 
 class RichTextParser {
 
@@ -116,11 +115,23 @@ class RichTextParser {
         ]
         let cleanRelevantString = relevantString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
-            let htmlData = inputAsHTMLString.data(using: .utf8),
-            let attributedInput = NSAttributedString(htmlData: htmlData, options: [DTUseiOS6Attributes: true], documentAttributes: nil) else {
+            let htmlData = inputAsHTMLString.data(using: .utf8) else {
+                return (nil, ParsingError.attributedTextGeneration(text: relevantString))
+        }
+        var attributedString: NSAttributedString?
+        if Thread.isMainThread {
+            attributedString = try? NSAttributedString(data: htmlData, options:
+                [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+        } else {
+            DispatchQueue.main.sync {
+                attributedString = try? NSAttributedString(data: htmlData, options:
+                    [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+            }
+        }
+        guard let attributedStringNonOptional = attributedString else {
             return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
-        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedInput)
+        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedStringNonOptional)
         if !attributes.isEmpty {
             mutableAttributedInput.addAttributes(attributes, range: NSRange(location: 0, length: mutableAttributedInput.length))
         }
