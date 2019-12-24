@@ -106,7 +106,8 @@ class ViewController: UIViewController {
             InputOutputModuleView(text: Text.tableHTML),
             InputOutputModuleView(text: "<blockquote>Here is a blockquote</blockquote>"),
             InputOutputModuleView(text: "Look [interactive-element id=123]This is an interactive element[/interactive-element] Wow"),
-            InputOutputModuleView(text: "Look [highlighted-element id=456]This is an highlighted element[/highlighted-element] Wow")
+            InputOutputModuleView(text: "Look [highlighted-element id=456]This is an highlighted element[/highlighted-element] Wow"),
+            InputOutputModuleView(text: "Here is more LaTeX [math]A^{}=P^{}\\left(1+\\frac{r}{n}\\right)^{nt}[/math]")
         ]
     }
 

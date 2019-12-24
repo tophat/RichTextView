@@ -196,7 +196,8 @@ class RichTextParser {
             from: input,
             textColor: self.textColor,
             baselineOffset: self.latexTextBaselineOffset,
-            fontSize: self.font.pointSize
+            fontSize: self.font.pointSize,
+            height: calculateContentHeight()
         )
     }
 
@@ -266,5 +267,15 @@ class RichTextParser {
         return matches.compactMap { match in
             return Range<String.Index>(match.range(at: ParserConstants.latexRegexCaptureGroupIndex), in: text)
         }
+    }
+
+    private func calculateContentHeight() -> CGFloat {
+        let frame = NSString(string: "").boundingRect(
+            with: CGSize(width: 0, height: .max),
+            options: [.usesFontLeading, .usesLineFragmentOrigin],
+            attributes: [.font: self.font],
+            context: nil)
+
+        return frame.size.height
     }
 }
