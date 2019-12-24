@@ -30,7 +30,7 @@ extension LatexParserProtocol {
         guard let image = mathImage else {
             return nil
         }
-    
+
         var imageOffset = (image.size.height - fontSize)/2
         if image.size.height - fontSize < 0 {
             imageOffset = 0
