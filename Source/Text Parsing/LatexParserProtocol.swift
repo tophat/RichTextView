@@ -10,20 +10,20 @@ import Down
 import iosMath
 
 public protocol LatexParserProtocol: class {
-    func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat) -> NSAttributedString?
+    func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat) -> NSAttributedString?
 }
 
 extension LatexParserProtocol {
-    public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat) -> NSAttributedString? {
+    public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat) -> NSAttributedString? {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
         var mathImage: UIImage?
 
         if Thread.isMainThread {
-            mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: fontSize)
+            mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: height)
         } else {
             DispatchQueue.main.sync {
-                mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: fontSize)
+                mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: height)
             }
         }
 
@@ -31,10 +31,14 @@ extension LatexParserProtocol {
             return nil
         }
 
+        var imageOffset = (image.size.height - fontSize)/2
+        if image.size.height - fontSize < 0 {
+            imageOffset = 0
+        }
         let textAttachment = NSTextAttachment()
         textAttachment.image = image
         let latexString = NSMutableAttributedString(attachment: textAttachment)
-        latexString.addAttribute(.baselineOffset, value: baselineOffset, range: NSRange(location: 0, length: latexString.length))
+        latexString.addAttribute(.baselineOffset, value: baselineOffset - imageOffset, range: NSRange(location: 0, length: latexString.length))
         return latexString
     }
 
