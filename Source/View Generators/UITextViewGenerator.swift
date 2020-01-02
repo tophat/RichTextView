@@ -6,6 +6,22 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
+extension UITextView {
+    override open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if let richTextViewDelegate = self.delegate as? RichTextViewDelegate,
+            let canPerformAction = richTextViewDelegate.canPerformRichTextViewAction?(action, withSender: sender) {
+            return canPerformAction
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+
+    @objc func loadHighlightMenuItemTapped(_ sender: Any) {
+        if let richTextViewDelegate = self.delegate as? RichTextViewDelegate {
+            richTextViewDelegate.loadHiglightMenuItemTapped()
+        }
+    }
+}
+
 class UITextViewGenerator {
 
     // MARK: - Init
