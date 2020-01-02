@@ -18,6 +18,7 @@ class UITextViewGeneratorSpec: QuickSpec {
                 it("creates a label using an NSAttributedString") {
                     let attributedString = NSAttributedString(string: "some text")
                     class TextViewDelegate: NSObject, RichTextViewDelegate {
+                        func loadHiglightMenuItemTapped() {}
                         func didTapCustomLink(withID linkID: String) {}
                     }
                     let delegate = TextViewDelegate()
