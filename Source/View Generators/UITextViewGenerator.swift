@@ -17,7 +17,13 @@ extension UITextView {
 
     @objc func loadHighlightMenuItemTapped(_ sender: Any) {
         if let richTextViewDelegate = self.delegate as? RichTextViewDelegate {
-            richTextViewDelegate.loadHiglightMenuItemTapped()
+            richTextViewDelegate.highlightMenuItemTapped()
+        }
+    }
+
+    @objc func removeHighlightMenuItemTapped(_ sender: Any) {
+        if let richTextViewDelegate = self.delegate as? RichTextViewDelegate {
+            richTextViewDelegate.removeHighlight()
         }
     }
 }
