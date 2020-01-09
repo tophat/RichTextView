@@ -14,12 +14,6 @@ extension UITextView {
         }
         return super.canPerformAction(action, withSender: sender)
     }
-
-    @objc func loadHighlightMenuItemTapped(_ sender: Any) {
-        if let richTextViewDelegate = self.delegate as? RichTextViewDelegate {
-            richTextViewDelegate.loadHiglightMenuItemTapped()
-        }
-    }
 }
 
 class UITextViewGenerator {

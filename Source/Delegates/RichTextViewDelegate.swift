@@ -7,7 +7,6 @@
 //
 
 @objc public protocol RichTextViewDelegate: UITextViewDelegate {
-    func loadHiglightMenuItemTapped()
     func didTapCustomLink(withID linkID: String)
     @objc optional func canPerformRichTextViewAction(_ action: Selector, withSender sender: Any?) -> Bool
 }
