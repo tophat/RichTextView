@@ -10,20 +10,20 @@ import Down
 import iosMath
 
 public protocol LatexParserProtocol: class {
-    func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat) -> NSAttributedString?
+    func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat?) -> NSAttributedString?
 }
 
 extension LatexParserProtocol {
-    public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat) -> NSAttributedString? {
+    public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat?) -> NSAttributedString? {
 
         let latexInput = self.extractLatexStringInsideTags(from: input)
         var mathImage: UIImage?
 
         if Thread.isMainThread {
-            mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: height)
+            mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: height ?? fontSize)
         } else {
             DispatchQueue.main.sync {
-                mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: height)
+                mathImage = self.setupMathLabelAndGetImage(from: latexInput, textColor: textColor, fontSize: height ?? fontSize)
             }
         }
 
