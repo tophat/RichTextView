@@ -115,7 +115,8 @@ class RichTextParser {
         ]
         let cleanRelevantString = relevantString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
-            let htmlData = inputAsHTMLString.data(using: .utf8) else {
+            let inputAsHTMLStringWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
+            let htmlData = inputAsHTMLStringWithZeroWidthSpaceRemoved.data(using: .utf8) else {
                 return (nil, ParsingError.attributedTextGeneration(text: relevantString))
         }
         var attributedString: NSAttributedString?
