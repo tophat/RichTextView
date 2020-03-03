@@ -9,4 +9,5 @@
 @objc public protocol RichTextViewDelegate: UITextViewDelegate {
     func didTapCustomLink(withID linkID: String)
     @objc optional func canPerformRichTextViewAction(_ action: Selector, withSender sender: Any?) -> Bool
+    @objc optional func copyMenuItemTapped()
 }
