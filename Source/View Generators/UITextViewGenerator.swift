@@ -14,6 +14,17 @@ extension UITextView {
         }
         return super.canPerformAction(action, withSender: sender)
     }
+
+    override open func copy(_ sender: Any?) {
+        let board = UIPasteboard.general
+        guard let selectedRange = selectedTextRange else {
+            return
+        }
+        board.string = text(in: selectedRange)
+        if let richTextViewDelegate = self.delegate as? RichTextViewDelegate, let copyMenuItemtappedMethod = richTextViewDelegate.copyMenuItemTapped {
+            copyMenuItemtappedMethod()
+        }
+    }
 }
 
 class UITextViewGenerator {
