@@ -16,11 +16,10 @@ extension UITextView {
     }
 
     override open func copy(_ sender: Any?) {
-        let board = UIPasteboard.general
-        guard let selectedRange = selectedTextRange else {
+        guard let selectedRange = self.selectedTextRange else {
             return
         }
-        board.string = text(in: selectedRange)
+        UIPasteboard.general.string = self.text(in: selectedRange)
         if let richTextViewDelegate = self.delegate as? RichTextViewDelegate, let copyMenuItemtappedMethod = richTextViewDelegate.copyMenuItemTapped {
             copyMenuItemtappedMethod()
         }
