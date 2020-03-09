@@ -91,6 +91,15 @@ class ViewController: UIViewController {
             </body>
         </html>
         """
+        static let bulletListHTMLWithInteractiveElements = """
+        <html>Some bullets with Interactive Elements:
+            <ul>
+                <li>[interactive-element id=Item 1]Item 1[/interactive-element]</li>
+                <li>[interactive-element id=Item 2]Item 2[/interactive-element]</li>
+                <li>[interactive-element id=Item 3]Item 3[/interactive-element]</li>
+            </ul>
+        </html>
+        """
     }
 
     private enum Views {
@@ -100,6 +109,7 @@ class ViewController: UIViewController {
             InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
             InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),
             InputOutputModuleView(text: "<html>Some bullets: <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></html>"),
+            InputOutputModuleView(text: Text.bulletListHTMLWithInteractiveElements),
             InputOutputModuleView(text: "Here is some code: [code]print('Hello World!')[/code]"),
             InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]"),
             InputOutputModuleView(text: "<a href='https://www.google.com'>jump to page</a>"),
