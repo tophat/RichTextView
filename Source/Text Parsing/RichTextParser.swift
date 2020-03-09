@@ -54,6 +54,9 @@ class RichTextParser {
 
     func getRichDataTypes(from input: String) -> [RichDataType] {
         var errors: [ParsingError]?
+        if input == "" {
+            return [RichDataType.text(richText: NSAttributedString(string: ""), font: self.font, errors: nil)]
+        }
         return self.splitInputOnVideoPortions(input).compactMap { input -> RichDataType in
             if self.isStringAVideoTag(input) {
                 return RichDataType.video(tag: input, error: nil)
@@ -79,27 +82,53 @@ class RichTextParser {
         let rangeOfStrippedInputAttributedString = NSRange(location: 0, length: strippedInputAsAttributedString.length)
         let outputAttributedStringToReturn = NSMutableAttributedString(attributedString: strippedInputWithSpecialDataTypesHandled.output)
 
-        strippedInputAsAttributedString.enumerateAttributes(in: rangeOfStrippedInputAttributedString) { (attributes, range, _) in
-            let parsedOutputWithErrors = self.parseHTMLAndMarkdown(
-                inAttributes: attributes,
-                range: range,
-                entireAttributedString: strippedInputAsAttributedString
-            )
-            if let attributedString = parsedOutputWithErrors.0 {
-                let substring = strippedInputAsAttributedString.string[
-                    max(range.lowerBound, 0)..<min(range.upperBound, strippedInputAsAttributedString.string.count)
-                ]
-                let outputAttributedStringRange = (outputAttributedStringToReturn.string as NSString).range(of: substring)
-                outputAttributedStringToReturn.replaceCharacters(in: outputAttributedStringRange, with: attributedString)
-            }
-            if let error = parsedOutputWithErrors.1 {
+        let relevantString = outputAttributedStringToReturn.string
+        let cleanRelevantString = relevantString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
+        guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
+            let inputAsHTMLStringWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
+            let htmlData = inputAsHTMLStringWithZeroWidthSpaceRemoved.data(using: .utf8) else {
                 if allParsingErrors == nil {
                     allParsingErrors = [ParsingError]()
                 }
-                allParsingErrors?.append(error)
+                allParsingErrors?.append(ParsingError.attributedTextGeneration(text: relevantString))
+                return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+        }
+        var attributedString: NSAttributedString?
+        if Thread.isMainThread {
+            attributedString = try? NSAttributedString(data: htmlData, options:
+                [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } else {
+            DispatchQueue.main.sync {
+                attributedString = try? NSAttributedString(data: htmlData, options:
+                    [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
             }
         }
-        return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+        guard let attributedStringNonOptional = attributedString else {
+            if allParsingErrors == nil {
+                allParsingErrors = [ParsingError]()
+            }
+            allParsingErrors?.append(ParsingError.attributedTextGeneration(text: relevantString))
+            return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+        }
+        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedStringNonOptional)
+    
+        strippedInputAsAttributedString.enumerateAttributes(in: rangeOfStrippedInputAttributedString) { (attributes, range, _) in
+            if attributes.isEmpty {
+                return
+            }
+            let substring = strippedInputAsAttributedString.string[
+                max(range.lowerBound, 0)..<min(range.upperBound, strippedInputAsAttributedString.string.count)
+            ]
+            let rangeInOutput = (mutableAttributedInput.string as NSString).range(of: substring)
+            if range.location == NSNotFound || range.location < 0 || rangeInOutput.location + rangeInOutput.length > mutableAttributedInput.length {
+                return
+            }
+            let attributedSubstring = NSAttributedString(string: substring, attributes: attributes)
+            mutableAttributedInput.replaceCharacters(in: rangeInOutput, with: attributedSubstring)
+        }
+        mutableAttributedInput.replaceFont(with: self.font)
+        mutableAttributedInput.replaceColor(with: self.textColor)
+        return (mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
     }
 
     // MARK: - Helpers
