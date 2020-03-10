@@ -77,21 +77,55 @@ class RichTextParser {
         let strippedInputWithSpecialDataTypesHandled = self.getAttributedStringWithSpecialDataTypesHandled(
             from: strippedInputAsMutableAttributedString
         )
-        let strippedInputAsAttributedString = strippedInputWithSpecialDataTypesHandled.output
-        var allParsingErrors = strippedInputWithSpecialDataTypesHandled.errors
-        let rangeOfStrippedInputAttributedString = NSRange(location: 0, length: strippedInputAsAttributedString.length)
+        let parsingErrors = strippedInputWithSpecialDataTypesHandled.errors
         let outputAttributedStringToReturn = NSMutableAttributedString(attributedString: strippedInputWithSpecialDataTypesHandled.output)
+        let HTMLAndMarkdownParsedString = self.parseHTMLAndMarkdown(withAttributedString: outputAttributedStringToReturn, parsingErrors: parsingErrors)
+        let mutableAttributedInput = HTMLAndMarkdownParsedString.0
+        let allParsingErrors = HTMLAndMarkdownParsedString.1
+        let parsedStringWithAttributes = self.getAttributesIfNessasary(
+            fromAttributedString: strippedInputWithSpecialDataTypesHandled.output,
+            parsedString: mutableAttributedInput
+        )
+        parsedStringWithAttributes.replaceFont(with: self.font)
+        parsedStringWithAttributes.replaceColor(with: self.textColor)
+        return (parsedStringWithAttributes.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+    }
 
-        let relevantString = outputAttributedStringToReturn.string
+    // MARK: - Helpers
+
+    private func getAttributesIfNessasary(fromAttributedString attributedString: NSAttributedString,
+                                          parsedString: NSMutableAttributedString) -> NSMutableAttributedString {
+        let rangeOfAttributedString = NSRange(location: 0, length: attributedString.length)
+        attributedString.enumerateAttributes(in: rangeOfAttributedString) { (attributes, range, _) in
+            if attributes.isEmpty {
+                return
+            }
+            let substring = attributedString.string[
+                max(range.lowerBound, 0)..<min(range.upperBound, attributedString.string.count)
+            ]
+            let rangeInOutput = (parsedString.string as NSString).range(of: substring)
+            if range.location == NSNotFound || range.location < 0 || rangeInOutput.location + rangeInOutput.length > parsedString.length {
+                return
+            }
+            let attributedSubstring = NSAttributedString(string: substring, attributes: attributes)
+            parsedString.replaceCharacters(in: rangeInOutput, with: attributedSubstring)
+        }
+        return parsedString
+    }
+
+    private func parseHTMLAndMarkdown(withAttributedString mutableAttributedString: NSMutableAttributedString,
+                                      parsingErrors: [ParsingError]?) -> (NSMutableAttributedString, [ParsingError]?) {
+        var allParsingErrors: [ParsingError]? = parsingErrors
+        let relevantString = mutableAttributedString.string
         let cleanRelevantString = relevantString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
-            let inputAsHTMLStringWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
-            let htmlData = inputAsHTMLStringWithZeroWidthSpaceRemoved.data(using: .utf8) else {
+            let inputAsHTMLWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
+            let htmlData = inputAsHTMLWithZeroWidthSpaceRemoved.data(using: .utf8) else {
                 if allParsingErrors == nil {
                     allParsingErrors = [ParsingError]()
                 }
                 allParsingErrors?.append(ParsingError.attributedTextGeneration(text: relevantString))
-                return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+                return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
         }
         var attributedString: NSAttributedString?
         if Thread.isMainThread {
@@ -108,66 +142,10 @@ class RichTextParser {
                 allParsingErrors = [ParsingError]()
             }
             allParsingErrors?.append(ParsingError.attributedTextGeneration(text: relevantString))
-            return (outputAttributedStringToReturn.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
+            return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
         }
         let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedStringNonOptional)
-    
-        strippedInputAsAttributedString.enumerateAttributes(in: rangeOfStrippedInputAttributedString) { (attributes, range, _) in
-            if attributes.isEmpty {
-                return
-            }
-            let substring = strippedInputAsAttributedString.string[
-                max(range.lowerBound, 0)..<min(range.upperBound, strippedInputAsAttributedString.string.count)
-            ]
-            let rangeInOutput = (mutableAttributedInput.string as NSString).range(of: substring)
-            if range.location == NSNotFound || range.location < 0 || rangeInOutput.location + rangeInOutput.length > mutableAttributedInput.length {
-                return
-            }
-            let attributedSubstring = NSAttributedString(string: substring, attributes: attributes)
-            mutableAttributedInput.replaceCharacters(in: rangeInOutput, with: attributedSubstring)
-        }
-        mutableAttributedInput.replaceFont(with: self.font)
-        mutableAttributedInput.replaceColor(with: self.textColor)
-        return (mutableAttributedInput.trimmingTrailingNewlinesAndWhitespaces(), allParsingErrors)
-    }
-
-    // MARK: - Helpers
-
-    private func parseHTMLAndMarkdown(inAttributes attributes: [NSAttributedString.Key: Any],
-                                      range: NSRange,
-                                      entireAttributedString: NSAttributedString) -> (NSMutableAttributedString?, ParsingError?) {
-        guard attributes[.attachment] == nil else {
-            return (nil, nil)
-        }
-        let relevantString = entireAttributedString.string[
-            max(range.lowerBound, 0)..<min(range.upperBound, entireAttributedString.string.count)
-        ]
-        let cleanRelevantString = relevantString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
-        guard let inputAsHTMLString = try? Down(markdownString: cleanRelevantString).toHTML([.unsafe, .hardBreaks]),
-            let inputAsHTMLStringWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
-            let htmlData = inputAsHTMLStringWithZeroWidthSpaceRemoved.data(using: .utf8) else {
-                return (nil, ParsingError.attributedTextGeneration(text: relevantString))
-        }
-        var attributedString: NSAttributedString?
-        if Thread.isMainThread {
-            attributedString = try? NSAttributedString(data: htmlData, options:
-                [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-        } else {
-            DispatchQueue.main.sync {
-                attributedString = try? NSAttributedString(data: htmlData, options:
-                    [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-            }
-        }
-        guard let attributedStringNonOptional = attributedString else {
-            return (nil, ParsingError.attributedTextGeneration(text: relevantString))
-        }
-        let mutableAttributedInput = NSMutableAttributedString(attributedString: attributedStringNonOptional)
-        if !attributes.isEmpty {
-            mutableAttributedInput.addAttributes(attributes, range: NSRange(location: 0, length: mutableAttributedInput.length))
-        }
-        mutableAttributedInput.replaceFont(with: self.font)
-        mutableAttributedInput.replaceColor(with: self.textColor)
-        return (mutableAttributedInput.trimmingTrailingNewlines(), nil)
+        return (mutableAttributedInput, allParsingErrors)
     }
 
     private func getAttributedStringWithSpecialDataTypesHandled(from mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {

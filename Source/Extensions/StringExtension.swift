@@ -8,8 +8,8 @@
 
 extension String {
     func replaceAppropiateZeroWidthSpaces() -> String? {
-        var newString = self
-        let cleanString = try? newString.replacingOccurrences(of: "\u{200B}", with: "\u{200D}")
+        let newString = self
+        let cleanString = newString.replacingOccurrences(of: "\u{200B}", with: "\u{200D}")
         return cleanString
     }
     func replaceTrailingWhiteSpaceWithNonBreakingSpace() -> String {
