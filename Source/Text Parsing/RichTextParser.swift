@@ -82,7 +82,7 @@ class RichTextParser {
         let HTMLAndMarkdownParsedString = self.parseHTMLAndMarkdown(withAttributedString: outputAttributedStringToReturn, parsingErrors: parsingErrors)
         let mutableAttributedInput = HTMLAndMarkdownParsedString.0
         let allParsingErrors = HTMLAndMarkdownParsedString.1
-        let parsedStringWithAttributes = self.getAttributesIfNessasary(
+        let parsedStringWithAttributes = self.getAttributesIfNecessary(
             fromAttributedString: strippedInputWithSpecialDataTypesHandled.output,
             parsedString: mutableAttributedInput
         )
@@ -93,7 +93,7 @@ class RichTextParser {
 
     // MARK: - Helpers
 
-    private func getAttributesIfNessasary(fromAttributedString attributedString: NSAttributedString,
+    private func getAttributesIfNecessary(fromAttributedString attributedString: NSAttributedString,
                                           parsedString: NSMutableAttributedString) -> NSMutableAttributedString {
         let rangeOfAttributedString = NSRange(location: 0, length: attributedString.length)
         attributedString.enumerateAttributes(in: rangeOfAttributedString) { (attributes, range, _) in
