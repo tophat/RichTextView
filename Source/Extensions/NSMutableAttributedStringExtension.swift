@@ -9,6 +9,7 @@
 extension NSAttributedString.Key {
     static let customLink = NSAttributedString.Key(rawValue: "customLink")
     static let highlight = NSAttributedString.Key(rawValue: "highlight")
+    static let bullet = NSAttributedString.Key(rawValue: "bullets")
 }
 
 extension NSMutableAttributedString {
