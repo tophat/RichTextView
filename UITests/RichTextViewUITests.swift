@@ -125,6 +125,29 @@ class RichTextViewUITests: QuickSpec {
                         })
                     }
                 }
+                it("Renders a string with bullet attributes") {
+                    let listHTMLString = """
+                                <html><head><style>li {
+                                    font-size: 18px;}</style></head><body><ul id="7662c490-2aba-4a46-807a-7f1982671615"><li id="7662c490-2aba-4a46-807a-7f1982671615">The Quick Brown Fox Jumped Over the Lazy Dog
+                                </ul></body></html>
+                        """
+                    let richTextView = RichTextView(
+                        input: listHTMLString,
+                        customAdditionalAttributes: ["bullet": [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]],
+                        frame: CGRect(origin: .zero, size: Defaults.size
+                    ))
+                    richTextView.backgroundColor = UIColor.white
+                    self.richTextView = richTextView
+                    self.viewController = UIViewController()
+                    self.viewController?.view.addSubview(richTextView)
+                    self.window?.rootViewController = self.viewController
+                    waitUntil(timeout: Defaults.timeOut) { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
+                            expect(self.window).to(recordSnapshot())
+                            done()
+                        })
+                    }
+                }
             }
             context("Update") {
                 it("Updates Input Properly") {
