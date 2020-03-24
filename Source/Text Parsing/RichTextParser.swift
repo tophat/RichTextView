@@ -155,19 +155,25 @@ class RichTextParser {
             mutableAttributedString.string.contains(ParserConstants.listClosingHTMLString) else {
             return (mutableAttributedInput, allParsingErrors)
         }
+        let parsedStringWithBulletAttributes = getParsedStringWithBulletAttributes(mutableAttributedInput: mutableAttributedInput, attributes: attributes)
+        return(parsedStringWithBulletAttributes, allParsingErrors)
+    }
+
+    private func getParsedStringWithBulletAttributes(mutableAttributedInput: NSMutableAttributedString,
+                                                     attributes: [NSAttributedString.Key: Any] ) -> NSMutableAttributedString {
         let range = mutableAttributedInput.string.ranges(of: ParserConstants.bulletString, options: .literal)
         let positions = self.extractPositions(fromRanges: range)
         let splitString = self.split(mutableAttributedString: mutableAttributedInput, onPositions: positions)
-        let newString = NSMutableAttributedString(attributedString: NSAttributedString.init(string: ""))
+        let stringWithBulletAttributes = NSMutableAttributedString(attributedString: NSAttributedString.init(string: ""))
         for string in splitString {
             if string.string == ParserConstants.bulletString {
                 let bullet = NSAttributedString(string: ParserConstants.bulletString, attributes: attributes)
-                newString.append(bullet)
+                stringWithBulletAttributes.append(bullet)
             } else {
-                newString.append(string)
+                stringWithBulletAttributes.append(string)
             }
         }
-        return (newString, allParsingErrors)
+        return stringWithBulletAttributes
     }
 
     private func getAttributedStringWithSpecialDataTypesHandled(from mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
