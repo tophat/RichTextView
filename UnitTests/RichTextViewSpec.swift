@@ -64,6 +64,7 @@ class RichTextViewSpec: QuickSpec {
                 }
 
             }
+            // Empty Commit(To test permissions)
             context("Update") {
                 it("properly updates the input") {
                     richTextView?.update(input: "Test")
