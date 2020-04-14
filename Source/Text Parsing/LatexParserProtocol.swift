@@ -30,13 +30,15 @@ extension LatexParserProtocol {
         guard let image = mathImage else {
             return nil
         }
-
-        var imageOffset = (image.size.height - fontSize)/2
-        if image.size.height - fontSize < 0 {
-            imageOffset = 0
-        }
+        let imageOffset = self.getLatexOffset(fromInput: input, image: image, fontSize: fontSize)
         let textAttachment = NSTextAttachment()
         textAttachment.image = image
+        textAttachment.bounds = CGRect(
+            x: 0,
+            y: baselineOffset - imageOffset,
+            width: textAttachment.image?.size.width ?? 0,
+            height: textAttachment.image?.size.height ?? 0
+        )
         let latexString = NSMutableAttributedString(attachment: textAttachment)
         latexString.addAttribute(.baselineOffset, value: baselineOffset - imageOffset, range: NSRange(location: 0, length: latexString.length))
         return latexString
@@ -74,6 +76,13 @@ extension LatexParserProtocol {
         }
         UIGraphicsEndImageContext()
         return UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: image.imageOrientation)
+    }
+
+    private func getLatexOffset(fromInput input: String, image: UIImage, fontSize: CGFloat) -> CGFloat {
+        let defaultSubScriptOffset: CGFloat = 2.66
+        let imageOffset = max((image.size.height - fontSize)/2, 0)
+        let subscriptOffset: CGFloat = input.contains("_") ? defaultSubScriptOffset : 0
+        return max(subscriptOffset, imageOffset)
     }
 }
 
