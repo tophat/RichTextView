@@ -128,8 +128,8 @@ class RichTextViewUITests: QuickSpec {
                 it("Renders a string with bullet attributes") {
                     let listHTMLString = """
                                 <html><head><style>li {
-                                    font-size: 18px;}</style></head><body><ul id="7662c490-2aba-4a46-807a-7f1982671615">
-                                        <li id="7662c490-2aba-4a46-807a-7f1982671615">The Quick Brown Fox Jumped Over the Lazy Dog
+                                    font-size: 18px;}</style></head>
+                                    <body><ul id="7662c490-2aba-4a46-807a-7f1982671615"><li id="7662c490-2aba-4a46-807a-7f1982671615">Bullet
                                 </ul></body></html>
                         """
                     let richTextView = RichTextView(
