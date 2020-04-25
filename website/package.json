@@ -15,7 +15,7 @@
     "kind-of": "^6.0.3",
     "minimist": "^1.2.5",
     "mixin-deep": "^2.0.1",
-    "react": "^16.6.3",
+    "react": "^16.13.1",
     "remarkable": "^2.0.0",
     "set-value": "^3.0.2",
     "underscore.string": "^3.3.5"
