@@ -201,7 +201,7 @@ class RichTextViewUITests: QuickSpec {
                     richTextView.backgroundColor = UIColor.white
                     richTextView.update(
                         input: "[highlighted-element id=123]Heading[/highlighted-element]",
-                        attributes: ["123": [
+                        customAdditionalAttributes: ["123": [
                             NSAttributedString.Key.backgroundColor: UIColor.lightGray,
                             NSAttributedString.Key.underlineStyle: 1]
                         ]
