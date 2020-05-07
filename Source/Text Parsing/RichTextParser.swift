@@ -24,12 +24,20 @@ class RichTextParser {
         static let highlightedElementRegex = """
         \\[\(ParserConstants.highlightedElementTagName)\\sid=.+?\\].*?\\[\\/\(ParserConstants.highlightedElementTagName)\\]
         """
+        private static let tAPlaceholderPrefix = "[RichTextView-TextAttachmentPosition"
+        private static let tAPlaceholderSuffix = "]"
+        static let textAttachmentPlaceholderAssigner = "="
+        static let textAttachmentPlaceholderRegex =
+        "\\\(ParserConstants.tAPlaceholderPrefix)\(ParserConstants.textAttachmentPlaceholderAssigner)[0-9]+?\\\(ParserConstants.tAPlaceholderSuffix)"
+        static let textAttachmentPlaceholder =
+        "\(ParserConstants.tAPlaceholderPrefix)\(ParserConstants.textAttachmentPlaceholderAssigner)%@\(ParserConstants.tAPlaceholderSuffix)"
         typealias RichTextWithErrors = (output: NSAttributedString, errors: [ParsingError]?)
         static let bulletString = "•"
         static let listOpeningHTMLString = "</style></head><body><ul"
         static let listClosingHTMLString = "</ul></body></html>"
         static let latexSubscriptCharacter = "_"
         static let defaultSubScriptOffset: CGFloat = 2.66
+        static let bulletCustomAttributeIdentifier = "bullets"
     }
 
     // MARK: - Dependencies
@@ -57,7 +65,7 @@ class RichTextParser {
         self.customAdditionalAttributes = customAdditionalAttributes
     }
 
-    // MARK: - Utility Functions
+    // MARK: - Multi-Purpose Functions
 
     func getRichDataTypes(from input: String) -> [RichDataType] {
         if input.isEmpty {
@@ -84,16 +92,14 @@ class RichTextParser {
         let richTextWithSpecialDataTypesHandled = self.getRichTextWithSpecialDataTypesHandled(
             fromString: inputAsMutableAttributedString
         )
-        let mutableAttributedStringWithSpecialData = NSMutableAttributedString(
-            attributedString: richTextWithSpecialDataTypesHandled.output
-        )
+        let textAttachmentAttributesInRichText = self.extractTextAttachmentAttributesInOrder(fromAttributedString: richTextWithSpecialDataTypesHandled.output)
         let richTextWithHTMLAndMarkdownHandled = self.getRichTextWithHTMLAndMarkdownHandled(
-            fromString: mutableAttributedStringWithSpecialData
+            fromString: self.replaceTextAttachmentsWithPlaceHolderInfo(inAttributedString: richTextWithSpecialDataTypesHandled.output)
         )
 
-        let outputRichText = self.mergeSpecialDataAndHTMLMarkdownAttributes(
-            fromSpecialDataString: mutableAttributedStringWithSpecialData,
-            htmlMarkdownString: NSMutableAttributedString(attributedString: richTextWithHTMLAndMarkdownHandled.output)
+        let outputRichText = self.mergeTextAttachmentsAndHTMLMarkdownAttributes(
+            htmlMarkdownString: NSMutableAttributedString(attributedString: richTextWithHTMLAndMarkdownHandled.output),
+            textAttachmentAttributes: textAttachmentAttributesInRichText
         ).trimmingTrailingNewlinesAndWhitespaces()
 
         outputRichText.replaceFont(with: self.font)
@@ -107,37 +113,68 @@ class RichTextParser {
         return (outputRichText, outputErrors)
     }
 
-    // MARK: - Helpers
+    private func mergeTextAttachmentsAndHTMLMarkdownAttributes(htmlMarkdownString: NSMutableAttributedString,
+                                                               textAttachmentAttributes: [[NSAttributedString.Key: Any]]) -> NSMutableAttributedString {
+        let textAttachmentRegex = try? NSRegularExpression(pattern: ParserConstants.textAttachmentPlaceholderRegex, options: [])
+        let inputRange = NSMakeRange(0, htmlMarkdownString.length)
+        guard let textAttachmentMatches = textAttachmentRegex?.matches(in: htmlMarkdownString.string, options: [], range: inputRange) else {
+            return htmlMarkdownString
+        }
 
-    private func mergeSpecialDataAndHTMLMarkdownAttributes(fromSpecialDataString specialDataString: NSAttributedString,
-                                                           htmlMarkdownString: NSMutableAttributedString) -> NSMutableAttributedString {
-        let rangeOfSpecialDataString = NSRange(location: 0, length: specialDataString.length)
-        specialDataString.enumerateAttributes(in: rangeOfSpecialDataString) { (attributes, range, _) in
-            if attributes.isEmpty {
-                return
+        for match in textAttachmentMatches.reversed() {
+            let matchedSubstring = htmlMarkdownString.attributedSubstring(from: match.range).string
+            let matchedComponentsSeparatedByAssigner = matchedSubstring.components(
+                separatedBy: ParserConstants.textAttachmentPlaceholderAssigner
+            )
+            let decimalCharacters = CharacterSet.decimalDigits.inverted
+            guard let textAttachmentPositionAsSubstring = matchedComponentsSeparatedByAssigner.last?.components(separatedBy: decimalCharacters).joined(),
+                let textAttachmentPosition = Int(textAttachmentPositionAsSubstring),
+                textAttachmentAttributes.indices.contains(textAttachmentPosition) else {
+                    continue
             }
-            let specialDataSubstring = specialDataString.string[
-                max(range.lowerBound, 0)..<min(range.upperBound, specialDataString.string.count)
-            ]
-            if attributes[.attachment] != nil {
-                if range.location == NSNotFound || range.location < 0 || range.location + range.length > htmlMarkdownString.length {
-                    return
-                }
-                let attributedSubstring = NSAttributedString(string: specialDataSubstring, attributes: attributes)
-                htmlMarkdownString.replaceCharacters(in: range, with: attributedSubstring)
-                return
+            let textAttachmentAttributes = textAttachmentAttributes[textAttachmentPosition]
+            guard let textAttachment = textAttachmentAttributes[.attachment] as? NSTextAttachment else {
+                continue
             }
-            let rangeOfSubstringInHTMLMarkdownString = (htmlMarkdownString.string as NSString).range(of: specialDataSubstring)
-            if rangeOfSubstringInHTMLMarkdownString.location == NSNotFound ||
-                rangeOfSubstringInHTMLMarkdownString.location < 0 ||
-                rangeOfSubstringInHTMLMarkdownString.location + rangeOfSubstringInHTMLMarkdownString.length > htmlMarkdownString.length {
-                return
-            }
-            let attributedSubstring = NSAttributedString(string: specialDataSubstring, attributes: attributes)
-            htmlMarkdownString.replaceCharacters(in: rangeOfSubstringInHTMLMarkdownString, with: attributedSubstring)
+            let textAttachmentAttributedString = NSMutableAttributedString(attachment: textAttachment)
+            textAttachmentAttributedString.addAttributes(
+                textAttachmentAttributes,
+                range: NSRange(location: 0, length: textAttachmentAttributedString.length)
+            )
+            htmlMarkdownString.replaceCharacters(in: match.range, with: textAttachmentAttributedString)
         }
         return htmlMarkdownString
     }
+
+    // MARK: - Boolean Checkers
+
+    func isTextLatex(_ text: String) -> Bool {
+        return !self.getLatexRanges(inText: text).isEmpty
+    }
+
+    func isTextInteractiveElement(_ text: String) -> Bool {
+        return text.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression).count != 0
+    }
+
+    func isTextHighlightedElement(_ text: String) -> Bool {
+        return text.ranges(of: ParserConstants.highlightedElementRegex, options: .regularExpression).count != 0
+    }
+
+    private func isStringAVideoTag(_ input: String) -> Bool {
+        return input.range(of: RichTextViewConstants.videoTagRegex, options: .regularExpression, range: nil, locale: nil) != nil
+    }
+
+    private func doesTextContainAnHTMLList(_ input: String) -> Bool {
+        return input.contains(ParserConstants.listOpeningHTMLString) && input.contains(ParserConstants.listClosingHTMLString)
+    }
+
+    // MARK: - Video Functions
+
+    private func splitInputOnVideoPortions(_ input: String) -> [String] {
+        return input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
+    }
+
+    // MARK: - HTML/Markdown Helpers
 
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
         var attributedString: NSAttributedString?
@@ -172,26 +209,6 @@ class RichTextParser {
         return (finalOutputString, nil)
     }
 
-    private func doesTextContainAnHTMLList(_ input: String) -> Bool {
-        return input.contains(ParserConstants.listOpeningHTMLString) && input.contains(ParserConstants.listClosingHTMLString)
-    }
-
-    private func addStylingToBulletPointsIfNecessary(_ input: NSMutableAttributedString) -> NSMutableAttributedString {
-        guard let customBulletAttributes = self.customAdditionalAttributes?[NSAttributedString.Key.bullet.rawValue],
-            self.doesTextContainAnHTMLList(input.string) else {
-                return input
-        }
-        guard let bulletPointRegex = try? NSRegularExpression(pattern: ParserConstants.bulletString, options: []) else {
-            return input
-        }
-        let bulletPointMatches = bulletPointRegex.matches(in: input.string, options: [], range: NSRange(location: 0, length: input.string.count))
-        let output = input
-        bulletPointMatches.reversed().forEach { match in
-            output.addAttributes(customBulletAttributes, range: match.range)
-        }
-        return output
-    }
-
     private func getParsedStringWithBulletAttributes(mutableAttributedInput: NSMutableAttributedString,
                                                      attributes: [NSAttributedString.Key: Any] ) -> NSMutableAttributedString {
         let range = mutableAttributedInput.string.ranges(of: ParserConstants.bulletString, options: .literal)
@@ -209,22 +226,27 @@ class RichTextParser {
         return stringWithBulletAttributes
     }
 
-    private func getRichTextWithSpecialDataTypesHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
-        let interactiveElementPositions = self.extractPositions(
-            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression)
-        )
-        let highlightedElementPositions = self.extractPositions(
-            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.highlightedElementRegex, options: .regularExpression)
-        )
-        let latexPositions = self.extractPositions(fromRanges: self.getLatexRanges(inText: mutableAttributedString.string))
-        let splitPositions = interactiveElementPositions + latexPositions + highlightedElementPositions
-        if splitPositions.isEmpty {
-            return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), nil)
+    private func addStylingToBulletPointsIfNecessary(_ input: NSMutableAttributedString) -> NSMutableAttributedString {
+        guard let customBulletAttributes = self.customAdditionalAttributes?[ParserConstants.bulletCustomAttributeIdentifier],
+            self.doesTextContainAnHTMLList(input.string) else {
+                return input
         }
-        return self.mergeRichDataComponentsAndReturnRichText(
-            self.split(mutableAttributedString: mutableAttributedString, onPositions: splitPositions)
-        )
+        guard let bulletPointRegex = try? NSRegularExpression(pattern: ParserConstants.bulletString, options: []) else {
+            return input
+        }
+        let bulletPointMatches = bulletPointRegex.matches(in: input.string, options: [], range: NSRange(location: 0, length: input.string.count))
+        let output = input
+        bulletPointMatches.reversed().forEach { match in
+            output.addAttributes(customBulletAttributes, range: match.range)
+        }
+        return output
     }
+
+    private func stripCodeTagsIfNecessary(from input: String) -> String {
+        return input.replacingOccurrences(of: "[code]", with: "`").replacingOccurrences(of: "[/code]", with: "`")
+    }
+
+    // MARK: - String Helpers
 
     private func split(mutableAttributedString: NSMutableAttributedString, onPositions positions: [String.Index]) -> [NSAttributedString] {
         let splitStrings = mutableAttributedString.string.split(atPositions: positions)
@@ -237,7 +259,81 @@ class RichTextParser {
         return output
     }
 
-    private func mergeRichDataComponentsAndReturnRichText(_ components: [NSAttributedString]) -> ParserConstants.RichTextWithErrors {
+    private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {
+        return ranges.flatMap { range in
+            return [range.lowerBound, range.upperBound]
+        }.sorted()
+    }
+
+    // MARK: - Text Attachment Functions
+
+    private func extractTextAttachmentAttributesInOrder(fromAttributedString input: NSAttributedString) -> [[NSAttributedString.Key: Any]] {
+        var output = [[NSAttributedString.Key: Any]]()
+        let range = NSMakeRange(0, input.length)
+        input.enumerateAttributes(in: range, options: [.reverse]) { (attributes, _, _) in
+            guard attributes.keys.contains(.attachment) else {
+                return
+            }
+            output.append(attributes)
+        }
+        return output
+    }
+
+    private func replaceTextAttachmentsWithPlaceHolderInfo(inAttributedString input: NSAttributedString) -> NSMutableAttributedString {
+        var output = NSMutableAttributedString(attributedString: input)
+        let range = NSMakeRange(0, input.length)
+        var position = 0
+        input.enumerateAttributes(in: range, options: [.reverse]) { (attributes, range, _) in
+            guard attributes.keys.contains(.attachment) else {
+                return
+            }
+            output.replaceCharacters(in: range, with: String(format: ParserConstants.textAttachmentPlaceholder, position))
+            position += 1
+        }
+        return output
+    }
+
+    // MARK: - Special Data Type Helpers
+
+    private func getLatexRanges(inText text: String) -> [Range<String.Index>] {
+        guard let regex = try? NSRegularExpression(pattern: ParserConstants.latexRegex, options: [.caseInsensitive, .dotMatchesLineSeparators]) else {
+            return []
+        }
+        let range = NSRange(location: 0, length: text.count)
+        let matches = regex.matches(in: text, range: range)
+        return matches.compactMap { match in
+            return Range<String.Index>(match.range(at: ParserConstants.latexRegexCaptureGroupIndex), in: text)
+        }
+    }
+
+    private func calculateContentHeight() -> CGFloat {
+        let frame = NSString(string: "").boundingRect(
+            with: CGSize(width: 0, height: .max),
+            options: [.usesFontLeading, .usesLineFragmentOrigin],
+            attributes: [.font: self.font],
+            context: nil)
+
+        return frame.size.height
+    }
+
+    private func getRichTextWithSpecialDataTypesHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
+        let interactiveElementPositions = self.extractPositions(
+            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression)
+        )
+        let highlightedElementPositions = self.extractPositions(
+            fromRanges: mutableAttributedString.string.ranges(of: ParserConstants.highlightedElementRegex, options: .regularExpression)
+        )
+        let latexPositions = self.extractPositions(fromRanges: self.getLatexRanges(inText: mutableAttributedString.string))
+        let splitPositions = interactiveElementPositions + latexPositions + highlightedElementPositions
+        if splitPositions.isEmpty {
+            return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), nil)
+        }
+        return self.mergeSpecialDataComponentsAndReturnRichText(
+            self.split(mutableAttributedString: mutableAttributedString, onPositions: splitPositions)
+        )
+    }
+
+    private func mergeSpecialDataComponentsAndReturnRichText(_ components: [NSAttributedString]) -> ParserConstants.RichTextWithErrors {
         let output = NSMutableAttributedString()
         var parsingErrors: [ParsingError]?
         components.forEach { attributedString in
@@ -301,56 +397,5 @@ class RichTextParser {
         .merging(richTextAttributes) { (current, _) in current }
         let mutableAttributedInput = NSMutableAttributedString(string: highlightedElementText, attributes: attributes)
         return mutableAttributedInput
-    }
-
-    func isTextLatex(_ text: String) -> Bool {
-        return !self.getLatexRanges(inText: text).isEmpty
-    }
-
-    func isTextInteractiveElement(_ text: String) -> Bool {
-        return text.ranges(of: ParserConstants.interactiveElementRegex, options: .regularExpression).count != 0
-    }
-
-    func isTextHighlightedElement(_ text: String) -> Bool {
-        return text.ranges(of: ParserConstants.highlightedElementRegex, options: .regularExpression).count != 0
-    }
-
-    private func extractPositions(fromRanges ranges: [Range<String.Index>]) -> [String.Index] {
-        return ranges.flatMap { range in
-            return [range.lowerBound, range.upperBound]
-        }.sorted()
-    }
-
-    private func splitInputOnVideoPortions(_ input: String) -> [String] {
-        return input.getComponents(separatedBy: RichTextViewConstants.videoTagRegex)
-    }
-
-    private func isStringAVideoTag(_ input: String) -> Bool {
-        return input.range(of: RichTextViewConstants.videoTagRegex, options: .regularExpression, range: nil, locale: nil) != nil
-    }
-
-    private func stripCodeTagsIfNecessary(from input: String) -> String {
-        return input.replacingOccurrences(of: "[code]", with: "`").replacingOccurrences(of: "[/code]", with: "`")
-    }
-
-    private func getLatexRanges(inText text: String) -> [Range<String.Index>] {
-        guard let regex = try? NSRegularExpression(pattern: ParserConstants.latexRegex, options: [.caseInsensitive, .dotMatchesLineSeparators]) else {
-            return []
-        }
-        let range = NSRange(location: 0, length: text.count)
-        let matches = regex.matches(in: text, range: range)
-        return matches.compactMap { match in
-            return Range<String.Index>(match.range(at: ParserConstants.latexRegexCaptureGroupIndex), in: text)
-        }
-    }
-
-    private func calculateContentHeight() -> CGFloat {
-        let frame = NSString(string: "").boundingRect(
-            with: CGSize(width: 0, height: .max),
-            options: [.usesFontLeading, .usesLineFragmentOrigin],
-            attributes: [.font: self.font],
-            context: nil)
-
-        return frame.size.height
     }
 }
