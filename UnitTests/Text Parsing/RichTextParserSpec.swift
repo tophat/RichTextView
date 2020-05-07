@@ -87,25 +87,25 @@ class RichTextParserSpec: QuickSpec {
             }
             context("Rich text to attributed string") {
                 it("generates a single attributed string with multiple rich text types") {
-                    let regularText = self.richTextParser.getAttributedText(from: MarkDownText.regularText).output
+                    let regularText = self.richTextParser.getRichTextWithErrors(from: MarkDownText.regularText).output
                     expect(regularText.string.range(of: "Some Text")).toNot(beNil())
 
-                    let complexHTML = self.richTextParser.getAttributedText(from: MarkDownText.complexHTML).output
+                    let complexHTML = self.richTextParser.getRichTextWithErrors(from: MarkDownText.complexHTML).output
                     expect(complexHTML.string.range(of: "Message")).toNot(beNil())
 
-                    let complexLatex = self.richTextParser.getAttributedText(from: MarkDownText.complexLatex).output
+                    let complexLatex = self.richTextParser.getRichTextWithErrors(from: MarkDownText.complexLatex).output
                     expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                 }
                 it("generates a single attributed string with multiple rich text types on a background thread") {
                     waitUntil { done in
                         DispatchQueue.global().async {
-                            let regularText = self.richTextParser.getAttributedText(from: MarkDownText.regularText).output
+                            let regularText = self.richTextParser.getRichTextWithErrors(from: MarkDownText.regularText).output
                             expect(regularText.string.range(of: "Some Text")).toNot(beNil())
 
-                            let complexHTML = self.richTextParser.getAttributedText(from: MarkDownText.complexHTML).output
+                            let complexHTML = self.richTextParser.getRichTextWithErrors(from: MarkDownText.complexHTML).output
                             expect(complexHTML.string.range(of: "Message")).toNot(beNil())
 
-                            let complexLatex = self.richTextParser.getAttributedText(from: MarkDownText.complexLatex).output
+                            let complexLatex = self.richTextParser.getRichTextWithErrors(from: MarkDownText.complexLatex).output
                             expect(complexLatex.string.range(of: "More Text")).toNot(beNil())
                             done()
                         }
@@ -117,7 +117,7 @@ class RichTextParserSpec: QuickSpec {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this video: youtube[12345]")
                     expect(output.count).to(equal(2))
                     expect(output[0]).to(equal(RichDataType.text(
-                        richText: self.richTextParser.getAttributedText(from: "Look at this video: ").output,
+                        richText: self.richTextParser.getRichTextWithErrors(from: "Look at this video: ").output,
                         font: self.richTextParser.font,
                         errors: [ParsingError]()
                     )))
@@ -127,7 +127,7 @@ class RichTextParserSpec: QuickSpec {
                     let output = self.richTextParser.getRichDataTypes(from: "Look at this!")
                     expect(output.count).to(equal(1))
                     expect(output[0]).to(equal(RichDataType.text(
-                        richText: self.richTextParser.getAttributedText(from: "Look at this!").output,
+                        richText: self.richTextParser.getRichTextWithErrors(from: "Look at this!").output,
                         font: self.richTextParser.font,
                         errors: [ParsingError]()
                     )))
@@ -141,7 +141,7 @@ class RichTextParserSpec: QuickSpec {
             }
             context("Strip Code Tags") {
                 it("Successfully strips code tags from input") {
-                    let output = self.richTextParser.getAttributedText(from: MarkDownText.codeText).output
+                    let output = self.richTextParser.getRichTextWithErrors(from: MarkDownText.codeText).output
                     expect(output.string).to(equal("print('Hello World')"))
                 }
             }
@@ -186,13 +186,21 @@ class RichTextParserSpec: QuickSpec {
 
 extension RichDataType: Equatable {
     public static func == (lhs: RichDataType, rhs: RichDataType) -> Bool {
-        switch (lhs, rhs) {
-        case let (.text(left), .text(right)):
-            return left.richText == right.richText
-        case let (.video(left), .video(right)):
-            return left.tag == right.tag
-        default:
-            return false
+        switch lhs {
+        case .video(tag: let lhsTag, error: _):
+            switch rhs {
+            case .video(tag: let rhsTag, error: _):
+                return lhsTag == rhsTag
+            default:
+                return false
+            }
+        case .text(richText: let lhsRichText, font: _, errors: _):
+            switch rhs {
+            case .text(richText: let rhsRichText, font: _, errors: _):
+                return lhsRichText.string == rhsRichText.string
+            default:
+                return false
+            }
         }
     }
 }
