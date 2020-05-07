@@ -134,9 +134,9 @@ class RichTextViewUITests: QuickSpec {
                         """
                     let richTextView = RichTextView(
                         input: listHTMLString,
-                        customAdditionalAttributes: ["bullet": [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]],
-                        frame: CGRect(origin: .zero, size: Defaults.size
-                    ))
+                        customAdditionalAttributes: ["bullets": [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]],
+                        frame: CGRect(origin: .zero, size: Defaults.size)
+                    )
                     richTextView.backgroundColor = UIColor.white
                     self.richTextView = richTextView
                     self.viewController = UIViewController()

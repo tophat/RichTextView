@@ -30,10 +30,7 @@ class RichTextParserSpec: QuickSpec {
     override func spec() {
         describe("RichTextParser") {
             beforeEach {
-                self.richTextParser = RichTextParser(attributes: ["123": [
-                    NSAttributedString.Key.backgroundColor: UIColor.lightGray,
-                    NSAttributedString.Key.underlineStyle: 1]
-                ])
+                self.richTextParser = RichTextParser()
             }
             context("Latex Parsing") {
                 it("succesfully returns an NSAttributedString with an image") {
@@ -64,6 +61,15 @@ class RichTextParserSpec: QuickSpec {
                 }
             }
             context("highlighted Element") {
+                beforeEach {
+                    self.richTextParser = RichTextParser(
+                        customAdditionalAttributes: ["123": [
+                            NSAttributedString.Key.backgroundColor: UIColor.lightGray,
+                            NSAttributedString.Key.underlineStyle: 1
+                        ]]
+                    )
+
+                }
                 it("succesfully returns an NSAttributedString with the highlighted property from a basic highlighted element") {
                     let output = self.richTextParser.extractHighlightedElement(from: NSAttributedString(string: MarkDownText.highlightedElement))
                     let attributes: [NSAttributedString.Key: Any] = [
