@@ -144,7 +144,7 @@ class RichTextViewUITests: QuickSpec {
                     self.window?.rootViewController = self.viewController
                     waitUntil(timeout: Defaults.timeOut) { done in
                         DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
-                            expect(self.window).to(haveValidSnapshot())
+                            expect(self.window).to(recordSnapshot())
                             done()
                         })
                     }
@@ -212,7 +212,7 @@ class RichTextViewUITests: QuickSpec {
                     self.window?.rootViewController = self.viewController
                     waitUntil(timeout: Defaults.timeOut) { done in
                         DispatchQueue.main.asyncAfter(deadline: .now() +  Defaults.delay, execute: {
-                            expect(self.window).to(haveValidSnapshot())
+                            expect(self.window).to(recordSnapshot())
                             done()
                         })
                     }
