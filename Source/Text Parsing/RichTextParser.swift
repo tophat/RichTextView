@@ -319,8 +319,8 @@ class RichTextParser {
             with: CGSize(width: 0, height: .max),
             options: [.usesFontLeading, .usesLineFragmentOrigin],
             attributes: [.font: self.font],
-            context: nil)
-
+            context: nil
+        )
         return frame.size.height
     }
 
