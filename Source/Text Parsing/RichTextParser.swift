@@ -24,8 +24,8 @@ class RichTextParser {
         static let highlightedElementRegex = """
         \\[\(ParserConstants.highlightedElementTagName)\\sid=.+?\\].*?\\[\\/\(ParserConstants.highlightedElementTagName)\\]
         """
-        private static let tAPlaceholderPrefix = "[RichTextView-TextAttachmentPosition"
-        private static let tAPlaceholderSuffix = "]"
+        private static let tAPlaceholderPrefix = "{RichTextView-TextAttachmentPosition"
+        private static let tAPlaceholderSuffix = "}"
         static let textAttachmentPlaceholderAssigner = "="
         static let textAttachmentPlaceholderRegex =
         "\\\(ParserConstants.tAPlaceholderPrefix)\(ParserConstants.textAttachmentPlaceholderAssigner)[0-9]+?\\\(ParserConstants.tAPlaceholderSuffix)"
