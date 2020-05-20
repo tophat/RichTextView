@@ -51,7 +51,7 @@ public class RichTextView: UIView {
             textColor: textColor,
             latexTextBaselineOffset: latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor,
-            attributes: customAdditionalAttributes
+            customAdditionalAttributes: customAdditionalAttributes
         )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate
@@ -78,7 +78,7 @@ public class RichTextView: UIView {
                        textColor: UIColor? = nil,
                        latexTextBaselineOffset: CGFloat? = nil,
                        interactiveTextColor: UIColor? = nil,
-                       attributes: [String: [NSAttributedString.Key: Any]]? = nil,
+                       customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
@@ -87,7 +87,7 @@ public class RichTextView: UIView {
             textColor: textColor ?? self.textColor,
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor,
-            attributes: attributes
+            customAdditionalAttributes: customAdditionalAttributes ?? self.richTextParser.customAdditionalAttributes
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }

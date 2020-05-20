@@ -22,5 +22,6 @@ type_body_length:
   warning: 300 # warning
   error: 400 # error
 file_length:
+  warning: 450
   error: 500
 function_parameter_count: 6

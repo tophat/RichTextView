@@ -15,7 +15,6 @@ public protocol LatexParserProtocol: class {
 
 extension LatexParserProtocol {
     public func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat?) -> NSAttributedString? {
-
         let latexInput = self.extractLatexStringInsideTags(from: input)
         var mathImage: UIImage?
 
@@ -79,9 +78,9 @@ extension LatexParserProtocol {
     }
 
     private func getLatexOffset(fromInput input: String, image: UIImage, fontSize: CGFloat) -> CGFloat {
-        let defaultSubScriptOffset: CGFloat = 2.66
+        let defaultSubScriptOffset = RichTextParser.ParserConstants.defaultSubScriptOffset
         let imageOffset = max((image.size.height - fontSize)/2, 0)
-        let subscriptOffset: CGFloat = input.contains("_") ? defaultSubScriptOffset : 0
+        let subscriptOffset: CGFloat = input.contains(RichTextParser.ParserConstants.latexSubscriptCharacter) ? defaultSubScriptOffset : 0
         return max(subscriptOffset, imageOffset)
     }
 }

@@ -48,7 +48,7 @@ class InputOutputModuleView: UIView, RichTextViewDelegate {
         self.outputRichTextView.textViewDelegate = self
         self.outputRichTextView.update(
             input: text,
-            attributes: self.attributes
+            customAdditionalAttributes: self.attributes
         )
     }
 

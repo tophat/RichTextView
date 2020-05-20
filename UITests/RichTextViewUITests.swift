@@ -134,9 +134,9 @@ class RichTextViewUITests: QuickSpec {
                         """
                     let richTextView = RichTextView(
                         input: listHTMLString,
-                        customAdditionalAttributes: ["bullet": [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]],
-                        frame: CGRect(origin: .zero, size: Defaults.size
-                    ))
+                        customAdditionalAttributes: ["bullets": [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]],
+                        frame: CGRect(origin: .zero, size: Defaults.size)
+                    )
                     richTextView.backgroundColor = UIColor.white
                     self.richTextView = richTextView
                     self.viewController = UIViewController()
@@ -201,7 +201,7 @@ class RichTextViewUITests: QuickSpec {
                     richTextView.backgroundColor = UIColor.white
                     richTextView.update(
                         input: "[highlighted-element id=123]Heading[/highlighted-element]",
-                        attributes: ["123": [
+                        customAdditionalAttributes: ["123": [
                             NSAttributedString.Key.backgroundColor: UIColor.lightGray,
                             NSAttributedString.Key.underlineStyle: 1]
                         ]
