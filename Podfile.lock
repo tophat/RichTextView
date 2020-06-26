@@ -1,6 +1,6 @@
 PODS:
   - Down (0.8.2)
-  - iosMath (1.0.3)
+  - iosMath (1.0.4)
   - iOSSnapshotTestCase (6.0.3):
     - iOSSnapshotTestCase/SwiftSupport (= 6.0.3)
   - iOSSnapshotTestCase/Core (6.0.3)
@@ -41,12 +41,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   iosMath:
-    :commit: b30e7ead762bfb68b58896eebb1d8bc792ed4792
+    :commit: 628113a1e32ed82448b5ab84f836931bd2731fa0
     :git: https://github.com/tophatmonocle/iosMath.git
 
 SPEC CHECKSUMS:
   Down: 8babe0cafe145de188d2efa76ea938a11a5fdc6f
-  iosMath: 5259a309817ef066ae071bcce93f74f6712adf08
+  iosMath: d600132003379f24213290876f8e5d2d78c52c07
   iOSSnapshotTestCase: 944a73f6d9676302811a86c0cf35f0e6ef5ab2a0
   Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
   Nimble-Snapshots: 2ec985281eef0eb9fc69a469deee851363a50d0e
