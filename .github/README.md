@@ -11,7 +11,7 @@
 [![Builds](https://img.shields.io/circleci/project/github/tophat/RichTextView/master.svg)](https://circleci.com/gh/tophat/RichTextView)
 <br />
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat)](#credits)
-[![Slack workspace](https://slackinvite.dev.tophat.com/badge.svg)](https://opensource.tophat.com/slack)
+[![Discord](https://img.shields.io/discord/809577721751142410)](https://discord.gg/YhK3GFcZrk)
 [![License - Apache-2](https://img.shields.io/badge/license-Apache%202-blue.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0/)
 [![Maturity badge - level 3](https://img.shields.io/badge/Maturity-Level%203%20--%20Stable-green.svg)](https://github.com/tophat/getting-started/blob/master/scorecard.md)
 [![Pull Reminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
