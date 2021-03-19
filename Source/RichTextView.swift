@@ -79,7 +79,10 @@ public class RichTextView: UIView {
                        latexTextBaselineOffset: CGFloat? = nil,
                        interactiveTextColor: UIColor? = nil,
                        customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
-                       completion: (([ParsingError]?) -> Void)? = nil) {
+                       maxNumberOfLines: Int = 0,
+                       inWidth: CGFloat = 0,
+                       completion: (([ParsingError]?) -> Void)? = nil,
+                       heightCompletion: ((CGFloat?, CGFloat?, Bool?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
             latexParser: latexParser ?? self.richTextParser.latexParser,
@@ -93,6 +96,14 @@ public class RichTextView: UIView {
         self.subviews.forEach { $0.removeFromSuperview() }
         self.setupSubviews()
         completion?(self.errors)
+        if maxNumberOfLines > 0 {
+            let realHeight = self.getHeightForWidth(width: inWidth)
+            let hasMoreContent = self.checkIfHasMoreContext(numberOfLines: maxNumberOfLines, width: inWidth)
+            heightCompletion?(realHeight,
+                              self.calculateHeight(for: maxNumberOfLines),
+                              hasMoreContent
+            )
+        }
     }
 
     private func setupSubviews() {
@@ -172,5 +183,32 @@ public class RichTextView: UIView {
                 }
             }
         }
+    }
+
+    private func getHeightForWidth(width: CGFloat = 0) -> CGFloat {
+        let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        return self.systemLayoutSizeFitting(maxSize,
+                                            withHorizontalFittingPriority: .required,
+                                            verticalFittingPriority: .fittingSizeLevel
+        ).height.rounded(.down)
+    }
+
+    private func calculateHeight(for numberOfLines: Int) -> CGFloat {
+        return (self.richTextParser.font.lineHeight * CGFloat(numberOfLines)).rounded(.up)
+    }
+
+    private func checkIfHasMoreContext(numberOfLines: Int, width: CGFloat) -> Bool? {
+        guard numberOfLines > 0, width > 0 else {
+            return nil
+        }
+        let height = getHeightForWidth(width: width)
+        let heightForNumberOfLines = calculateHeight(for: numberOfLines)
+
+        let hasMoreContent = height > heightForNumberOfLines
+        print("\(hasMoreContent), \(heightForNumberOfLines), \(height) - \(input)")
+        self.snp.remakeConstraints { make in
+            make.height.equalTo(hasMoreContent ? heightForNumberOfLines : height)
+        }
+        return hasMoreContent
     }
 }
