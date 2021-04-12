@@ -83,6 +83,12 @@ class RichTextViewSpec: QuickSpec {
                     richTextView?.update(input: "Testing accessibility value")
                     expect(richTextView?.accessibilityValue).to(equal("Testing accessibility value"))
                 }
+                it("properly updates the accessibility value when input text change") {
+                    richTextView?.update(input: "Testing accessibility value")
+                    expect(richTextView?.accessibilityValue).to(equal("Testing accessibility value"))
+                    richTextView?.update(input: "New input")
+                    expect(richTextView?.accessibilityValue).to(equal("New input"))
+                }
             }
         }
     }

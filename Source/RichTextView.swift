@@ -163,6 +163,7 @@ public class RichTextView: UIView {
 
     private func enableAccessibility() {
         self.isAccessibilityElement = true
+        self.accessibilityValue = nil
         for view in self.subviews {
             if let accessibilityValue = view.accessibilityValue, !accessibilityValue.isEmpty {
                 if self.accessibilityValue == nil {
