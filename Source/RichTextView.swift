@@ -96,27 +96,29 @@ public class RichTextView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews = self.generateViews()
-        for (index, subview) in subviews.enumerated() {
-            self.addSubview(subview)
-            subview.snp.makeConstraints { make in
-                if index == 0 {
-                    make.top.equalTo(self)
-                } else {
-                    make.top.equalTo(subviews[index - 1].snp.bottom)
+        DispatchQueue.main.async {
+            let subviews = self.generateViews()
+            for (index, subview) in subviews.enumerated() {
+                self.addSubview(subview)
+                subview.snp.makeConstraints { make in
+                    if index == 0 {
+                        make.top.equalTo(self)
+                    } else {
+                        make.top.equalTo(subviews[index - 1].snp.bottom)
+                    }
+                    make.width.equalTo(self)
+                    make.centerX.equalTo(self)
+                    if subview is WKWebView {
+                        make.height.equalTo(self.snp.width).multipliedBy(VideoProperties.defaultAspectRatio)
+                    }
+                    if index == subviews.count - 1 {
+                        make.bottom.equalTo(self)
+                    }
                 }
-                make.width.equalTo(self)
-                make.centerX.equalTo(self)
-                if subview is WKWebView {
-                    make.height.equalTo(self.snp.width).multipliedBy(VideoProperties.defaultAspectRatio)
-                }
-                if index == subviews.count - 1 {
-                    make.bottom.equalTo(self)
-                }
+                subview.backgroundColor = UIColor.clear
             }
-            subview.backgroundColor = UIColor.clear
+            self.enableAccessibility()
         }
-        self.enableAccessibility()
     }
 
     func generateViews() -> [UIView] {
