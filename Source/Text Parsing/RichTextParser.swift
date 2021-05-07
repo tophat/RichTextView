@@ -205,7 +205,7 @@ class RichTextParser {
     private func getRichTextWithHTMLAndMarkdownHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
-        let inputStringWithoutCommonEditorTags = removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
+        let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
         guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutCommonEditorTags).toHTML([.unsafe, .hardBreaks]),
             let inputAsHTMLWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
             let htmlData = inputAsHTMLWithZeroWidthSpaceRemoved.data(using: .utf8) else {
