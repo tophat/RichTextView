@@ -205,7 +205,8 @@ class RichTextParser {
     private func getRichTextWithHTMLAndMarkdownHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
-        guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutBreakingSpaces).toHTML([.unsafe, .hardBreaks]),
+        let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
+        guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutCommonEditorTags).toHTML([.unsafe, .hardBreaks]),
             let inputAsHTMLWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
             let htmlData = inputAsHTMLWithZeroWidthSpaceRemoved.data(using: .utf8) else {
                 return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), [ParsingError.attributedTextGeneration(text: inputString)])
@@ -254,6 +255,10 @@ class RichTextParser {
 
     private func stripCodeTagsIfNecessary(from input: String) -> String {
         return input.replacingOccurrences(of: "[code]", with: "`").replacingOccurrences(of: "[/code]", with: "`")
+    }
+    
+    private func removeCommonEditorTags(from input: String) -> String {
+        return input.replacingOccurrences(of: "<p id=\"\">", with: "").replacingOccurrences(of: "</p>", with: "")
     }
 
     // MARK: - String Helpers
