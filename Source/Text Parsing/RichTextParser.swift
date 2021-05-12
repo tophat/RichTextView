@@ -256,17 +256,17 @@ class RichTextParser {
     private func stripCodeTagsIfNecessary(from input: String) -> String {
         return input.replacingOccurrences(of: "[code]", with: "`").replacingOccurrences(of: "[/code]", with: "`")
     }
-    
+
     private func removeCommonEditorTags(from input: String) -> String {
         return input.replacingOccurrences(of: "<p id=\"\">", with: "").replacingOccurrences(of: "</p>", with: "")
     }
-    
+
     private func unescapeHTML(from input: String) -> String {
         return input.replacingOccurrences(of: "&amp;", with: "&")
             .replacingOccurrences(of: "&lt;", with: "<")
             .replacingOccurrences(of: "&gt;", with: ">")
             .replacingOccurrences(of: "&quot;", with: "\"")
-            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&#39;", with: "'")
             .replacingOccurrences(of: "&nbsp;", with: " ")
     }
 
