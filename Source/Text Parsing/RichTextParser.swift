@@ -208,7 +208,7 @@ class RichTextParser {
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
         guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutCommonEditorTags).toHTML([.unsafe, .hardBreaks]),
             let inputAsHTMLWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
-            let htmlData = inputAsHTMLWithZeroWidthSpaceRemoved.data(using: .utf8) else {
+            let htmlData = unescapeHTML(from: inputAsHTMLWithZeroWidthSpaceRemoved).data(using: .utf8) else {
                 return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), [ParsingError.attributedTextGeneration(text: inputString)])
         }
         let parsedAttributedString = self.getParsedHTMLAttributedString(fromData: htmlData)
@@ -259,6 +259,15 @@ class RichTextParser {
     
     private func removeCommonEditorTags(from input: String) -> String {
         return input.replacingOccurrences(of: "<p id=\"\">", with: "").replacingOccurrences(of: "</p>", with: "")
+    }
+    
+    private func unescapeHTML(from input: String) -> String {
+        return input.replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
     }
 
     // MARK: - String Helpers
