@@ -68,7 +68,6 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
-          steps:
       - run:
           name: Execute Danger
           command: bundle install && bundle exec danger --verbose
