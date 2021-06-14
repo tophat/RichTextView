@@ -205,9 +205,10 @@ class RichTextParser {
     private func getRichTextWithHTMLAndMarkdownHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
-        guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutBreakingSpaces).toHTML([.unsafe, .hardBreaks]),
+        let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
+        guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutCommonEditorTags).toHTML([.unsafe, .hardBreaks]),
             let inputAsHTMLWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
-            let htmlData = inputAsHTMLWithZeroWidthSpaceRemoved.data(using: .utf8) else {
+            let htmlData = unescapeHTML(from: inputAsHTMLWithZeroWidthSpaceRemoved).data(using: .utf8) else {
                 return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), [ParsingError.attributedTextGeneration(text: inputString)])
         }
         let parsedAttributedString = self.getParsedHTMLAttributedString(fromData: htmlData)
@@ -254,6 +255,19 @@ class RichTextParser {
 
     private func stripCodeTagsIfNecessary(from input: String) -> String {
         return input.replacingOccurrences(of: "[code]", with: "`").replacingOccurrences(of: "[/code]", with: "`")
+    }
+
+    private func removeCommonEditorTags(from input: String) -> String {
+        return input.replacingOccurrences(of: "<p id=\"\">", with: "").replacingOccurrences(of: "</p>", with: "")
+    }
+
+    private func unescapeHTML(from input: String) -> String {
+        return input.replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&#39;", with: "'")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
     }
 
     // MARK: - String Helpers
@@ -384,11 +398,8 @@ class RichTextParser {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
         let interactiveElementID = input.string.getSubstring(inBetween: "[\(interactiveElementTagName) id=", and: "]") ?? input.string
         let interactiveElementText = input.string.getSubstring(inBetween: "]", and: "[/\(interactiveElementTagName)]") ?? input.string
-        let attributes: [NSAttributedString.Key: Any] = [
-            .customLink: interactiveElementID,
-            .foregroundColor: self.interactiveTextColor,
-            .font: self.font
-        ].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current }
+        let attributes: [NSAttributedString.Key: Any] = [.link: interactiveElementID].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current
+        }
         let mutableAttributedInput = NSMutableAttributedString(string: interactiveElementText, attributes: attributes)
         return mutableAttributedInput
     }
