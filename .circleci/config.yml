@@ -70,10 +70,6 @@ jobs:
           destination: scan-logs
           steps:
       - run:
-          name: Set ruby version to 3.0.0
-          command: |
-              rvm install 3.0.0
-      - run:
           name: Execute Danger
           command: bundle install && bundle exec danger --verbose
   deploy:
