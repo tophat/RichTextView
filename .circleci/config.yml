@@ -3,7 +3,7 @@ version: 2.1
 website_docker_defaults: &website_docker_defaults
   working_directory: ~/repo/website
   docker:
-    - image: circleci/node:8.11.3
+    - image: circleci/node:10.15.3 
 
 mac_defaults: &mac_defaults
   working_directory: ~/repo
