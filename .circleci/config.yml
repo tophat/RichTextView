@@ -71,6 +71,9 @@ jobs:
       - run:
           name: Execute Danger
           command: bundle install && bundle exec danger --verbose
+      - run:
+          name: Set Ruby Version
+          command: echo "ruby-3.0.0" > ~/.ruby-version
   deploy:
     <<: *mac_defaults
     steps:
