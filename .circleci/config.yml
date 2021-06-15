@@ -68,7 +68,7 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
-      run:
+      - run:
           name: Set Ruby Version
           command:  echo "ruby-2.4" > ~/.ruby-version
       - run:
