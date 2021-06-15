@@ -8,7 +8,7 @@
     "rename-version": "docusaurus-rename-version"
   },
   "devDependencies": {
-    "docusaurus": "^1.14.4"
+    "docusaurus": "^1.14.7"
   },
   "dependencies": {
     "excon": "^1.0.2",
@@ -17,7 +17,7 @@
     "mixin-deep": "^2.0.1",
     "react": "^17.0.2",
     "remarkable": "^2.0.1",
-    "set-value": "^3.0.2",
+    "set-value": "^4.0.0",
     "underscore.string": "^3.3.5"
   }
 }

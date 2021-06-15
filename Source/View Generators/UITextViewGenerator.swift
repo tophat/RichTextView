@@ -53,33 +53,10 @@ class UITextViewGenerator {
         textView.isScrollEnabled = false
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
-        textView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UITextViewGenerator.handleCustomLinkTapOnTextViewIfNecessary(_:))))
         if #available(iOS 10.0, *) {
             textView.adjustsFontForContentSizeCategory = true
         }
         textView.delegate = textViewDelegate
         return textView
-    }
-
-    @objc static func handleCustomLinkTapOnTextViewIfNecessary(_ recognizer: UITapGestureRecognizer) {
-        guard let textView = recognizer.view as? UITextView else {
-            return
-        }
-
-        var location = recognizer.location(in: textView)
-        location.x -= textView.textContainerInset.left
-        location.y -= textView.textContainerInset.top
-        let tappedCharacterIndex = textView.layoutManager.characterIndex(
-            for: location,
-            in: textView.textContainer,
-            fractionOfDistanceBetweenInsertionPoints: nil
-        )
-        guard tappedCharacterIndex < textView.textStorage.length else {
-            return
-        }
-        if let linkID = textView.attributedText?.attribute(.customLink, at: tappedCharacterIndex, effectiveRange: nil) as? String,
-            let richTextViewDelegate = textView.delegate as? RichTextViewDelegate {
-            richTextViewDelegate.didTapCustomLink(withID: linkID)
-        }
     }
 }
