@@ -69,11 +69,11 @@ jobs:
           path: ~/Library/Logs/scan
           destination: scan-logs
       - run:
-          name: Execute Danger
-          command: bundle install && bundle exec danger --verbose
-      - run:
           name: Set Ruby Version
           command: echo "ruby-3.0.0" > ~/.ruby-version
+      - run:
+          name: Execute Danger
+          command: bundle install && bundle exec danger --verbose
   deploy:
     <<: *mac_defaults
     steps:
