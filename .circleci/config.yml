@@ -4,6 +4,7 @@ website_docker_defaults: &website_docker_defaults
   working_directory: ~/repo/website
   docker:
     - image: circleci/node:8.11.3
+    - image: circleci/ruby:2.4.5
 
 mac_defaults: &mac_defaults
   working_directory: ~/repo
@@ -68,9 +69,6 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
-      - run:
-          name: Set Ruby Version
-          command: echo "ruby-2.4.5" > ~/.ruby-version
       - run:
           name: Execute Danger
           command: bundle install && bundle exec danger --verbose
