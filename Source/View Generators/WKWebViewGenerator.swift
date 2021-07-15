@@ -31,7 +31,7 @@ class WKWebViewGenerator {
 
     private static func getWebViewURL(from input: String) -> URL? {
         if let youTubeID = input.getSubstring(inBetween: RichTextViewConstants.youtubeStartTag, and: RichTextViewConstants.videoEndTag) {
-            return URL(string: "https://www.youtube.com/embed/" + youTubeID + "?playsinline=1")
+            return URL(string: "https://www.youtube.com/embed/" + youTubeID + "?playsinline=1&cc_load_policy=1")
         } else if let vimeoID = input.getSubstring(inBetween: RichTextViewConstants.vimeoStartTag, and: RichTextViewConstants.videoEndTag) {
             return URL(string: "https://player.vimeo.com/video/" + vimeoID + "?title=0&byline=0&portrait=0")
         }
