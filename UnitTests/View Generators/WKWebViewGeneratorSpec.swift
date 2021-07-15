@@ -18,7 +18,7 @@ class WKWebViewGeneratorSpec: QuickSpec {
                 it("properly generates a YouTube WebView") {
                     let webview = WKWebViewGenerator.getWebView(from: "youtube[1234]")
                     expect(webview?.configuration.allowsInlineMediaPlayback).to(beTrue())
-                    expect(webview?.url?.absoluteString).to(equal("https://www.youtube.com/embed/1234?playsinline=1"))
+                    expect(webview?.url?.absoluteString).to(equal("https://www.youtube.com/embed/1234?playsinline=1&cc_load_policy=1"))
                 }
                 it("properly generates a Vimeo WebView") {
                     let webview = WKWebViewGenerator.getWebView(from: "vimeo[1234]")
