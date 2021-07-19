@@ -30,7 +30,7 @@ public class RichTextView: UIView {
 
     // MARK: - Init
 
-    public init(input: String = "",
+    @objc public init(input: String = "",
                 latexParser: LatexParserProtocol = LatexParser(),
                 font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 textColor: UIColor = UIColor.black,
@@ -41,7 +41,7 @@ public class RichTextView: UIView {
                 textViewDelegate: RichTextViewDelegate? = nil,
                 customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                 frame: CGRect,
-                completion: (([ParsingError]?) -> Void)? = nil) {
+                completion: (([Error]?) -> Void)? = nil) {
         self.input = input
         self.isSelectable = isSelectable
         self.isEditable = isEditable
