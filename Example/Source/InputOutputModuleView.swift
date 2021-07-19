@@ -50,6 +50,10 @@ class InputOutputModuleView: UIView, RichTextViewDelegate {
             input: text,
             customAdditionalAttributes: self.attributes
         )
+        if let centeredRTV = self.outputRichTextView.subviews.first as? UITextView {
+            centeredRTV.textAlignment = .center
+            centeredRTV.textColor = .green
+        }
     }
 
     // MARK: - RichTextViewDelegate

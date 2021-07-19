@@ -92,33 +92,13 @@ class ViewController: UIViewController {
         </html>
         """
         static let bulletListHTMLWithInteractiveElements = """
-        <html>Some bullets with Interactive Elements:
-            <ul>
-                <li>[interactive-element id=Item 1]Item 1[/interactive-element]</li>
-                <li>[interactive-element id=Item 2]Item 2[/interactive-element]</li>
-                <li>[interactive-element id=Item 3]Item 3[/interactive-element]</li>
-            </ul>
-        </html>
+        ceci est une formule [math]\\frac{1}{\\Delta G} = \\frac{1}{a\\Delta x} + \\frac{1}{b\\Delta x}[/math]
         """
     }
 
     private enum Views {
         static let subviews: [UIView] = [
-            InputOutputModuleView(text: "Here is some LaTeX: [math]x^n[/math]"),
-            InputOutputModuleView(text: "# Here is some Markdown:\n`Wow this is great!`"),
-            InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
-            InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),
-            InputOutputModuleView(text: "<html>Some bullets: <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></html>"),
-            InputOutputModuleView(text: Text.bulletListHTMLWithInteractiveElements),
-            InputOutputModuleView(text: "Here is some code: [code]print('Hello World!')[/code]"),
-            InputOutputModuleView(text: "Here is a Vimeo video: vimeo[100708006]"),
-            InputOutputModuleView(text: "<a href='https://www.google.com'>jump to page</a>"),
-            InputOutputModuleView(text: Text.tableHTML),
-            InputOutputModuleView(text: "<blockquote>Here is a blockquote</blockquote>"),
-            InputOutputModuleView(text: "Look [interactive-element id=123]This is an interactive element[/interactive-element] Wow"),
-            InputOutputModuleView(text: "Look [highlighted-element id=456]This is an highlighted element[/highlighted-element] Wow"),
-            InputOutputModuleView(text: "Here is more LaTeX [math]A^{}=P^{}\\left(1+\\frac{r}{n}\\right)^{nt}[/math]"),
-            InputOutputModuleView(text: "Multiple Latex and Markdwon: *Yes* [math]_2[/math]TEST[math]_3[/math]")
+            InputOutputModuleView(text: Text.bulletListHTMLWithInteractiveElements)
         ]
     }
 
