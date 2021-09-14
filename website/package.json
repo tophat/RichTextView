@@ -17,7 +17,7 @@
     "mixin-deep": "^2.0.1",
     "react": "^17.0.2",
     "remarkable": "^2.0.1",
-    "set-value": "^4.0.0",
+    "set-value": "^4.0.1",
     "underscore.string": "^3.3.5"
   }
 }
