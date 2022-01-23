@@ -6,6 +6,8 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
+import UIKit
+
 extension UITextView {
     override open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if let richTextViewDelegate = self.delegate as? RichTextViewDelegate,

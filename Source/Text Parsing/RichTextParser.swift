@@ -7,6 +7,7 @@
 //
 
 import Down
+import UIKit
 
 class RichTextParser {
 

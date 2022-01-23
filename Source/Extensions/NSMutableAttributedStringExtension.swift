@@ -6,6 +6,8 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
+import UIKit
+
 extension NSAttributedString.Key {
     static let customLink = NSAttributedString.Key(rawValue: "customLink")
     static let highlight = NSAttributedString.Key(rawValue: "highlight")
