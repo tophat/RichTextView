@@ -58,7 +58,7 @@ jobs:
           name: Build and run RichTextView Tests
           command: fastlane scan
           environment:
-            SCAN_DEVICE: iPhone 6
+            SCAN_DEVICE: iPhone 11 Pro Max
             SCAN_SCHEME: RichTextView
       - store_test_results:
           path: test_output/report.xml
