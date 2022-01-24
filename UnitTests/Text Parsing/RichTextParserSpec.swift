@@ -165,7 +165,7 @@ class RichTextParserSpec: QuickSpec {
                         instance = nil
                     }
 
-                    expect(deinitCalled).toEventually(beTrue(), timeout: 5)
+                    expect(deinitCalled).toEventually(beTrue(), timeout: .seconds(5))
                 }
             }
         }

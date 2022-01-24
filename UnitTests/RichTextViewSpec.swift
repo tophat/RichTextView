@@ -39,7 +39,7 @@ class RichTextViewSpec: QuickSpec {
                         instance = nil
                     }
 
-                    expect(deinitCalled).toEventually(beTrue(), timeout: 5)
+                    expect(deinitCalled).toEventually(beTrue(), timeout: .seconds(5))
                 }
             }
             context("Generate Array of Labels and Webviews") {

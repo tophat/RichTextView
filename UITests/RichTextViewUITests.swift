@@ -11,6 +11,7 @@
 import Nimble
 import Nimble_Snapshots
 import Quick
+import Dispatch
 
 class RichTextViewUITests: QuickSpec {
     var richTextView: RichTextView?
@@ -19,7 +20,7 @@ class RichTextViewUITests: QuickSpec {
 
     private enum Defaults {
         static let size = CGSize(width: 375.0, height: 667.0)
-        static let timeOut: TimeInterval = 5.5
+        static let timeOut: DispatchTimeInterval = .milliseconds(5500)
         static let delay = DispatchTimeInterval.seconds(5)
     }
 
