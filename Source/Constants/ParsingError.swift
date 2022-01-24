@@ -6,6 +6,8 @@
 //  Copyright © 2018 Top Hat. All rights reserved.
 //
 
+import Foundation
+
 public enum ParsingError: LocalizedError {
     case attributedTextGeneration(text: String)
     case webViewGeneration(link: String)

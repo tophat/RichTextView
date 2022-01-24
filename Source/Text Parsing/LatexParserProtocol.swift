@@ -9,7 +9,7 @@
 import Down
 import iosMath
 
-public protocol LatexParserProtocol: class {
+public protocol LatexParserProtocol: AnyObject {
     func extractLatex(from input: String, textColor: UIColor, baselineOffset: CGFloat, fontSize: CGFloat, height: CGFloat?) -> NSAttributedString?
 }
 

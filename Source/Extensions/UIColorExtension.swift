@@ -6,6 +6,8 @@
 //  Copyright © 2019 Top Hat. All rights reserved.
 //
 
+import UIKit
+
 extension UIColor {
     static func == (leftColor: UIColor, rightColor: UIColor) -> Bool {
         var leftRed: CGFloat = 0
