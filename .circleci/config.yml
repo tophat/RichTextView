@@ -54,6 +54,9 @@ jobs:
       - run:
           name: Install Gems
           command: bundle install
+      - run:
+          name: Install CocoaPods
+          command: bundle exec pod install
       - save_cocoapods_cache
       - run:
           name: Build and run RichTextView Tests
