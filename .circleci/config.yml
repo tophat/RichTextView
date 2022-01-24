@@ -8,7 +8,7 @@ website_docker_defaults: &website_docker_defaults
 mac_defaults: &mac_defaults
   working_directory: ~/repo
   macos:
-    xcode: "10.2.0"
+    xcode: "13.2.1"
 
 commands:
   prep_mac_env:
