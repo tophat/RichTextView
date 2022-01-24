@@ -50,7 +50,7 @@ jobs:
       - prep_mac_env
       - run:
           name: Set Ruby Version
-          command:  echo "ruby-2.6.5" > ~/.ruby-version
+          command:  echo "ruby-2.5" > ~/.ruby-version
       - run:
           name: Install Gems
           command: bundle install
@@ -69,9 +69,6 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
-      - run:
-          name: Execute Danger
-          command: bundle exec danger --verbose
   deploy:
     <<: *mac_defaults
     steps:
