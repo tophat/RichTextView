@@ -38,7 +38,6 @@ class RichTextViewSpec: QuickSpec {
                     DispatchQueue.global(qos: .background).async {
                         instance = nil
                     }
-
                     expect(deinitCalled).toEventually(beTrue(), timeout: .seconds(5))
                 }
             }
