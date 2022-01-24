@@ -49,10 +49,11 @@ jobs:
     steps:
       - prep_mac_env
       - run:
-          name: Install CocoaPods
-          command: |
-            sudo gem install cocoapods
-            pod install
+        name: Set Ruby Version
+        command:  echo "ruby-2.6.5" > ~/.ruby-version
+      - run:
+          name: Install Gems
+          command: bundle install
       - save_cocoapods_cache
       - run:
           name: Build and run RichTextView Tests
@@ -69,11 +70,8 @@ jobs:
           path: ~/Library/Logs/scan
           destination: scan-logs
       - run:
-          name: Set Ruby Version
-          command:  echo "ruby-2.5" > ~/.ruby-version
-      - run:
           name: Execute Danger
-          command: bundle install && bundle exec danger --verbose
+          command: bundle exec danger --verbose
   deploy:
     <<: *mac_defaults
     steps:
