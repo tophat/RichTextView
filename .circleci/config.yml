@@ -49,8 +49,8 @@ jobs:
     steps:
       - prep_mac_env
       - run:
-        name: Set Ruby Version
-        command:  echo "ruby-2.6.5" > ~/.ruby-version
+          name: Set Ruby Version
+          command:  echo "ruby-2.6.5" > ~/.ruby-version
       - run:
           name: Install Gems
           command: bundle install
