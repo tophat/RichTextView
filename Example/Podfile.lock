@@ -1,7 +1,7 @@
 PODS:
   - Down (0.8.2)
   - iosMath (1.1.1)
-  - RichTextView (3.2.0):
+  - RichTextView (3.2.1):
     - Down
     - iosMath
     - SnapKit
@@ -33,7 +33,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Down: 8babe0cafe145de188d2efa76ea938a11a5fdc6f
   iosMath: b34ba07d07db42347383033ed677d584107e4021
-  RichTextView: 87a8f6a3a0c01bc402907899a3032024a816e3b6
+  RichTextView: 96906735e6f7e81c08403c7711ad908b3cb6ecd1
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
