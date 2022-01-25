@@ -61,7 +61,6 @@ class RichTextViewSpec: QuickSpec {
                     expect(output.count).to(equal(1))
                     expect(output[0]).to(beAKindOf(WKWebView.self))
                 }
-
             }
             // Empty Commit(To test permissions)
             context("Update") {
