@@ -105,6 +105,7 @@ class ViewController: UIViewController {
     private enum Views {
         static let subviews: [UIView] = [
             InputOutputModuleView(text: "Here is some LaTeX: [math]x^n[/math]"),
+            InputOutputModuleView(text: "<html><p id=\"5300fdca-33a4-4cc7-be1f-2b2b4cf762ce\">&nbsp; 1. He understood that it was the <em><strong>acceleration </strong></em>of an object that indicates the force on it.<br> ​  2. He had invented what we now call <em><strong>calculus</strong></em>, a way of calculating the magnitude and direction of&nbsp; the acceleration of a planet that was following Kepler's Laws.&nbsp;&nbsp;</p></html>"),
             InputOutputModuleView(text: "# Here is some Markdown:\n`Wow this is great!`"),
             InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
             InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),

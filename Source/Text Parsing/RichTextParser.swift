@@ -208,8 +208,7 @@ class RichTextParser {
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
         guard let inputAsHTMLString = try? Down(markdownString: inputStringWithoutCommonEditorTags).toHTML([.unsafe, .hardBreaks]),
-            let inputAsHTMLWithZeroWidthSpaceRemoved = inputAsHTMLString.replaceAppropiateZeroWidthSpaces(),
-            let htmlData = unescapeHTML(from: inputAsHTMLWithZeroWidthSpaceRemoved).data(using: .utf8) else {
+            let htmlData = unescapeHTML(from: inputAsHTMLString).data(using: .utf8) else {
                 return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), [ParsingError.attributedTextGeneration(text: inputString)])
         }
         let parsedAttributedString = self.getParsedHTMLAttributedString(fromData: htmlData)
