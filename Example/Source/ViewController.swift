@@ -105,6 +105,7 @@ class ViewController: UIViewController {
     private enum Views {
         static let subviews: [UIView] = [
             InputOutputModuleView(text: "Here is some LaTeX: [math]x^n[/math]"),
+            InputOutputModuleView(text: "<html><p>&nbsp; 1. Testing non zero width spaces<br> ​  2. Some additional content here.</p></html>"),
             InputOutputModuleView(text: "# Here is some Markdown:\n`Wow this is great!`"),
             InputOutputModuleView(text: "Here is a YouTube video: youtube[DLzxrzFCyOs]"),
             InputOutputModuleView(text: "<html><p>Here is some HTML</p></html>"),

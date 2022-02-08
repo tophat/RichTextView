@@ -7,11 +7,7 @@
 //
 
 extension String {
-    func replaceAppropiateZeroWidthSpaces() -> String? {
-        let newString = self
-        let cleanString = newString.replacingOccurrences(of: "\u{200B}", with: "\u{200D}")
-        return cleanString
-    }
+
     func replaceTrailingWhiteSpaceWithNonBreakingSpace() -> String {
         var newString = self
         while newString.last?.isWhitespace == true {
