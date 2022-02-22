@@ -8,6 +8,7 @@
 
 import Down
 import UIKit
+import SwiftRichString
 
 class RichTextParser {
 
@@ -130,7 +131,7 @@ class RichTextParser {
             if attributes.isEmpty || attributes[.attachment] != nil {
                 return
             }
-            let specialDataSubstring = specialDataTypesString.string[
+            let specialDataSubstring: String = specialDataTypesString.string[
                 max(range.lowerBound, 0)..<min(range.upperBound, specialDataTypesString.string.count)
             ]
             let rangeOfSubstringInOutputString = (outputString.string as NSString).range(of: specialDataSubstring)
@@ -210,6 +211,7 @@ class RichTextParser {
         if self.shouldUseOptimizedHTMLParsing {
             return self.getRichTextWithHTMLAndMarkdownHandledV2(fromString: mutableAttributedString)
         }
+        print("getRichTextWithHTMLAndMarkdownHandledV1")
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
@@ -227,7 +229,34 @@ class RichTextParser {
     }
 
     private func getRichTextWithHTMLAndMarkdownHandledV2(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
-        return (mutableAttributedString, nil)
+
+        print("getRichTextWithHTMLAndMarkdownHandledV2")
+        
+        // Cleanup on the string
+        
+        let inputString = mutableAttributedString.string
+        //let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
+//        let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
+
+        // Markdown to HTML
+
+        guard let inputAsHTMLString = try? Down(markdownString: inputString).toHTML([.unsafe, .hardBreaks]) else {
+                return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), [ParsingError.attributedTextGeneration(text: inputString)])
+        }
+
+        // Renders the HTML into a NSAttributedString
+        
+        let htmlStyleParams = StyleBuilder.StyleParams(
+            baseFont: UIFont.systemFont(ofSize: 20),
+            h1Font: UIFont.boldSystemFont(ofSize: 32),
+            h2Font: UIFont.boldSystemFont(ofSize: 26),
+            h3Font: UIFont.boldSystemFont(ofSize: 22),
+            italicsFont: UIFont.italicSystemFont(ofSize: 20),
+            boldFont: UIFont.boldSystemFont(ofSize: 20)
+        )
+        let renderedAttributedString = HTMLRenderer().renderHTML(html: inputAsHTMLString, styleParams: htmlStyleParams)
+
+        return (renderedAttributedString, nil)
     }
     
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
