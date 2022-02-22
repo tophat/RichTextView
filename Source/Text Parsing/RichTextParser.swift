@@ -49,7 +49,8 @@ class RichTextParser {
     let latexTextBaselineOffset: CGFloat
     let interactiveTextColor: UIColor
     let customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]?
-
+    let shouldUseOptimizedHTMLParsing: Bool
+    
     // MARK: - Init
 
     init(latexParser: LatexParserProtocol = LatexParser(),
@@ -57,13 +58,15 @@ class RichTextParser {
          textColor: UIColor = UIColor.black,
          latexTextBaselineOffset: CGFloat = 0,
          interactiveTextColor: UIColor = UIColor.blue,
-         customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil) {
+         customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
+         shouldUseOptimizedHTMLParsing: Bool = false) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
         self.latexTextBaselineOffset = latexTextBaselineOffset
         self.interactiveTextColor = interactiveTextColor
         self.customAdditionalAttributes = customAdditionalAttributes
+        self.shouldUseOptimizedHTMLParsing = shouldUseOptimizedHTMLParsing
     }
 
     // MARK: - Multi-Purpose Functions
@@ -204,6 +207,9 @@ class RichTextParser {
     // MARK: - HTML/Markdown Helpers
 
     private func getRichTextWithHTMLAndMarkdownHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
+        if self.shouldUseOptimizedHTMLParsing {
+            return self.getRichTextWithHTMLAndMarkdownHandledV2(fromString: mutableAttributedString)
+        }
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
@@ -220,6 +226,10 @@ class RichTextParser {
         return (finalOutputString, nil)
     }
 
+    private func getRichTextWithHTMLAndMarkdownHandledV2(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
+        return (mutableAttributedString, nil)
+    }
+    
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
         var attributedString: NSAttributedString?
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
