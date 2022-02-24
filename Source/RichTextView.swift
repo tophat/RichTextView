@@ -41,6 +41,8 @@ public class RichTextView: UIView {
                 textViewDelegate: RichTextViewDelegate? = nil,
                 customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                 frame: CGRect,
+                shouldUseOptimizedHTMLParsing: Bool = false,
+                htmlStyleParams: HTMLStyleParams? = nil,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
         self.isSelectable = isSelectable
@@ -51,7 +53,9 @@ public class RichTextView: UIView {
             textColor: textColor,
             latexTextBaselineOffset: latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor,
-            customAdditionalAttributes: customAdditionalAttributes
+            customAdditionalAttributes: customAdditionalAttributes,
+            shouldUseOptimizedHTMLParsing: shouldUseOptimizedHTMLParsing,
+            htmlStyleParams: htmlStyleParams
         )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate
