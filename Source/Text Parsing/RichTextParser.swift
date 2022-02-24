@@ -51,6 +51,7 @@ class RichTextParser {
     let interactiveTextColor: UIColor
     let customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]?
     let shouldUseOptimizedHTMLParsing: Bool
+    let htmlStyleParams: HTMLStyleParams?
     
     // MARK: - Init
 
@@ -60,7 +61,8 @@ class RichTextParser {
          latexTextBaselineOffset: CGFloat = 0,
          interactiveTextColor: UIColor = UIColor.blue,
          customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
-         shouldUseOptimizedHTMLParsing: Bool = false) {
+         shouldUseOptimizedHTMLParsing: Bool = false,
+         htmlStyleParams: HTMLStyleParams? = nil) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
@@ -68,6 +70,7 @@ class RichTextParser {
         self.interactiveTextColor = interactiveTextColor
         self.customAdditionalAttributes = customAdditionalAttributes
         self.shouldUseOptimizedHTMLParsing = shouldUseOptimizedHTMLParsing
+        self.htmlStyleParams = htmlStyleParams
     }
 
     // MARK: - Multi-Purpose Functions
@@ -208,10 +211,10 @@ class RichTextParser {
     // MARK: - HTML/Markdown Helpers
 
     private func getRichTextWithHTMLAndMarkdownHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
-        if self.shouldUseOptimizedHTMLParsing {
-            return self.getRichTextWithHTMLAndMarkdownHandledV2(fromString: mutableAttributedString)
+        if self.shouldUseOptimizedHTMLParsing, let htmlStyleParams = self.htmlStyleParams {
+            return self.getRichTextWithHTMLAndMarkdownHandledV2(fromString: mutableAttributedString, htmlStyleParams: htmlStyleParams)
         }
-        print("getRichTextWithHTMLAndMarkdownHandledV1")
+        print("getRichTextWithHTMLAndMarkdownHandledV1 OLD!!!")
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
@@ -228,7 +231,7 @@ class RichTextParser {
         return (finalOutputString, nil)
     }
 
-    private func getRichTextWithHTMLAndMarkdownHandledV2(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
+    private func getRichTextWithHTMLAndMarkdownHandledV2(fromString mutableAttributedString: NSMutableAttributedString, htmlStyleParams: HTMLStyleParams) -> ParserConstants.RichTextWithErrors {
 
         print("getRichTextWithHTMLAndMarkdownHandledV2")
         
@@ -246,20 +249,13 @@ class RichTextParser {
 
         // Renders the HTML into a NSAttributedString
         
-        let htmlStyleParams = StyleBuilder.StyleParams(
-            baseFont: UIFont.systemFont(ofSize: 20),
-            h1Font: UIFont.boldSystemFont(ofSize: 32),
-            h2Font: UIFont.boldSystemFont(ofSize: 26),
-            h3Font: UIFont.boldSystemFont(ofSize: 22),
-            italicsFont: UIFont.italicSystemFont(ofSize: 20),
-            boldFont: UIFont.boldSystemFont(ofSize: 20)
-        )
-        let renderedAttributedString = HTMLRenderer().renderHTML(html: inputAsHTMLString, styleParams: htmlStyleParams)
+        let renderedAttributedString = HTMLRenderer.shared.renderHTML(html: inputAsHTMLString, styleParams: htmlStyleParams)
 
         return (renderedAttributedString, nil)
     }
     
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
+        print("getParsedHTMLAttributedString OLD WAY!!!!!")
         var attributedString: NSAttributedString?
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
             .documentType: NSAttributedString.DocumentType.html,

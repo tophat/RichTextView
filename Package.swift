@@ -12,7 +12,7 @@ let package = Package(
         .package(name: "Down", url: "https://github.com/johnxnguyen/Down", .upToNextMajor(from: "0.11.0")),
         .package(name: "SnapKit", url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.0.1")),
         .package(name: "iosMath", url: "https://github.com/tophatmonocle/iosMath", .upToNextMajor(from: "1.1.1")),
-        .package(name: "SwiftRichString", url: "https://github.com/tophatmonocle/SwiftRichString", .branch("fix-parent-child-font-styles"))
+        .package(name: "SwiftRichString", url: "https://github.com/tophatmonocle/SwiftRichString", .branch("master"))
     ],
     targets: [
         .target(

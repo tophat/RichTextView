@@ -80,6 +80,7 @@ public class RichTextView: UIView {
                        interactiveTextColor: UIColor? = nil,
                        customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                        shouldUseOptimizedHTMLParsing: Bool = false,
+                       htmlStyleParams: HTMLStyleParams? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
@@ -89,7 +90,8 @@ public class RichTextView: UIView {
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor,
             customAdditionalAttributes: customAdditionalAttributes ?? self.richTextParser.customAdditionalAttributes,
-            shouldUseOptimizedHTMLParsing: shouldUseOptimizedHTMLParsing
+            shouldUseOptimizedHTMLParsing: shouldUseOptimizedHTMLParsing,
+            htmlStyleParams: htmlStyleParams
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }
