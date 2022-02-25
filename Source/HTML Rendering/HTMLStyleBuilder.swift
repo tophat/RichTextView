@@ -7,7 +7,9 @@
 
 import SwiftRichString
 
-struct StyleBuilder {
+// This class is responsible to create the styles that are using to style the HTML tags
+
+struct HTMLStyleBuilder {
     
     func buildStyles(styleParams: HTMLStyleParams) -> StyleGroup {
 
@@ -56,7 +58,23 @@ struct StyleBuilder {
         
         let groupStyle = StyleXML(
             base: baseStyle,
-            ["p": baseStyle, "div": baseStyle, "h1": h1Style, "h2": h2Style, "h3": h3Style, "i": italicStyle, "em": italicStyle, "italic": italicStyle, "bold": boldStyle, "strong": boldStyle, "b": boldStyle, "sub": subStyle, "sup": superStyle, "span": baseStyle, "code": codeStyle]
+            [
+                "p": baseStyle,
+                "div": baseStyle,
+                "h1": h1Style,
+                "h2": h2Style,
+                "h3": h3Style,
+                "i": italicStyle,
+                "em": italicStyle,
+                "italic": italicStyle,
+                "bold": boldStyle,
+                "strong": boldStyle,
+                "b": boldStyle,
+                "sub": subStyle,
+                "sup": superStyle,
+                "span": baseStyle,
+                "code": codeStyle
+            ]
         )
         groupStyle.xmlAttributesResolver = DynamicAttributesResolver()
         return groupStyle

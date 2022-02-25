@@ -19,10 +19,10 @@ class HTMLRenderer {
     
     func renderHTML(html: String, styleParams: HTMLStyleParams) -> NSAttributedString {
         if self.cachedStyles[styleParams] == nil {
-            self.cachedStyles[styleParams] = StyleBuilder().buildStyles(styleParams: styleParams)
+            self.cachedStyles[styleParams] = HTMLStyleBuilder().buildStyles(styleParams: styleParams)
         }
         guard let style = cachedStyles[styleParams] else {
-            return NSAttributedString()
+            return NSAttributedString(string: html)
         }
         let htmlReplacingBr = html.replacingOccurrences(of: "<br>", with: "\n")
         return htmlReplacingBr.set(style: style)

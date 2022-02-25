@@ -214,7 +214,6 @@ class RichTextParser {
         if self.shouldUseOptimizedHTMLParsing, let htmlStyleParams = self.htmlStyleParams {
             return self.getRichTextWithHTMLAndMarkdownHandledV2(fromString: mutableAttributedString, htmlStyleParams: htmlStyleParams)
         }
-        print("getRichTextWithHTMLAndMarkdownHandledV1 OLD!!!")
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
@@ -232,14 +231,10 @@ class RichTextParser {
     }
 
     private func getRichTextWithHTMLAndMarkdownHandledV2(fromString mutableAttributedString: NSMutableAttributedString, htmlStyleParams: HTMLStyleParams) -> ParserConstants.RichTextWithErrors {
-
-        print("getRichTextWithHTMLAndMarkdownHandledV2")
         
         // Cleanup on the string
         
         let inputString = mutableAttributedString.string
-        //let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
-//        let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
 
         // Markdown to HTML
 
@@ -255,7 +250,6 @@ class RichTextParser {
     }
     
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
-        print("getParsedHTMLAttributedString OLD WAY!!!!!")
         var attributedString: NSAttributedString?
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
             .documentType: NSAttributedString.DocumentType.html,
