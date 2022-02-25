@@ -13,10 +13,10 @@ import SwiftRichString
  */
 
 class HTMLRenderer {
-    
+
     var cachedStyles: [HTMLStyleParams: StyleXML] = [:]
     static let shared = HTMLRenderer()
-    
+
     func renderHTML(html: String, styleParams: HTMLStyleParams) -> NSAttributedString {
         if self.cachedStyles[styleParams] == nil {
             self.cachedStyles[styleParams] = HTMLStyleBuilder().buildStyles(styleParams: styleParams)

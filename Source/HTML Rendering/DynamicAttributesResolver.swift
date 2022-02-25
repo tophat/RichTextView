@@ -9,10 +9,10 @@ import UIKit
 import SwiftRichString
 
 class DynamicAttributesResolver: XMLDynamicAttributesResolver {
-    
-    func styleForUnknownXMLTag(_ tag: String, to attributedString: inout SwiftRichString.AttributedString, attributes: [String : String]?, fromStyle: StyleXML) {
+
+    func styleForUnknownXMLTag(_ tag: String, to attributedString: inout SwiftRichString.AttributedString, attributes: [String: String]?, fromStyle: StyleXML) {
     }
-    
+
     func applyDynamicAttributes(to attributedString: inout SwiftRichString.AttributedString, xmlStyle: XMLDynamicStyle, fromStyle: StyleXML) {
         let finalStyleToApply = Style()
         xmlStyle.enumerateAttributes { key, value  in
@@ -31,12 +31,12 @@ class DynamicAttributesResolver: XMLDynamicAttributesResolver {
                         finalStyleToApply.color = Color(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: 1.0)
                     }
                 }
-                
-                default:
-                    break
+
+            default:
+                break
             }
         }
-        
+
         attributedString.add(style: finalStyleToApply)
     }
 }

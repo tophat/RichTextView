@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,10 @@
 		78E2681121A4B16900C9B2DE /* RichTextViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E2680F21A4B16300C9B2DE /* RichTextViewUITests.swift */; };
 		78E2681421A4B75800C9B2DE /* RichTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781488E92194E6B600DED7A1 /* RichTextView.framework */; };
 		E0D33D3F751E4903439BC745 /* Pods_RichTextViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CE0BC0D9A50B53001050A4 /* Pods_RichTextViewUITests.framework */; };
+		F28C888827C9725D003990CC /* HTMLStyleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28C888427C9725D003990CC /* HTMLStyleBuilder.swift */; };
+		F28C888927C9725D003990CC /* DynamicAttributesResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28C888527C9725D003990CC /* DynamicAttributesResolver.swift */; };
+		F28C888A27C9725D003990CC /* HTMLStyleParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28C888627C9725D003990CC /* HTMLStyleParams.swift */; };
+		F28C888B27C9725D003990CC /* HTMLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28C888727C9725D003990CC /* HTMLRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +93,10 @@
 		ADEC9B28C5BC453A6A45AD55 /* Pods-RichTextView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView.release.xcconfig"; path = "Target Support Files/Pods-RichTextView/Pods-RichTextView.release.xcconfig"; sourceTree = "<group>"; };
 		BD74F48D045A1BFAEE356BA5 /* Pods-RichTextViewUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextViewUnitTests.debug.xcconfig"; path = "Target Support Files/Pods-RichTextViewUnitTests/Pods-RichTextViewUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6831B3A5825165B8A981E0 /* Pods-RichTextView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextView.debug.xcconfig"; path = "Target Support Files/Pods-RichTextView/Pods-RichTextView.debug.xcconfig"; sourceTree = "<group>"; };
+		F28C888427C9725D003990CC /* HTMLStyleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLStyleBuilder.swift; sourceTree = "<group>"; };
+		F28C888527C9725D003990CC /* DynamicAttributesResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicAttributesResolver.swift; sourceTree = "<group>"; };
+		F28C888627C9725D003990CC /* HTMLStyleParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLStyleParams.swift; sourceTree = "<group>"; };
+		F28C888727C9725D003990CC /* HTMLRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +157,7 @@
 				7886C3B521A3540F00C11817 /* Constants */,
 				78322F97223C39B400C3D599 /* Delegates */,
 				7886C3AD21A33AE800C11817 /* Extensions */,
+				F28C888327C9725D003990CC /* HTML Rendering */,
 				781488ED2194E6B600DED7A1 /* Info.plist */,
 				781488EC2194E6B600DED7A1 /* RichTextView.h */,
 				781488F42194E6D600DED7A1 /* RichTextView.swift */,
@@ -273,6 +282,17 @@
 				614BDD1524D6533D235F9FB6 /* Pods_RichTextViewUnitTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F28C888327C9725D003990CC /* HTML Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				F28C888427C9725D003990CC /* HTMLStyleBuilder.swift */,
+				F28C888527C9725D003990CC /* DynamicAttributesResolver.swift */,
+				F28C888627C9725D003990CC /* HTMLStyleParams.swift */,
+				F28C888727C9725D003990CC /* HTMLRenderer.swift */,
+			);
+			path = "HTML Rendering";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -545,10 +565,14 @@
 			files = (
 				7886C3AF21A33AFD00C11817 /* StringExtension.swift in Sources */,
 				7886C3B721A3541D00C11817 /* RichTextViewConstants.swift in Sources */,
+				F28C888827C9725D003990CC /* HTMLStyleBuilder.swift in Sources */,
 				7823D04521BACCBC0041CD51 /* WKWebViewGenerator.swift in Sources */,
 				78D1DC3721A49486004CA0F1 /* NSMutableAttributedStringExtension.swift in Sources */,
+				F28C888A27C9725D003990CC /* HTMLStyleParams.swift in Sources */,
 				7823D04621BACCBC0041CD51 /* UITextViewGenerator.swift in Sources */,
+				F28C888927C9725D003990CC /* DynamicAttributesResolver.swift in Sources */,
 				781488F52194E6D600DED7A1 /* RichTextView.swift in Sources */,
+				F28C888B27C9725D003990CC /* HTMLRenderer.swift in Sources */,
 				7886C3AB21A319E000C11817 /* LatexParserProtocol.swift in Sources */,
 				78D1DC3521A47B23004CA0F1 /* RichDataType.swift in Sources */,
 				78148940219536DF00DED7A1 /* RichTextParser.swift in Sources */,

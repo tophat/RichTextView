@@ -10,6 +10,7 @@ import Down
 import UIKit
 import SwiftRichString
 
+// swiftlint:disable file_length
 class RichTextParser {
 
     // MARK: - Constants
@@ -52,7 +53,7 @@ class RichTextParser {
     let customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]?
     let shouldUseOptimizedHTMLParsing: Bool
     let htmlStyleParams: HTMLStyleParams?
-    
+
     // MARK: - Init
 
     init(latexParser: LatexParserProtocol = LatexParser(),
@@ -230,10 +231,12 @@ class RichTextParser {
         return (finalOutputString, nil)
     }
 
-    private func getRichTextWithHTMLAndMarkdownHandledV2(fromString mutableAttributedString: NSMutableAttributedString, htmlStyleParams: HTMLStyleParams) -> ParserConstants.RichTextWithErrors {
-        
+    private func getRichTextWithHTMLAndMarkdownHandledV2(
+        fromString mutableAttributedString: NSMutableAttributedString,
+        htmlStyleParams: HTMLStyleParams) -> ParserConstants.RichTextWithErrors {
+
         // Cleanup on the string
-        
+
         let inputString = mutableAttributedString.string
 
         // Markdown to HTML
@@ -243,12 +246,12 @@ class RichTextParser {
         }
 
         // Renders the HTML into a NSAttributedString
-        
+
         let renderedAttributedString = HTMLRenderer.shared.renderHTML(html: inputAsHTMLString, styleParams: htmlStyleParams)
 
         return (renderedAttributedString, nil)
     }
-    
+
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
         var attributedString: NSAttributedString?
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
@@ -427,7 +430,8 @@ class RichTextParser {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
         let interactiveElementID = input.string.getSubstring(inBetween: "[\(interactiveElementTagName) id=", and: "]") ?? input.string
         let interactiveElementText = input.string.getSubstring(inBetween: "]", and: "[/\(interactiveElementTagName)]") ?? input.string
-        let attributes: [NSAttributedString.Key: Any] = [.link: interactiveElementID].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current
+        let attributes: [NSAttributedString.Key: Any] = [
+            .link: interactiveElementID].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current
         }
         let mutableAttributedInput = NSMutableAttributedString(string: interactiveElementText, attributes: attributes)
         return mutableAttributedInput
@@ -447,3 +451,4 @@ class RichTextParser {
         return mutableAttributedInput
     }
 }
+// swiftlint:enable file_length
