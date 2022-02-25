@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RichTextView'
-  s.version          = '3.2.2'
+  s.version          = '3.3.0'
   s.summary          = 'iOS Text View that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links.'
   s.description      = <<-DESC
 This is an iOS UIView that Properly Displays LaTeX, HTML, Markdown, and YouTube/Vimeo Links. Simply feed in an input
