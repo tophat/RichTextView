@@ -17,7 +17,6 @@ class HTMLRenderer {
     var cachedStyles: [HTMLStyleParams: StyleXML] = [:]
     static let shared = HTMLRenderer()
 
-    
     func renderHTML(html: String, styleParams: HTMLStyleParams) -> NSAttributedString {
         let style: StyleXML
 
