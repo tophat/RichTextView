@@ -17,13 +17,17 @@ class HTMLRenderer {
     var cachedStyles: [HTMLStyleParams: StyleXML] = [:]
     static let shared = HTMLRenderer()
 
+    
     func renderHTML(html: String, styleParams: HTMLStyleParams) -> NSAttributedString {
-        if self.cachedStyles[styleParams] == nil {
-            self.cachedStyles[styleParams] = HTMLStyleBuilder().buildStyles(styleParams: styleParams)
+        let style: StyleXML
+
+        if let cachedStyle = self.cachedStyles[styleParams] {
+            style = cachedStyle
+        } else {
+            style = HTMLStyleBuilder().buildStyles(styleParams: styleParams)
+            cachedStyles[styleParams] = style
         }
-        guard let style = cachedStyles[styleParams] else {
-            return NSAttributedString(string: html)
-        }
+        
         let htmlReplacingBr = html.replacingOccurrences(of: "<br>", with: "\n")
         return htmlReplacingBr.set(style: style)
     }
