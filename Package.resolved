@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Down",
+        "repositoryURL": "https://github.com/johnxnguyen/Down",
+        "state": {
+          "branch": null,
+          "revision": "f34b166be1f1db4aa8f573067e901d72f2a6be57",
+          "version": "0.11.0"
+        }
+      },
+      {
+        "package": "iosMath",
+        "repositoryURL": "https://github.com/tophatmonocle/iosMath",
+        "state": {
+          "branch": null,
+          "revision": "8c65dab2295100c02d9d844f6dc5646ab9d57b42",
+          "version": "1.1.2"
+        }
+      },
+      {
+        "package": "SnapKit",
+        "repositoryURL": "https://github.com/SnapKit/SnapKit",
+        "state": {
+          "branch": null,
+          "revision": "d458564516e5676af9c70b4f4b2a9178294f1bc6",
+          "version": "5.0.1"
+        }
+      },
+      {
+        "package": "SwiftRichString",
+        "repositoryURL": "https://github.com/tophatmonocle/SwiftRichString",
+        "state": {
+          "branch": "master",
+          "revision": "e0b72d5c96968d7802856d2be096202c9798e8d1",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

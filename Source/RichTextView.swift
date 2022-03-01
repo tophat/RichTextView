@@ -41,6 +41,8 @@ public class RichTextView: UIView {
                 textViewDelegate: RichTextViewDelegate? = nil,
                 customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
                 frame: CGRect,
+                shouldUseOptimizedHTMLParsing: Bool = false,
+                htmlStyleParams: HTMLStyleParams? = nil,
                 completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input
         self.isSelectable = isSelectable
@@ -51,7 +53,9 @@ public class RichTextView: UIView {
             textColor: textColor,
             latexTextBaselineOffset: latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor,
-            customAdditionalAttributes: customAdditionalAttributes
+            customAdditionalAttributes: customAdditionalAttributes,
+            shouldUseOptimizedHTMLParsing: shouldUseOptimizedHTMLParsing,
+            htmlStyleParams: htmlStyleParams
         )
         self.textColor = textColor
         self.textViewDelegate = textViewDelegate
@@ -79,6 +83,8 @@ public class RichTextView: UIView {
                        latexTextBaselineOffset: CGFloat? = nil,
                        interactiveTextColor: UIColor? = nil,
                        customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
+                       shouldUseOptimizedHTMLParsing: Bool = false,
+                       htmlStyleParams: HTMLStyleParams? = nil,
                        completion: (([ParsingError]?) -> Void)? = nil) {
         self.input = input ?? self.input
         self.richTextParser = RichTextParser(
@@ -87,7 +93,9 @@ public class RichTextView: UIView {
             textColor: textColor ?? self.textColor,
             latexTextBaselineOffset: latexTextBaselineOffset ?? self.richTextParser.latexTextBaselineOffset,
             interactiveTextColor: interactiveTextColor ?? self.richTextParser.interactiveTextColor,
-            customAdditionalAttributes: customAdditionalAttributes ?? self.richTextParser.customAdditionalAttributes
+            customAdditionalAttributes: customAdditionalAttributes ?? self.richTextParser.customAdditionalAttributes,
+            shouldUseOptimizedHTMLParsing: shouldUseOptimizedHTMLParsing,
+            htmlStyleParams: htmlStyleParams
         )
         self.textColor = textColor ?? self.textColor
         self.subviews.forEach { $0.removeFromSuperview() }

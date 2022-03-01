@@ -42,7 +42,7 @@ class RichTextParserSpec: QuickSpec {
                 it("succesfully returns an NSAttributedString with the custom link property from a basic interactive element") {
                     let output = self.richTextParser.extractInteractiveElement(from: NSAttributedString(string: MarkDownText.basicInteractiveElement))
                     let attributes: [NSAttributedString.Key: Any] = [
-                        .link: "123",
+                        .link: "123"
                     ]
                     let expectedAttributedString = NSAttributedString(string: "This is an interactive element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))
@@ -50,7 +50,7 @@ class RichTextParserSpec: QuickSpec {
                 it("succesfully returns an NSAttributedString with the custom link property from a complex interactive element") {
                     let output = self.richTextParser.extractInteractiveElement(from: NSAttributedString(string: MarkDownText.complexInteractiveElement))
                     let attributes: [NSAttributedString.Key: Any] = [
-                        .link: "123",
+                        .link: "123"
                     ]
                     let expectedAttributedString = NSAttributedString(string: "element", attributes: attributes)
                     expect(output).to(equal(expectedAttributedString))

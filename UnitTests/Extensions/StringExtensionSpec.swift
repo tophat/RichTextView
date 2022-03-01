@@ -147,17 +147,17 @@ class StringExtensionSpec: QuickSpec {
             context("Subscripts") {
                 it("correctly subscripts a closed range of type Int") {
                     let initialString = "Wow I love RichTextView!"
-                    let substring = initialString[1...3]
+                    let substring: String = initialString[1...3]
                     expect(substring).to(equal("ow "))
                 }
                 it("correctly subscripts an open range of type Int") {
                     let initialString = "Wow I love RichTextView!"
-                    let substring = initialString[5..<8]
+                    let substring: String = initialString[5..<8]
                     expect(substring).to(equal(" lo"))
                 }
                 it("correctly subscripts when it is just a single Int") {
                     let initialString = "Wow I love RichTextView!"
-                    let substring = initialString[6]
+                    let substring: String = initialString[6]
                     expect(substring).to(equal("l"))
                 }
             }

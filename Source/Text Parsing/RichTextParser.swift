@@ -8,7 +8,9 @@
 
 import Down
 import UIKit
+import SwiftRichString
 
+// swiftlint:disable file_length
 class RichTextParser {
 
     // MARK: - Constants
@@ -49,6 +51,8 @@ class RichTextParser {
     let latexTextBaselineOffset: CGFloat
     let interactiveTextColor: UIColor
     let customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]?
+    let shouldUseOptimizedHTMLParsing: Bool
+    let htmlStyleParams: HTMLStyleParams?
 
     // MARK: - Init
 
@@ -57,13 +61,17 @@ class RichTextParser {
          textColor: UIColor = UIColor.black,
          latexTextBaselineOffset: CGFloat = 0,
          interactiveTextColor: UIColor = UIColor.blue,
-         customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil) {
+         customAdditionalAttributes: [String: [NSAttributedString.Key: Any]]? = nil,
+         shouldUseOptimizedHTMLParsing: Bool = false,
+         htmlStyleParams: HTMLStyleParams? = nil) {
         self.latexParser = latexParser
         self.font = font
         self.textColor = textColor
         self.latexTextBaselineOffset = latexTextBaselineOffset
         self.interactiveTextColor = interactiveTextColor
         self.customAdditionalAttributes = customAdditionalAttributes
+        self.shouldUseOptimizedHTMLParsing = shouldUseOptimizedHTMLParsing
+        self.htmlStyleParams = htmlStyleParams
     }
 
     // MARK: - Multi-Purpose Functions
@@ -127,7 +135,7 @@ class RichTextParser {
             if attributes.isEmpty || attributes[.attachment] != nil {
                 return
             }
-            let specialDataSubstring = specialDataTypesString.string[
+            let specialDataSubstring: String = specialDataTypesString.string[
                 max(range.lowerBound, 0)..<min(range.upperBound, specialDataTypesString.string.count)
             ]
             let rangeOfSubstringInOutputString = (outputString.string as NSString).range(of: specialDataSubstring)
@@ -204,6 +212,9 @@ class RichTextParser {
     // MARK: - HTML/Markdown Helpers
 
     private func getRichTextWithHTMLAndMarkdownHandled(fromString mutableAttributedString: NSMutableAttributedString) -> ParserConstants.RichTextWithErrors {
+        if self.shouldUseOptimizedHTMLParsing, let htmlStyleParams = self.htmlStyleParams {
+            return self.getRichTextWithHTMLAndMarkdownHandledV2(fromString: mutableAttributedString, htmlStyleParams: htmlStyleParams)
+        }
         let inputString = mutableAttributedString.string
         let inputStringWithoutBreakingSpaces = inputString.replaceTrailingWhiteSpaceWithNonBreakingSpace().replaceLeadingWhiteSpaceWithNonBreakingSpace()
         let inputStringWithoutCommonEditorTags = self.removeCommonEditorTags(from: inputStringWithoutBreakingSpaces)
@@ -218,6 +229,27 @@ class RichTextParser {
         let parsedMutableAttributedString = NSMutableAttributedString(attributedString: parsedHTMLAttributedString)
         let finalOutputString = self.addCustomStylingToBulletPointsIfNecessary(parsedMutableAttributedString)
         return (finalOutputString, nil)
+    }
+
+    private func getRichTextWithHTMLAndMarkdownHandledV2(
+        fromString mutableAttributedString: NSMutableAttributedString,
+        htmlStyleParams: HTMLStyleParams) -> ParserConstants.RichTextWithErrors {
+
+        // Cleanup on the string
+
+        let inputString = mutableAttributedString.string
+
+        // Markdown to HTML
+
+        guard let inputAsHTMLString = try? Down(markdownString: inputString).toHTML([.unsafe, .hardBreaks]) else {
+                return (mutableAttributedString.trimmingTrailingNewlinesAndWhitespaces(), [ParsingError.attributedTextGeneration(text: inputString)])
+        }
+
+        // Renders the HTML into a NSAttributedString
+
+        let renderedAttributedString = HTMLRenderer.shared.renderHTML(html: inputAsHTMLString, styleParams: htmlStyleParams)
+
+        return (renderedAttributedString, nil)
     }
 
     private func getParsedHTMLAttributedString(fromData data: Data) -> NSAttributedString? {
@@ -398,7 +430,8 @@ class RichTextParser {
         let interactiveElementTagName = ParserConstants.interactiveElementTagName
         let interactiveElementID = input.string.getSubstring(inBetween: "[\(interactiveElementTagName) id=", and: "]") ?? input.string
         let interactiveElementText = input.string.getSubstring(inBetween: "]", and: "[/\(interactiveElementTagName)]") ?? input.string
-        let attributes: [NSAttributedString.Key: Any] = [.link: interactiveElementID].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current
+        let attributes: [NSAttributedString.Key: Any] = [
+            .link: interactiveElementID].merging(input.attributes(at: 0, effectiveRange: nil)) { (current, _) in current
         }
         let mutableAttributedInput = NSMutableAttributedString(string: interactiveElementText, attributes: attributes)
         return mutableAttributedInput
@@ -418,3 +451,4 @@ class RichTextParser {
         return mutableAttributedInput
     }
 }
+// swiftlint:enable file_length
