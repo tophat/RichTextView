@@ -13,7 +13,7 @@
   "dependencies": {
     "excon": "^1.0.2",
     "kind-of": "^6.0.3",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "mixin-deep": "^2.0.1",
     "react": "^17.0.2",
     "remarkable": "^2.0.1",
