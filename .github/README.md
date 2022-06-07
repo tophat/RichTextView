@@ -26,7 +26,7 @@ iOS Text View (`UIView`) that Properly Displays LaTeX, HTML, Markdown, and YouTu
 
 Simply add the following to your Podfile:
 
-```
+```sh
 pod 'RichTextView'
 ```
 
@@ -36,7 +36,7 @@ And run `pod install` in your repo.
 
 Simply add the following to your Cartfile:
 
-```
+```sh
 github "tophat/RichTextView"
 ```
 
@@ -46,12 +46,12 @@ And run `carthage update --platform iOS` in your repo.
 
 You can instantiate a `RichTextView` by importing the project first:
 
-```
+```swift
 import RichTextView
 ```
 To init a `RichTextView`:
 
-```
+```swift
 let richTextView = RichTextView(
     input: "Test",
     latexParser: LatexParser(),
@@ -69,7 +69,7 @@ let richTextView = RichTextView(
 
 You can also update an existing `RichTextView` as follows:
 
-```
+```swift
 richTextView.update(
     input: "Test",
     latexParser: LatexParser(),
