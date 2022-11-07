@@ -25,7 +25,7 @@ string with the relevant rich text surrounded by the appropriate tags and it wil
   s.source           = { :git => 'https://github.com/tophat/RichTextView.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
-  s.source_files = 'Source/*.swift', 'Source/Text Parsing/*.swift', 'Source/Constants/*.swift', 'Source/Extensions/*.swift', 'Source/View Generators/*.swift', 'Source/Delegates/*.swift'
+  s.source_files = 'Source/*.swift', 'Source/Text Parsing/*.swift', 'Source/Constants/*.swift', 'Source/Extensions/*.swift', 'Source/View Generators/*.swift', 'Source/Delegates/*.swift', 'Source/HTML Rendering/*.swift'
   s.dependency 'Down'
   s.dependency 'iosMath'
   s.dependency 'SnapKit'
