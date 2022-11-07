@@ -1,3 +1,7 @@
+> -----
+> # :warning: Looking for contributors! **See:** https://github.com/tophat/RichTextView/issues/235
+> -----
+
 
 <div align="center">
 
