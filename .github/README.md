@@ -1,5 +1,8 @@
 > -----
-> # :warning: Looking for contributors! **See:** https://github.com/tophat/RichTextView/issues/235
+> # :warning: This project is deprecated (2023-04-18) :warning:
+> Unfortunately, we were unable to find [external contributors](https://github.com/tophat/RichTextView/issues/235).
+> Feel free to fork this project. If a fork takes off, message us on our [![Discord](https://img.shields.io/discord/809577721751142410)](https://discord.gg/YhK3GFcZrk)
+> and we can look at adding a link to the new project in this README.
 > -----
 
 
